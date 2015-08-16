@@ -1,0 +1,305 @@
+" ========================================================================
+" Vundle Settings
+" ========================================================================
+set nocompatible " Required by vundle
+filetype off     " Required by vundle
+
+
+set encoding=utf-8
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'skwp/greplace.vim'
+" Plugin 'thoughtbot/vim-rspec'
+Plugin 'ervandew/supertab'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rails'
+Plugin 'bling/vim-airline'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'mileszs/ack.vim'
+Plugin 'mattn/emmet-vim'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'whatyouhide/vim-gotham'
+Plugin 'severin-lemaignan/vim-minimap'
+Plugin 'terryma/vim-multiple-cursors'
+" All of your Plugins must be added before the following line
+call vundle#end()  "Required by Vundle
+
+"" ========================================================================
+"" Plugin Settings
+"" ========================================================================
+
+" CtrP Search
+" Remove limit files to search
+let g:ctrlp_max_files=0
+" Easy Motion
+nmap s <Plug>(easymotion-s2)
+nmap t <Plug>(easymotion-t2)
+" Easy Align
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" NERDTree
+" Open a NERDTree automatically when vim starts up if no files were specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Mapp Ctrl t to toggle NERDTree
+nmap <silent> <C-t> :NERDTreeToggle<CR>
+" Mapp Shift F to show file in NERDTree
+nmap <silent> <S-f> :NERDTreeFind<CR>
+" Mapp Ctrl b to toggle BuffergatorToggle
+nmap <silent> <C-b> :BuffergatorToggle<CR>
+" Remove Sarch Hightlight
+nmap <silent> <S-h> :nohl<CR>
+
+" Gitgutter Settings
+let g:gitgutter_enabled            = 1
+let g:gitgutter_signs              = 1
+let g:gitgutter_highlight_lines    = 0
+let g:gitgutter_sign_column_always = 1
+let g:gitgutter_realtime           = 0
+let g:gitgutter_eager              = 0
+let g:gitgutter_max_signs          = 500
+
+" Let Vim Airline uses powerline symbols
+let g:airline_powerline_fonts = 1
+
+" Minimap by default
+nmap <silent> <leader>mm :Minimap <CR>
+nmap <silent> <leader>mc :MinimapClose <CR>
+let g:minimap_highlight='Visual'
+
+" Use Vim Multiple Cursor default mapping
+let g:multi_cursor_use_default_mapping=0
+" Default highlighting (see help :highlight and help :highlight-link)
+highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
+highlight link multiple_cursors_visual Visual
+
+
+"" ========================================================================
+"" Editor Settings
+"" ========================================================================
+
+" Set leader key
+let mapleader=","
+"" Make grep use ack instead
+set grepprg=ack\ --nogroup\ --column\ $*
+set grepformat=%f:%l:%c:%m
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+""Make vim airline appear by default
+set laststatus=2
+""Fold based on indent
+set foldmethod=indent
+"Deepest fold is 10 levels
+set foldnestmax=10
+"Fold code by default
+set foldenable
+"This is just what i use
+set foldlevel=1
+" Display settings
+" Highlight > 81 character range
+let &colorcolumn=join(range(81,999),",")
+let &colorcolumn="80,".join(range(120,999),",")
+"Set gutter background to black
+highlight SignColumn ctermbg=black
+" Highlight the status line
+highlight StatusLine ctermfg=blue ctermbg=yellow
+"Set syntax on by default
+syntax on
+"Favourite Colorsheme
+colorscheme gotham
+" Highlight current line
+set cursorline
+"Show line numberv
+set number
+"Set relative number by default
+set relativenumber
+"Wrap lines at convenient points
+set linebreak
+" I prefer using dark background while writing code
+set background=dark
+" Display extra whitespace
+set list listchars=tab:»·,trail:·,nbsp:·
+"Enable Highlight Search
+set hlsearch
+"Highligt while search
+set incsearch
+"Case Insensitivite Pattern Matching
+set ignorecase
+"Overrides ignorecase if pattern contains upcase
+set smartcase
+""Converting tabs to 2 spaces
+set expandtab
+"Size of a hard tabstop
+set tabstop=2
+"Size of an 'indent'
+set shiftwidth=2
+"A combination of spaces and tabs are used to simulate
+set softtabstop=2
+"Keep 500 lines of command line history
+set history=500
+"Show the cursor position all the time
+set ruler
+"Make the backspace work like in most other programs
+set backspace=2
+"Use the OS clipboard by default
+set clipboard=unnamed
+"Set keypress timeout
+set timeoutlen=500
+"When at 3 spaces, hit >> to go to 4, not 5.
+set shiftround
+"Don't redraw screen when running macros.
+set lazyredraw
+" Enhance command-line completion
+set wildmenu
+" Allow cursor keys in insert mode
+set esckeys
+" Allow backspace in insert mode
+set backspace=indent,eol,start
+" Optimize for fast terminal connections
+set ttyfast
+" Don’t add empty newlines at the end of files
+set binary
+set noeol
+" Show matching brackets.
+set showmatch
+" Enable mouse in all modes
+set mouse=a
+" Disable error bells
+set noerrorbells
+" Don’t reset cursor to start of line when moving around.
+set nostartofline
+" Don’t show the intro message when starting Vim
+set shortmess=atI
+" Show the current mode
+set showmode
+" Show the filename in the window titlebar
+set title
+" Turn Off Swap Files, Backup ..
+set noswapfile
+set nobackup
+set nowb
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
+" Autocomplete with dictionary words when spell check is on
+set complete+=kspell
+" Always use vertical diffs
+set diffopt+=vertical
+" Automatically :write before running commands
+set autowrite
+
+" Quicker window movement
+" nnoremap <C-j> <C-w>j
+" nnoremap <C-k> <C-w>k
+" nnoremap <C-h> <C-w>h
+" nnoremap <C-l> <C-w>l
+
+" Prevent using arrow key
+" nnoremap <Left>  :echoe "Use h"<CR>
+" nnoremap <Right> :echoe "Use l"<CR>
+" nnoremap <Up>    :echoe "Use k"<CR>
+" nnoremap <Down>  :echoe "Use j"<CR>
+
+"" ========================================================================
+"" Custom Shortcuts
+"" ========================================================================
+
+" Quick Save
+nmap <silent> <S-s> :w!<CR>
+" Quickly reload .vimrc
+map <leader>sv :source ~/.vimrc<CR>
+" Quickly edit .vimrc.before
+map <leader>ov :tabedit ~/.vimrc<CR>
+" Fix Trailing Whitespace
+map <leader>fw :FixWhitespace<CR>
+" Copy all content of a file
+map <leader>co ggVG"*y
+" Toggle Relative Number
+nnoremap <silent> <leader>nb :set relativenumber!<CR>
+" Toggle Wrap Text
+nnoremap <silent> <leader>w :set wrap!<CR>
+" Toggle Paste
+nnoremap <silent> <leader>p :set paste!<CR>
+"" Close Current Tab
+map <leader>ct :tabclose<CR>
+
+map <leader>i mmgg=G`m<CR>
+
+"" ========================================================================
+"" Ruby & Rails Shortcuts
+"" ========================================================================
+map <leader>bb :!bundle install<CR>
+
+"" ========================================================================
+"" Custom Functions
+"" ========================================================================
+
+" https://github.com/mathiasbynens/dotfiles/blob/master/.vimrc
+" Strip trailing whitespace (,ss)
+function! StripWhitespace()
+	let save_cursor = getpos(".")
+	let old_query = getreg('/')
+	:%s/\s\+$//e
+	call setpos('.', save_cursor)
+	call setreg('/', old_query)
+endfunction
+
+noremap <leader>fw :call StripWhitespace()<CR>
+
+" Automatic commands
+if has("autocmd")
+	" Enable file type detection
+	filetype on
+	" Treat .json files as .js
+	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+	" Treat .md files as Markdown
+	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
+	" Automatically wrap at 80 characters for Markdown
+  autocmd BufRead,BufNewFile *.md setlocal textwidth=80
+	" Enable spellchecking for Markdown
+  autocmd FileType markdown setlocal spell
+	" Automatically wrap at 72 characters and spell check git commit messages
+  autocmd FileType gitcommit setlocal textwidth=72
+  autocmd FileType gitcommit setlocal spell
+	" Remember last position in file
+	autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+  " Allow stylesheets to autocomplete hyphenated words
+  autocmd FileType css,scss,sass setlocal iskeyword+=-
+endif
+
+" https://github.com/dotphiles/dotvim/blob/master/dotvim.vim
+" Install vundle if not already installed
+if has("user_commands")
+  " Setting up Vundle - the vim plugin bundler
+  let VundleInstalled=0
+  let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+  if !filereadable(vundle_readme)
+    echo "Installing Vundle.."
+    echo ""
+    silent !mkdir -p ~/.vim/bundle
+    silent !git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+    let VundleInstalled=1
+  endif
+endif
