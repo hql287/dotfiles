@@ -1,98 +1,7 @@
-" ========================================================================
-" Vundle Settings
-" ========================================================================
-set nocompatible " Required by vundle
-filetype off     " Required by vundle
-
-
-set encoding=utf-8
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'skwp/greplace.vim'
-" Plugin 'thoughtbot/vim-rspec'
-Plugin 'ervandew/supertab'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-bundler'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-rails'
-Plugin 'bling/vim-airline'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'tomtom/tcomment_vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'mileszs/ack.vim'
-Plugin 'mattn/emmet-vim'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'whatyouhide/vim-gotham'
-Plugin 'severin-lemaignan/vim-minimap'
-Plugin 'terryma/vim-multiple-cursors'
-" All of your Plugins must be added before the following line
-call vundle#end()  "Required by Vundle
-
-"" ========================================================================
-"" Plugin Settings
-"" ========================================================================
-
-" CtrP Search
-" Remove limit files to search
-let g:ctrlp_max_files=0
-" Easy Motion
-nmap s <Plug>(easymotion-s2)
-nmap t <Plug>(easymotion-t2)
-" Easy Align
-" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-vmap <Enter> <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-" NERDTree
-" Open a NERDTree automatically when vim starts up if no files were specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" Mapp Ctrl t to toggle NERDTree
-nmap <silent> <C-t> :NERDTreeToggle<CR>
-" Mapp Shift F to show file in NERDTree
-nmap <silent> <S-f> :NERDTreeFind<CR>
-" Mapp Ctrl b to toggle BuffergatorToggle
-nmap <silent> <C-b> :BuffergatorToggle<CR>
-" Remove Sarch Hightlight
-nmap <silent> <S-h> :nohl<CR>
-
-" Gitgutter Settings
-let g:gitgutter_enabled            = 1
-let g:gitgutter_signs              = 1
-let g:gitgutter_highlight_lines    = 0
-let g:gitgutter_sign_column_always = 1
-let g:gitgutter_realtime           = 0
-let g:gitgutter_eager              = 0
-let g:gitgutter_max_signs          = 500
-
-" Let Vim Airline uses powerline symbols
-let g:airline_powerline_fonts = 1
-
-" Minimap by default
-nmap <silent> <leader>mm :Minimap <CR>
-nmap <silent> <leader>mc :MinimapClose <CR>
-let g:minimap_highlight='Visual'
-
-" Use Vim Multiple Cursor default mapping
-let g:multi_cursor_use_default_mapping=0
-" Default highlighting (see help :highlight and help :highlight-link)
-highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
-highlight link multiple_cursors_visual Visual
-
+" Load bundles
+if filereadable(expand("~/.vimrc.bundles"))
+  source ~/.vimrc.bundles
+endif
 
 "" ========================================================================
 "" Editor Settings
@@ -179,6 +88,7 @@ set ttyfast
 " Don’t add empty newlines at the end of files
 set binary
 set noeol
+set encoding=utf-8
 " Show matching brackets.
 set showmatch
 " Enable mouse in all modes
@@ -218,6 +128,57 @@ set autowrite
 " nnoremap <Right> :echoe "Use l"<CR>
 " nnoremap <Up>    :echoe "Use k"<CR>
 " nnoremap <Down>  :echoe "Use j"<CR>
+
+"" ========================================================================
+"" Plugin Settings
+"" ========================================================================
+
+" CtrP Search
+" Remove limit files to search
+let g:ctrlp_max_files=0
+" Easy Motion
+nmap s <Plug>(easymotion-s2)
+nmap t <Plug>(easymotion-t2)
+" Easy Align
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" NERDTree
+" Open a NERDTree automatically when vim starts up if no files were specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Mapp Ctrl t to toggle NERDTree
+nmap <silent> <C-t> :NERDTreeToggle<CR>
+" Mapp Shift F to show file in NERDTree
+nmap <silent> <S-f> :NERDTreeFind<CR>
+" Mapp Ctrl b to toggle BuffergatorToggle
+nmap <silent> <C-b> :BuffergatorToggle<CR>
+" Remove Sarch Hightlight
+nmap <silent> <S-h> :nohl<CR>
+
+" Gitgutter Settings
+let g:gitgutter_enabled            = 1
+let g:gitgutter_signs              = 1
+let g:gitgutter_highlight_lines    = 0
+let g:gitgutter_sign_column_always = 1
+let g:gitgutter_realtime           = 0
+let g:gitgutter_eager              = 0
+let g:gitgutter_max_signs          = 500
+
+" Let Vim Airline uses powerline symbols
+let g:airline_powerline_fonts = 1
+
+" Minimap by default
+nmap <silent> <leader>mm :Minimap <CR>
+nmap <silent> <leader>mc :MinimapClose <CR>
+let g:minimap_highlight='Visual'
+
+" Use Vim Multiple Cursor default mapping
+let g:multi_cursor_use_default_mapping=0
+" Default highlighting (see help :highlight and help :highlight-link)
+highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
+highlight link multiple_cursors_visual Visual
 
 "" ========================================================================
 "" Custom Shortcuts
