@@ -7,32 +7,49 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-bundler'
+
+" Git
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+
+" Display
+Plugin 'whatyouhide/vim-gotham'
+Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'mipmip/vim-minimap'
+Plugin 'itchyny/lightline.vim'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'skwp/greplace.vim'
-" Plugin 'thoughtbot/vim-rspec'
+Plugin 'ap/vim-css-color'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'guns/xterm-color-table.vim'
+
+" Navigate & Search
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'kien/ctrlp.vim'
+Plugin 'mileszs/ack.vim'
+
+" Code Completion
+Plugin 'mattn/emmet-vim'
+Plugin 'hail2u/vim-css3-syntax'
 Plugin 'ervandew/supertab'
-Plugin 'tpope/vim-dispatch'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'honza/vim-snippets'
+
+" Coding
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-bundler'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rails'
-Plugin 'bling/vim-airline'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'tomtom/tcomment_vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'mileszs/ack.vim'
-Plugin 'mattn/emmet-vim'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'whatyouhide/vim-gotham'
-Plugin 'severin-lemaignan/vim-minimap'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'scrooloose/syntastic'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'thoughtbot/vim-rspec'
+
+" Utilities
+Plugin 'vitalk/vim-simple-todo'
 
 call vundle#end()  "Required by Vundle
-

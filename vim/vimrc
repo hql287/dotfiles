@@ -13,26 +13,26 @@ let mapleader=","
 set grepprg=ack\ --nogroup\ --column\ $*
 set grepformat=%f:%l:%c:%m
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-""Make vim airline appear by default
+"Always display status line
 set laststatus=2
 ""Fold based on indent
 set foldmethod=indent
 "Deepest fold is 10 levels
 set foldnestmax=10
-"Fold code by default
-set foldenable
+" set foldenable
 "This is just what i use
-set foldlevel=1
+set foldlevel=99
 " Display settings
 " Highlight > 81 character range
 let &colorcolumn=join(range(81,999),",")
 let &colorcolumn="80,".join(range(120,999),",")
 "Set gutter background to black
-highlight SignColumn ctermbg=black
+highlight SignColumn ctermbg=232
 " Highlight the status line
 highlight StatusLine ctermfg=blue ctermbg=yellow
 "Set syntax on by default
 syntax on
+filetype plugin indent on
 "Favourite Colorsheme
 colorscheme gotham
 " Highlight current line
@@ -45,8 +45,6 @@ set relativenumber
 set linebreak
 " I prefer using dark background while writing code
 set background=dark
-" Display extra whitespace
-set list listchars=tab:»·,trail:·,nbsp:·
 "Enable Highlight Search
 set hlsearch
 "Highligt while search
@@ -55,14 +53,21 @@ set incsearch
 set ignorecase
 "Overrides ignorecase if pattern contains upcase
 set smartcase
-""Converting tabs to 2 spaces
-set expandtab
+" Keep at least 4 lines below cursor
+set scrolloff=10
+"Make 'tab' insert indents instead of tabs at the beginning of a line
+set smarttab
 "Size of a hard tabstop
 set tabstop=2
 "Size of an 'indent'
 set shiftwidth=2
-"A combination of spaces and tabs are used to simulate
-set softtabstop=2
+" a combination of spaces and tabs are used to simulate tab stops at a width
+" other than the (hard)tabstop
+set softtabstop=0
+""Converting tabs to spaces
+set et|retab
+" Display extra whitespace
+set list listchars=tab:»·,trail:·
 "Keep 500 lines of command line history
 set history=500
 "Show the cursor position all the time
@@ -144,18 +149,35 @@ nmap t <Plug>(easymotion-t2)
 vmap <Enter> <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+"Better Whitespace Settings
+highlight ExtraWhitespace ctermbg=red
+nmap <leader>tw  :ToggleWhitespace<CR>
+nmap <leader>fw  :StripWhitespace<CR>
+
+" XtermColorTable
+nmap <silent> <S-c> :XtermColorTable<CR>
+
 " NERDTree
-" Open a NERDTree automatically when vim starts up if no files were specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " Mapp Ctrl t to toggle NERDTree
 nmap <silent> <C-t> :NERDTreeToggle<CR>
 " Mapp Shift F to show file in NERDTree
 nmap <silent> <S-f> :NERDTreeFind<CR>
+
 " Mapp Ctrl b to toggle BuffergatorToggle
 nmap <silent> <C-b> :BuffergatorToggle<CR>
 " Remove Sarch Hightlight
 nmap <silent> <S-h> :nohl<CR>
+
+" Indent Guide
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size  = 1
+hi IndentGuidesOdd  ctermbg=0
+hi IndentGuidesEven ctermbg=232
+
+nmap <silent> <Leader>l <Plug>IndentGuidesToggle
+
 
 " Gitgutter Settings
 let g:gitgutter_enabled            = 1
@@ -166,19 +188,39 @@ let g:gitgutter_realtime           = 0
 let g:gitgutter_eager              = 0
 let g:gitgutter_max_signs          = 500
 
-" Let Vim Airline uses powerline symbols
-let g:airline_powerline_fonts = 1
+" Light Line Settings
+let g:lightline = {
+  \ 'colorscheme': 'powerline',
+  \ 'active': {
+  \   'left': [ [ 'mode', 'paste' ],
+  \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+  \ },
+  \ 'component': {
+  \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+  \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+  \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+  \ },
+  \ 'component_visible_condition': {
+  \   'readonly': '(&filetype!="help"&& &readonly)',
+  \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+  \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+  \ },
+  \ 'separator': { 'left': '⮀', 'right': '⮂' },
+  \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+  \ }
 
 " Minimap by default
-nmap <silent> <leader>mm :Minimap <CR>
-nmap <silent> <leader>mc :MinimapClose <CR>
-let g:minimap_highlight='Visual'
+map <leader>mm :Minimap <CR>
+map <leader>mc :MinimapClose <CR>
+" let g:minimap_highlight='Visual'
 
 " Use Vim Multiple Cursor default mapping
-let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_use_default_mapping=1
 " Default highlighting (see help :highlight and help :highlight-link)
 highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
 highlight link multiple_cursors_visual Visual
+
+
 
 "" ========================================================================
 "" Custom Shortcuts
@@ -188,10 +230,10 @@ highlight link multiple_cursors_visual Visual
 nmap <silent> <S-s> :w!<CR>
 " Quickly reload .vimrc
 map <leader>sv :source ~/.vimrc<CR>
-" Quickly edit .vimrc.before
+" Quickly open .vimrc in new tab
 map <leader>ov :tabedit ~/.vimrc<CR>
-" Fix Trailing Whitespace
-map <leader>fw :FixWhitespace<CR>
+" Quickly open .vimrc.bundles in new tab
+map <leader>ovb :tabedit ~/.vimrc.bundles<CR>
 " Copy all content of a file
 map <leader>co ggVG"*y
 " Toggle Relative Number
@@ -200,67 +242,31 @@ nnoremap <silent> <leader>nb :set relativenumber!<CR>
 nnoremap <silent> <leader>w :set wrap!<CR>
 " Toggle Paste
 nnoremap <silent> <leader>p :set paste!<CR>
-"" Close Current Tab
-map <leader>ct :tabclose<CR>
-
-map <leader>i mmgg=G`m<CR>
-
-"" ========================================================================
-"" Ruby & Rails Shortcuts
-"" ========================================================================
-map <leader>bb :!bundle install<CR>
 
 "" ========================================================================
 "" Custom Functions
 "" ========================================================================
 
-" https://github.com/mathiasbynens/dotfiles/blob/master/.vimrc
-" Strip trailing whitespace (,ss)
-function! StripWhitespace()
-	let save_cursor = getpos(".")
-	let old_query = getreg('/')
-	:%s/\s\+$//e
-	call setpos('.', save_cursor)
-	call setreg('/', old_query)
-endfunction
-
-noremap <leader>fw :call StripWhitespace()<CR>
-
 " Automatic commands
 if has("autocmd")
-	" Enable file type detection
-	filetype on
-	" Treat .json files as .js
-	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
-	" Treat .md files as Markdown
-	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
-	" Automatically wrap at 80 characters for Markdown
+  " Enable file type detection
+  filetype on
+  " Treat .json files as .js
+  autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+  " Treat .md files as Markdown
+  autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
+  " Automatically wrap at 80 characters for Markdown
   autocmd BufRead,BufNewFile *.md setlocal textwidth=80
-	" Enable spellchecking for Markdown
+  " Enable spellchecking for Markdown
   autocmd FileType markdown setlocal spell
-	" Automatically wrap at 72 characters and spell check git commit messages
+  " Automatically wrap at 72 characters and spell check git commit messages
   autocmd FileType gitcommit setlocal textwidth=72
   autocmd FileType gitcommit setlocal spell
-	" Remember last position in file
-	autocmd BufReadPost *
+  " Remember last position in file
+  autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g`\"" |
     \ endif
   " Allow stylesheets to autocomplete hyphenated words
   autocmd FileType css,scss,sass setlocal iskeyword+=-
-endif
-
-" https://github.com/dotphiles/dotvim/blob/master/dotvim.vim
-" Install vundle if not already installed
-if has("user_commands")
-  " Setting up Vundle - the vim plugin bundler
-  let VundleInstalled=0
-  let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-  if !filereadable(vundle_readme)
-    echo "Installing Vundle.."
-    echo ""
-    silent !mkdir -p ~/.vim/bundle
-    silent !git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-    let VundleInstalled=1
-  endif
 endif
