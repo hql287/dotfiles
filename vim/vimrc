@@ -66,6 +66,8 @@ set shiftwidth=2
 set softtabstop=0
 ""Converting tabs to spaces
 set et|retab
+" Smart Indent
+set smartindent
 " Display extra whitespace
 set list listchars=tab:»·,trail:·
 "Keep 500 lines of command line history
@@ -86,8 +88,6 @@ set lazyredraw
 set wildmenu
 " Allow cursor keys in insert mode
 set esckeys
-" Allow backspace in insert mode
-set backspace=indent,eol,start
 " Optimize for fast terminal connections
 set ttyfast
 " Don’t add empty newlines at the end of files
@@ -112,21 +112,26 @@ set title
 set noswapfile
 set nobackup
 set nowb
-" Open new split panes to right and bottom, which feels more natural
-set splitbelow
-set splitright
 " Autocomplete with dictionary words when spell check is on
 set complete+=kspell
 " Always use vertical diffs
 set diffopt+=vertical
 " Automatically :write before running commands
 set autowrite
+" Windows Split
+set winwidth=84
+set winheight=5
+set winminheight=5
+set winheight=999
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
 
 " Quicker window movement
-" nnoremap <C-j> <C-w>j
-" nnoremap <C-k> <C-w>k
-" nnoremap <C-h> <C-w>h
-" nnoremap <C-l> <C-w>l
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
 " Prevent using arrow key
 " nnoremap <Left>  :echoe "Use h"<CR>
@@ -137,6 +142,23 @@ set autowrite
 "" ========================================================================
 "" Plugin Settings
 "" ========================================================================
+
+"Gundo
+nnoremap <F8> :GundoToggle<CR>
+let g:gundo_width = 60
+let g:gundo_preview_height = 40
+let g:gundo_right = 1
+
+" Syntasitc
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_html_tidy_exec = 'tidy5'
 
 " CtrP Search
 " Remove limit files to search
@@ -175,9 +197,7 @@ let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size  = 1
 hi IndentGuidesOdd  ctermbg=0
 hi IndentGuidesEven ctermbg=232
-
 nmap <silent> <Leader>l <Plug>IndentGuidesToggle
-
 
 " Gitgutter Settings
 let g:gitgutter_enabled            = 1
@@ -220,6 +240,11 @@ let g:multi_cursor_use_default_mapping=1
 highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
 highlight link multiple_cursors_visual Visual
 
+"" ========================================================================
+"" Rails Shortcuts 
+"" ========================================================================
+map <Leader>vm :Vmodel<cr>
+map <Leader>vv :Vview<cr>
 
 
 "" ========================================================================
