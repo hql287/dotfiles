@@ -48,8 +48,11 @@ Plugin 'junegunn/vim-easy-align'
 Plugin 'scrooloose/syntastic'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'thoughtbot/vim-rspec'
+Plugin 'vim-scripts/Gundo'
 
 " Utilities
-Plugin 'vitalk/vim-simple-todo'
+Plugin 'majutsushi/tagbar'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
 
 call vundle#end()  "Required by Vundle
