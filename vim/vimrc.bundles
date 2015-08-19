@@ -49,10 +49,13 @@ Plugin 'scrooloose/syntastic'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'vim-scripts/Gundo'
+Plugin 'SimpylFold'
 
 " Utilities
 Plugin 'majutsushi/tagbar'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
+Plugin 'ryanoasis/vim-devicons'
+Plugin 'Shougo/vimfiler.vim'
 
 call vundle#end()  "Required by Vundle
