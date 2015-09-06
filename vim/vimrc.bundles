@@ -15,6 +15,8 @@ Plugin 'airblade/vim-gitgutter'
 
 " Display
 Plugin 'whatyouhide/vim-gotham'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'tomasr/molokai'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'mipmip/vim-minimap'
 Plugin 'itchyny/lightline.vim'
@@ -22,12 +24,21 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'ap/vim-css-color'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'guns/xterm-color-table.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'tpope/vim-haml'
+Plugin 'myusuf3/numbers.vim'
+Plugin 'mattboehm/vim-accordion'
 
 " Navigate & Search
 Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'kien/ctrlp.vim'
 Plugin 'mileszs/ack.vim'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'goldfeld/vim-seek'
+Plugin 'bling/vim-bufferline'
+Plugin 'MattesGroeger/vim-bookmarks'
 
 " Code Completion
 Plugin 'mattn/emmet-vim'
@@ -38,9 +49,9 @@ Plugin 'honza/vim-snippets'
 
 " Coding
 Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-rails'
 Plugin 'terryma/vim-multiple-cursors'
@@ -48,8 +59,9 @@ Plugin 'junegunn/vim-easy-align'
 Plugin 'scrooloose/syntastic'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'thoughtbot/vim-rspec'
-Plugin 'vim-scripts/Gundo'
+Plugin 'mbbill/undotree'
 Plugin 'SimpylFold'
+Plugin 'othree/html5.vim'
 
 " Utilities
 Plugin 'majutsushi/tagbar'
@@ -57,5 +69,10 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'Shougo/vimfiler.vim'
+Plugin 'wakatime/vim-wakatime'
+Plugin 'mhinz/vim-startify'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'godlygeek/tabular'
+Plugin 'neilagabriel/vim-geeknote'
 
 call vundle#end()  "Required by Vundle
