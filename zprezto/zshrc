@@ -1,0 +1,16 @@
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Customize
+
+# Load Z Jump
+source ~/.nvm/nvm.sh
+source ~/z/z.sh
+source ~/.aliases
+source /usr/local/bin/archey -c
+
+# Load Rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
