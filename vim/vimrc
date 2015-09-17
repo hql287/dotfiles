@@ -132,6 +132,9 @@ colorscheme gotham
 " Search & Navigation
 " ------------------------------------------------------------------------- {{{
 
+" Seach in Dash the word under the cursor
+nmap <silent> <leader>d <Plug>DashSearch
+
 "Enable Highlight Search
 set hlsearch
 
