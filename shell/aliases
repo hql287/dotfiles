@@ -44,6 +44,9 @@ alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && kil
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
+# Edit SSH Config File
+alias sshcon="vi ~/.ssh/config"
+
 # Enable /Disable Spotlight
 alias spoton="sudo mdutil -a -i on"
 alias spotoff="sudo mdutil -a -i off"
