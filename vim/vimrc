@@ -55,9 +55,6 @@ set noerrorbells
 " Don’t reset cursor to start of line when moving around.
 set nostartofline
 
-" Autocomplete with dictionary words when spell check is on
-set complete+=kspell
-
 " Always use vertical diffs
 set diffopt+=vertical
 
@@ -114,6 +111,9 @@ set smartindent
 " Highlight > 81 character range
 let &colorcolumn=join(range(81,999),",")
 let &colorcolumn="80,".join(range(120,999),",")
+
+" Vim Airline
+let g:airline_powerline_fonts = 1
 
 " Set gutter background to black
 highlight SignColumn ctermbg=232
@@ -195,10 +195,10 @@ set listchars=tab:▸\ ,eol:¬,trail:⌴,extends:❯,precedes:❮
 " ------------------------------------------------------------------------- {{{
 
 " Enable folding.
-"set foldenable
+set foldenable
 
 " Syntax dictates folding.
-set foldmethod=syntax
+set foldmethod=indent
 
 " Use a one level fold.
 set foldlevel=0
@@ -212,11 +212,17 @@ set viewoptions=folds
 " Autocomplete
 " ------------------------------------------------------------------------- {{{
 
+" Autocomplete with dictionary words when spell check is on
+" set complete+=kspell
+
 " Enhance command-line completion
-set wildmenu
+" set wildmenu
 
 " Enable completion on tab.
-set wildchar=<Tab>
+" set wildchar=<Tab>
+
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
 
 " Tab Navigation
 " ------------------------------------------------------------------------- {{{
@@ -317,12 +323,8 @@ if has('mouse')
 endif
 
 
-
 " Plugin Settings
 " ------------------------------------------------------------------------- {{{
-noremap <F9> :Geeknote<cr>
-let g:GeeknoteFormat="markdown"
-
 
 " Bookmark
 highlight BookmarkSign ctermbg=NONE ctermfg=160
@@ -353,10 +355,10 @@ let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'startify
 let g:SimpylFold_docstring_preview = 1
 
 "Gundo
-nnoremap <F8> :GundoToggle<CR>
-let g:gundo_width = 60
-let g:gundo_preview_height = 40
-let g:gundo_right = 1
+"nnoremap <F8> :GundoToggle<CR>
+"let g:gundo_width = 60
+"let g:gundo_preview_height = 40
+"let g:gundo_right = 1
 
 " Syntasitc
 set statusline+=%#warningmsg#
@@ -372,6 +374,24 @@ let g:syntastic_html_tidy_exec = 'tidy5'
 " CtrP Search
 " Remove limit files to search
 let g:ctrlp_max_files=0
+
+" MRU - Most Recently Used Files
+
+" Showing MRU Windows
+nmap <silent> <S-o> :MRU<CR>
+
+let MRU_Max_Entries = 1000 " Number of recently used files to remember
+let MRU_Window_Height = 15 " Self Explanatory
+let MRU_Use_Current_Window = 1 " Display MRU windows in the current windows instead of a new one
+let MRU_Auto_Close = 1 "Set the 'MRU_Auto_Close' variable to zero to keep the MRU window open.
+let MRU_Max_Menu_Entries = 20 " Number of results to show
+let MRU_Add_Menu = 0 " Don't use the File->Recent Files menu
+" let MRU_Max_Submenu_Entries = 15
+" let MRU_Filename_Format={'formatter':'v:val', 'parser':'.*'}
+" let MRU_File = 'd:\myhome\_vim_mru_files'   "Location of MRU dot file
+" let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'  " For Unix
+" let MRU_Exclude_Files = '^c:\\temp\\.*'           " For MS-Windows
+" let MRU_Include_Files = '\.c$\|\.h$'              " 
 
 " Easy Motion
 
@@ -414,6 +434,10 @@ nmap ga <Plug>(EasyAlign)
 nmap <silent> <S-c> :XtermColorTable<CR>
 
 " NERDTree
+
+" Set NERDTree Windows Size
+let g:NERDTreeWinSize = 31
+
 " Mapp Ctrl t to toggle NERDTree
 nmap <silent> <C-t> :NERDTreeToggle<CR>
 " Mapp Shift F to show file in NERDTree
@@ -446,8 +470,9 @@ call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', '#151515')
 call NERDTreeHighlightFile('haml', 'green', 'none', 'green', '#151515')
 call NERDTreeHighlightFile('rb', 'Magenta', 'none', '#ff00ff', '#151515')
 
-" Mapp Ctrl b to toggle BuffergatorToggle
+" Map Ctrl b to toggle BuffergatorToggle
 nmap <silent> <C-b> :BuffergatorToggle<CR>
+
 " Remove Sarch Hightlight
 nmap <silent> <S-h> :nohl<CR>
 
@@ -467,41 +492,6 @@ let g:gitgutter_sign_column_always = 1
 let g:gitgutter_realtime           = 0
 let g:gitgutter_eager              = 0
 let g:gitgutter_max_signs          = 500
-
-"WebDevIcons
-set encoding=utf-8
-set guifont=Inconsolata\ for\ Powerline\ Plus\ Nerd\ File\ Types:h11
-let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
-let g:webdevicons_conceal_nerdtree_brackets = 1
-let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
-let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = 'ƛ'
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
-let g:webdevicons_enable_nerdtree = 1
-
-" Light Line Settings
-let g:lightline = {
-  \ 'colorscheme': 'powerline',
-  \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
-  \ },
-  \ 'component_function': {
-    \   'filetype': 'MyFiletype',
-    \   'fileformat': 'MyFileformat',
-    \   'fugitive': 'LightLineFugitive',
-    \   'readonly': 'LightLineReadonly',
-    \   'modified': 'LightLineModified',
-    \   'filename': 'LightLineFilename'
-    \ },
-  \ 'component_visible_condition': {
-    \   'fugitive': 'LightLineFugitive',
-    \   'readonly': 'LightLineReadonly',
-    \   'modified': 'LightLineModified'
-  \ },
-  \ 'separator': { 'left': '⮀', 'right': '⮂' },
-  \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
-  \ }
 
 " Rainbow Parenthesis
 let g:rbpt_colorpairs = [
@@ -556,50 +546,6 @@ nnoremap <silent> <leader>p :set paste!<CR>
 
 " Custom Functions
 " ------------------------------------------------------------------------- {{{
-
-function! LightLineModified()
-  if &filetype == "help"
-    return ""
-  elseif &modified
-    return "+"
-  elseif &modifiable
-    return ""
-  else
-    return ""
-  endif
-endfunction
-
-function! LightLineReadonly()
-  if &filetype == "help"
-    return ""
-  elseif &readonly
-    return "⭤"
-  else
-    return ""
-  endif
-endfunction
-
-function! LightLineFugitive()
-  if exists("*fugitive#head")
-    let _ = fugitive#head()
-    return strlen(_) ? '⭠ '._ : ''
-  endif
-  return ''
-endfunction
-
-function! LightLineFilename()
-  return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-       \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-       \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
-endfunction
-
-function! MyFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction
-
-function! MyFileformat()
-  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-endfunction
 
 function! StripTrailingWhitespace()
     if !&binary && &modifiable && &filetype != 'diff'
