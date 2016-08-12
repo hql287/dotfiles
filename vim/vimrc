@@ -213,16 +213,13 @@ set viewoptions=folds
 " ------------------------------------------------------------------------- {{{
 
 " Autocomplete with dictionary words when spell check is on
-" set complete+=kspell
+set complete+=kspell
 
 " Enhance command-line completion
-" set wildmenu
+set wildmenu
 
 " Enable completion on tab.
-" set wildchar=<Tab>
-
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
+set wildchar=<Tab>
 
 " Tab Navigation
 " ------------------------------------------------------------------------- {{{
@@ -524,13 +521,13 @@ nnoremap <F5> :!ctags -R<CR>
 nmap <silent> <S-s> :w!<CR>
 
 " Quickly reload .vimrc
-map <leader>sv :source ~/.vimrc<CR>
+map <leader>vr :source ~/.vimrc<CR>
 
 " Quickly open .vimrc in new tab
-map <leader>ov :tabedit ~/.vimrc<CR>
+map <leader>vc :tabedit ~/.vimrc<CR>
 
 " Quickly open .vimrc.bundles in new tab
-map <leader>ovb :tabedit ~/.vimrc.bundles<CR>
+map <leader>vb :tabedit ~/.vimrc.bundles<CR>
 
 " Copy all content of a file
 map <leader>co ggVG"*y
