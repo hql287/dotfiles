@@ -4,12 +4,14 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize
+# Sync Directory
+SDIR=~/Dropbox\ (Personal)/Apps/dotfiles
 
 # Load Z Jump
-source ~/.nvm/nvm.sh
-source ~/z/z.sh
-source ~/.aliases
-source /usr/local/bin/archey -c
+. $SDIR/shell/aliases
+. $SDIR/shell/archey/bin/archey -c
+. $SDIR/shell/z/z.sh
+. ~/.nvm/nvm.sh
 
 # Load Rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
