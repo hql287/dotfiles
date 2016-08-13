@@ -10,46 +10,44 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-bundler'
 
 " Display
-Plugin 'whatyouhide/vim-gotham' "The theme vim deserves
-Plugin 'ntpeters/vim-better-whitespace' "Better whitespace highlighting for Vim
-Plugin 'severin-lemaignan/vim-minimap' "A Sublime-like minimap for VIM, based on the Drawille console-based drawing library
+Plugin 'whatyouhide/vim-gotham'         " The theme vim deserves
+Plugin 'ntpeters/vim-better-whitespace' " Better whitespace highlighting for Vim
+Plugin 'severin-lemaignan/vim-minimap'  " A Sublime-like minimap for VIM, based on the Drawille console-based drawing library
+Plugin 'myusuf3/numbers.vim'            " Better line numbers
+Plugin 'mattboehm/vim-accordion'        " A vim window manager for people who love splits
+Plugin 'airblade/vim-gitgutter'         " Add git changes symbols to gutter
 Plugin 'bling/vim-airline'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'guns/xterm-color-table.vim'
-Plugin 'myusuf3/numbers.vim' "Better line numbers
-Plugin 'mattboehm/vim-accordion' "A vim window manager for people who love splits
-Plugin 'airblade/vim-gitgutter' "Add git changes symbols to gutter
-Plugin 'junegunn/vim-emoji' "Emoji for Vim
-
-"Plugin 'spolu/dwm.vim' "Tiled Window Management for Vim
-"Plugin 'flazz/vim-colorschemes' "A colorscheme pack
-"Plugin 'tomasr/molokai' "Molokai theme
-"Plugin 'itchyny/lightline.vim'  "A light and configurable statusline/tabline for Vim
+" Plugin 'junegunn/vim-emoji'           " Emoji for Vim
+" Plugin 'spolu/dwm.vim'                " Tiled Window Management for Vim
+" Plugin 'flazz/vim-colorschemes'       " A colorscheme pack
+" Plugin 'tomasr/molokai'               " Molokai theme
+" Plugin 'itchyny/lightline.vim'        " A light and configurable statusline/tabline for Vim
 
 " Navigate & Search
-Plugin 'scrooloose/nerdtree' "Files Explorer
-Plugin 'scrooloose/nerdcommenter' "Vim plugin for intensely orgasmic commenting
-Plugin 'Xuyuanp/nerdtree-git-plugin' "Showing changes in Nerdtree
-Plugin 'kien/ctrlp.vim' "Files Explorer
-Plugin 'easymotion/vim-easymotion' "Search Replacement
-Plugin 'fholgado/minibufexpl.vim' "Elegant buffer explorer - takes very little screen space
-Plugin 'vim-scripts/mru.vim' "Plugin to manage Most Recently Used (MRU) files
+Plugin 'scrooloose/nerdtree'            " Files Explorer
+Plugin 'scrooloose/nerdcommenter'       " Vim plugin for intensely orgasmic commenting
+Plugin 'Xuyuanp/nerdtree-git-plugin'    " Showing changes in Nerdtree
+Plugin 'kien/ctrlp.vim'                 " Files Explorer
+Plugin 'easymotion/vim-easymotion'      " Search Replacement
+Plugin 'mileszs/ack.vim'                " Integrate Ack
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'christoomey/vim-tmux-runner'
-
-"Plugin 'mileszs/ack.vim' "Integrate Ack
-"Plugin 'goldfeld/vim-seek' "Seek makes navigating long lines effortless, acting like f but taking two characters.
-"Plugin 'MattesGroeger/vim-bookmarks' "Vim bookmark plugin
-"Plugin 'bling/vim-bufferline'
+" Plugin 'fholgado/minibufexpl.vim'     " Elegant buffer explorer - takes very little screen space
+" Plugin 'vim-scripts/mru.vim'          " Plugin to manage Most Recently Used (MRU) files
+" Plugin 'goldfeld/vim-seek'            " Seek makes navigating long lines effortless, acting like f but taking two characters.
+" Plugin 'MattesGroeger/vim-bookmarks'  " Vim bookmark plugin
+" Plugin 'bling/vim-bufferline'
 
 " Code Completion & Syntax Checking
-Plugin 'mattn/emmet-vim' "Emmet for vim
-Plugin 'ervandew/supertab' "Perform all your vim insert mode completions with Tab
-Plugin 'honza/vim-snippets' "vim-snipmate default snippets (Previously snipmate-snippets)
-Plugin 'scrooloose/syntastic' "Syntax checking hacks for vim
-"Plugin 'Valloric/YouCompleteMe' "A Code Completion for Vim
-"Plugin 'rizzatti/dash.vim'
-"Plugin 'Shougo/neocomplete.vim' "Next generation completion framework after neocomplcache - Ultimate auto-completion system for Vim
+Plugin 'mattn/emmet-vim'                " Emmet for vim
+Plugin 'ervandew/supertab'              " Perform all your vim insert mode completions with Tab
+Plugin 'honza/vim-snippets'             " vim-snipmate default snippets (Previously snipmate-snippets)
+Plugin 'scrooloose/syntastic'           " Syntax checking hacks for vim
+" Plugin 'Valloric/YouCompleteMe'       " A Code Completion for Vim
+" Plugin 'Shougo/neocomplete.vim'       " Next generation completion framework after neocomplcache - Ultimate auto-completion system for Vim
+" Plugin 'rizzatti/dash.vim'
 
 " Coding
 Plugin 'vim-ruby/vim-ruby'
@@ -60,22 +58,22 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'ap/vim-css-color'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-rails'
-"Plugin 'thoughtbot/vim-rspec'
-"Plugin 'SimpylFold'
-"Plugin 'tpope/vim-abolish'
-"Plugin 'tpope/vim-unimpaired'
+" Plugin 'thoughtbot/vim-rspec'
+" Plugin 'SimpylFold'
+" Plugin 'tpope/vim-abolish'
+" Plugin 'tpope/vim-unimpaired'
 
 " Utilities
 Plugin 'mbbill/undotree'
-Plugin 'tpope/vim-surround' "Change surrounding character with ease
-Plugin 'tpope/vim-endwise' "Automatically add ending word
-Plugin 'tpope/vim-repeat' "Repeat.vim: enable repeating supported plugin maps with \".\"
-Plugin 'terryma/vim-multiple-cursors' "Add multiple cursors functionality like Sublime
-Plugin 'junegunn/vim-easy-align' "Quickly Align Code
-Plugin 'kien/rainbow_parentheses.vim' "Mark a serie of parentheses with different colors
-"Plugin 'tpope/vim-fugitive' "Control git in vim
-"Plugin 'mhinz/vim-startify' "A fancy start screen for Vim
-"Plugin 'ryanoasis/vim-devicons' "Developers Icons Set
+Plugin 'tpope/vim-surround'             " Change surrounding character with ease
+Plugin 'tpope/vim-endwise'              " Automatically add ending word
+Plugin 'tpope/vim-repeat'               " Repeat.vim: enable repeating supported plugin maps with \".\"
+Plugin 'terryma/vim-multiple-cursors'   " Add multiple cursors functionality like Sublime
+Plugin 'kien/rainbow_parentheses.vim'   " Mark a serie of parentheses with different colors
+Plugin 'junegunn/vim-easy-align'        " Quickly Align Code
+"Plugin 'tpope/vim-fugitive'            " Control git in vim
+"Plugin 'mhinz/vim-startify'            " A fancy start screen for Vim
+"Plugin 'ryanoasis/vim-devicons'        " Developers Icons Set
 "Plugin 'godlygeek/tabular'
 "Plugin 'neilagabriel/vim-geeknote'
 "Plugin 'wakatime/vim-wakatime'
