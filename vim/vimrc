@@ -3,8 +3,9 @@ if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
 
-syntax on          " Set syntax on by default
-colorscheme gotham " Favourite Colorsheme
+syntax on           " Set syntax on by default
+set background=dark " I prefer using dark background while writing code
+colorscheme onedark   " Favourite Colorsheme
 
 " Keymapping
 " ------------------------------------------------------------------------- {{{
@@ -16,7 +17,7 @@ let mapleader=","
 " ------------------------------------------------------------------------- {{{
 
 " Quickly reload .vimrc
-map <leader>vr :source ~/.vimrc<CR>
+map <leader>vr :source ~/.vimrc<CR> :AirlineRefresh <CR>
 
 " Quickly open .vimrc in new tab
 map <leader>vc :tabedit ~/.vimrc<CR>
@@ -72,11 +73,11 @@ set nowb
 " ------------------------------------------------------------------------- {{{
 set cursorline      " Highlight current line
 set number          " Show line number
+set numberwidth=5   " Number column width
 set relativenumber  " Set relative number by default
 set linebreak       " Wrap lines at convenient points
 set wrap            " Wrap text.
 set textwidth=81    " Maximum line width before wrapping.
-set background=dark " I prefer using dark background while writing code
 set laststatus=2    " Always display status line
 set smartindent     " Smart Indent
 
@@ -89,6 +90,7 @@ set softtabstop=2 " Set soft tabs equal to 2 spaces.
 set shiftwidth=2  " Set auto indent spacing.
 set shiftround    " Shift to the next round tab stop.
 set smarttab      " Insert spaces in front of lines.
+set nojoinspaces  " Use one space, not two, after punctuation.
 
 " Search & Navigation
 " ------------------------------------------------------------------------- {{{
@@ -227,11 +229,10 @@ endif
 " ------------------------------------------------------------------------- {{{
 
 "Vim Airline
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-highlight SignColumn ctermbg=232 "Set gutter background to black
-highlight StatusLine ctermfg=blue ctermbg=yellow "Highlight the status line
+let g:airline_theme='onedark'                    " Airline Theme
+let g:airline_powerline_fonts = 1                " Enable using powerline font
+let g:airline#extensions#tabline#enabled = 1     " Enable Tab line
+let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename
 
 " UltiSnips Trigger configuration.
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -243,15 +244,12 @@ nmap <Leader>/ :Goyo<CR>
 
 " Minimap
 " ------------------------------------ {{{
-let g:minimap_highlight='Visual'
+let g:minimap_highlight='Visual'  " Highlight current section
 
 " CtrP Search
 " ------------------------------------ {{{
-
-" Remove limit files to search
-let g:ctrlp_max_files=0
-" Filtering garbage out of CtrlP
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|^.git$\|_site'
+let g:ctrlp_max_files=0 " Remove limit files to search
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|^.git$\|_site' " Filtering garbage out of CtrlP
 
 " Bufferline
 " ------------------------------------ {{{
@@ -273,15 +271,17 @@ let g:SimpylFold_fold_docstring = 0
 
 " Syntasitc
 " ------------------------------------ {{{
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 let g:syntastic_html_tidy_exec = 'tidy5'
+
+" Recommended Settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
 
 " Easy Motion
 " ------------------------------------ {{{
@@ -311,7 +311,7 @@ map <Leader>h <Plug>(easymotion-linebackward)
 
 " Easy Align
 " ------------------------------------ {{{
-""Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+ " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
 
 "Start interactive EasyAlign for a motion/text object (e.g. gaip)
@@ -372,6 +372,32 @@ let g:gitgutter_sign_column_always = 1
 let g:gitgutter_realtime           = 0
 let g:gitgutter_eager              = 0
 let g:gitgutter_max_signs          = 500
+
+" Highlight SignColum (Gutter)
+hi SignColumn ctermfg=118 ctermbg=NONE
+
+" Highlight Number Column Width
+hi LineNr ctermfg=239 ctermbg=NONE
+
+" Highlight Fold Column
+hi FoldColumn ctermfg=red ctermbg=black
+
+" Highlight the status line
+hi StatusLine ctermfg=blue ctermbg=black
+
+" Set Line Number Width
+set nuw=3
+
+" Set Fold Column Width
+set foldcolumn=1
+
+" Line highlights
+"hi GitGutterAdd ctermfg=green ctermbg=NONE
+"GitGutterAddLine          " default: links to DiffAdd
+"GitGutterChangeLine       " default: links to DiffChange
+"GitGutterDeleteLine       " default: links to DiffDelete
+"GitGutterChangeDeleteLine " default: links to GitGutterChangeLineDefault, i.e. DiffChange
+
 
 " Rainbow Parenthesis
 " ------------------------------------ {{{

@@ -10,26 +10,26 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-bundler'
 
 " Display
-Plugin 'whatyouhide/vim-gotham'         " The theme vim deserves
-Plugin 'ntpeters/vim-better-whitespace' " Better whitespace highlighting for Vim
-Plugin 'severin-lemaignan/vim-minimap'  " A Sublime-like minimap for VIM, based on the Drawille console-based drawing library
-Plugin 'airblade/vim-gitgutter'         " Add git changes symbols to gutter
-Plugin 'vim-airline/vim-airline'        " Lean & mean status/tabline for vim that's light as air
-Plugin 'nathanaelkane/vim-indent-guides' " Visually displaying indent levels in code
-Plugin 'SimpylFold'                     " No-BS Python code folding for Vim
+Plugin 'joshdick/onedark.vim'             " A dark Vim color scheme inspired by Atom's One Dark syntax theme.
+Plugin 'joshdick/airline-onedark.vim'     " vim-airline theme for use with joshdick/onedark.vim.
+Plugin 'ntpeters/vim-better-whitespace'   " Better whitespace highlighting for Vim
+Plugin 'severin-lemaignan/vim-minimap'    " A Sublime-like minimap for VIM, based on the Drawille console-based drawing library
+Plugin 'airblade/vim-gitgutter'           " Add git changes symbols to gutter
+Plugin 'vim-airline/vim-airline'          " Lean & mean status/tabline for vim that's light as air
+Plugin 'nathanaelkane/vim-indent-guides'  " Visually displaying indent levels in code
+Plugin 'SimpylFold'                       " No-BS Python code folding for Vim
 Plugin 'guns/xterm-color-table.vim'
 
 " Navigate & Search
-Plugin 'scrooloose/nerdtree'            " Files Explorer
-Plugin 'scrooloose/nerdcommenter'       " Vim plugin for intensely orgasmic commenting
-
-Plugin 'Xuyuanp/nerdtree-git-plugin'    " Sndenhowing changes in Nerdtree
-Plugin 'kien/ctrlp.vim'                 " Files Explorer
-Plugin 'easymotion/vim-easymotion'      " Search Replacement
-Plugin 'mileszs/ack.vim'                " Integrate Ack
-Plugin 'christoomey/vim-tmux-navigator' " Seamless navigation between tmux panes and vim splits
-Plugin 'tmux-plugins/vim-tmux'          " Make editing tmux.conf easier
-Plugin 'tmux-plugins/vim-tmux-focus-events' "Make terminal vim and tmux work better together.
+Plugin 'scrooloose/nerdtree'                " Files Explorer
+Plugin 'scrooloose/nerdcommenter'           " Vim plugin for intensely orgasmic commenting
+Plugin 'Xuyuanp/nerdtree-git-plugin'        " Sndenhowing changes in Nerdtree
+Plugin 'kien/ctrlp.vim'                     " Files Explorer
+Plugin 'easymotion/vim-easymotion'          " Search Replacement
+Plugin 'mileszs/ack.vim'                    " Integrate Ack
+Plugin 'christoomey/vim-tmux-navigator'     " Seamless navigation between tmux panes and vim splits
+Plugin 'tmux-plugins/vim-tmux'              " Make editing tmux.conf easier
+Plugin 'tmux-plugins/vim-tmux-focus-events' " Make terminal vim and tmux work better together.
 
 " Code Completion
 Plugin 'SirVer/ultisnips'               " Snippets Engine
@@ -37,32 +37,13 @@ Plugin 'honza/vim-snippets'             " Snippets Collections
 "Plugin 'Valloric/YouCompleteMe'          " A Code Completion for Vim
 
 " Syntax
+Plugin 'sheerun/vim-polyglot'           " A solid language pack for Vim.
+Plugin 'cakebaker/scss-syntax.vim'      " Syntax file for scss
+Plugin 'ap/vim-css-color'               " Preview colours in source code while editing
 Plugin 'scrooloose/syntastic'           " Syntax checking hacks for vim
-
-" HTML, HAML, Liquid
-Plugin 'othree/html5.vim'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-liquid'
-
-" Markdown
-Plugin 'tpope/vim-markdown'
-
-" Ruby
-Plugin 'vim-ruby/vim-ruby'
+Plugin 'vim-ruby/vim-ruby'              " Vim/Ruby Configuration Files
 Plugin 'tpope/vim-rails'                " Ruby on Rails power tools
 
-" CSS
-Plugin 'ap/vim-css-color'               " Preview colours in source code while editing
-Plugin 'hail2u/vim-css3-syntax'         " Add CSS3 syntax support to vim
-Plugin 'cakebaker/scss-syntax.vim'      " Syntax file for scss
-Plugin 'csscomb/vim-csscomb'            " Tool for sorting CSS properties in specific order
-
-" JAavascript
-Plugin 'pangloss/vim-javascript'
-Plugin 'kchmck/vim-coffee-script'
-" Plugin 'thoughtbot/vim-rspec'
-" Plugin 'tpope/vim-abolish'
-" Plugin 'tpope/vim-unimpaired'
 
 " Utilities
 Plugin 'junegunn/goyo.vim'              " Distraction Free Writing in Vim
@@ -75,14 +56,6 @@ Plugin 'terryma/vim-expand-region'      " Visually select increasingly larger re
 Plugin 'kien/rainbow_parentheses.vim'   " Mark a serie of parentheses with different colors
 Plugin 'junegunn/vim-easy-align'        " Quickly Align Code
 Plugin 'tpope/vim-fugitive'             " Control git in vim
-"Plugin 'mhinz/vim-startify'            " A fancy start screen for Vim
-"Plugin 'ryanoasis/vim-devicons'        " Developers Icons Set
-"Plugin 'godlygeek/tabular'
-"Plugin 'neilagabriel/vim-geeknote'
-"Plugin 'wakatime/vim-wakatime'
-"Plugin 'majutsushi/tagbar'
-"Plugin 'xolox/vim-easytags'
-"Plugin 'Shougo/vimfiler.vim'
-"Plugin 'xolox/vim-misc'
+Plugin 'csscomb/vim-csscomb'            " Tool for sorting CSS properties in specific order
 
 call vundle#end()  "Required by Vundle
