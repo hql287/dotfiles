@@ -3,18 +3,14 @@ if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
 
+syntax on          " Set syntax on by default
+colorscheme gotham " Favourite Colorsheme
 
 " Keymapping
 " ------------------------------------------------------------------------- {{{
 
 " Set leader key
 let mapleader=","
-
-" Prevent using arrow key
-"nnoremap <Left>  :echoe "Use h"<CR>
-"nnoremap <Right> :echoe "Use l"<CR>
-"nnoremap <Up>    :echoe "Use k"<CR>
-"nnoremap <Down>  :echoe "Use j"<CR>
 
 " Custom Shortcuts
 " ------------------------------------------------------------------------- {{{
@@ -28,14 +24,8 @@ map <leader>vc :tabedit ~/.vimrc<CR>
 " Quickly open .vimrc.bundles in new tab
 map <leader>vb :tabedit ~/.vimrc.bundles<CR>
 
-" Copy all content of a file
-map <leader>co ggVG"*y
-
 " Quick Save
 nmap <silent> <S-s> :w!<CR>
-
-" Map Ctrl b to toggle BuffergatorToggle
-nmap <silent> <C-b> :BuffergatorToggle<CR>
 
 " Remove Sarch Hightlight
 nmap <silent> <S-h> :nohl<CR>
@@ -69,7 +59,7 @@ set noerrorbells      " Disable error bells
 set nostartofline     " Don’t reset cursor to start of line when moving around.
 set diffopt+=vertical " Always use vertical diffs
 set autowrite         " Automatically :write before running commands
-set scrolloff=10      " Keep at least 4 lines below cursor
+set scrolloff=10      " Keep at least 10 lines below cursor
 set shortmess=atI     " Don’t show the intro message when starting Vim
 set showmode          " Show the current mode
 set noeol             " No end of line
@@ -85,7 +75,7 @@ set number          " Show line number
 set relativenumber  " Set relative number by default
 set linebreak       " Wrap lines at convenient points
 set wrap            " Wrap text.
-set textwidth=80    " Maximum line width before wrapping.
+set textwidth=81    " Maximum line width before wrapping.
 set background=dark " I prefer using dark background while writing code
 set laststatus=2    " Always display status line
 set smartindent     " Smart Indent
@@ -94,8 +84,8 @@ set smartindent     " Smart Indent
 " ------------------------------------------------------------------------- {{{
 set selection=old " Do not select the end of line.
 set expandtab     " Expand tabs into spaces.
-set tabstop=2     " Set tab to equal 4 spaces.
-set softtabstop=2 " Set soft tabs equal to 4 spaces.
+set tabstop=2     " Set tab to equal 2 spaces.
+set softtabstop=2 " Set soft tabs equal to 2 spaces.
 set shiftwidth=2  " Set auto indent spacing.
 set shiftround    " Shift to the next round tab stop.
 set smarttab      " Insert spaces in front of lines.
@@ -116,11 +106,12 @@ set listchars=tab:▸\ ,eol:¬,trail:⌴,extends:❯,precedes:❮ " List of char
 
 " Folding
 " ------------------------------------------------------------------------- {{{
+"set nofoldenable      " Disable folding
 set foldenable        " Enable folding.
 set foldmethod=indent " Syntax dictates folding.
 set foldlevel=0       " Use a one level fold.
 set foldnestmax=2     " Do not nest more than 2 folds.
-set viewoptions=folds " Remember folds."
+set viewoptions=folds " Remember folds
 
 " Autocomplete
 " ------------------------------------------------------------------------- {{{
@@ -132,9 +123,9 @@ set wildchar=<Tab>   " Enable completion on tab.
 " ------------------------------------------------------------------------- {{{
 
 " Windows Split
-set winwidth=84
-set winheight=5
-set winminheight=5
+set winwidth=60
+set winheight=20
+set winminheight=20
 set winheight=999
 
 " Open new split panes to right and bottom, which feels more natural
@@ -142,17 +133,11 @@ set splitbelow
 set splitright
 
 filetype plugin indent on
-syntax on "Set syntax on by default
-colorscheme gotham "Favourite Colorsheme
 
 " Highlight > 81 character range
 let &colorcolumn=join(range(81,999),",")
 let &colorcolumn="80,".join(range(120,999),",")
 
-"Vim Airline
-let g:airline_powerline_fonts = 1
-highlight SignColumn ctermbg=232 "Set gutter background to black
-highlight StatusLine ctermfg=blue ctermbg=yellow "Highlight the status line
 
 " Better Whitespace Settings
 highlight ExtraWhitespace ctermbg=red
@@ -167,10 +152,6 @@ map <Leader>tc :tabclose<CR>        " Easily close a tab.
 noremap <Leader>tm :tabmove<CR>     " Easily move a tab.
 noremap <Leader>tn :tabnext<CR>     " Easily go to next tab.
 noremap <Leader>tp :tabprevious<CR> " Easily go to previous tab.
-
-" Use + & - to adjust windows sizes
-nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
 
 
 " Auto Command
@@ -191,14 +172,8 @@ if has("autocmd")
   " Treat .json files as .js
   au BufNewFile,BufRead *.json setfiletype json syntax=javascript
 
-  " Treat .md files as Markdown
-  au BufNewFile,BufRead *.md setlocal filetype=markdown
-
   " Automatically wrap at 80 characters for Markdown
   au BufRead,BufNewFile *.md setlocal textwidth=80
-
-  " Enable spellchecking for Markdown
-  au FileType markdown setlocal spell
 
   " Automatically wrap at 72 characters and spell check git commit messages
   au FileType gitcommit setlocal textwidth=72
@@ -212,30 +187,71 @@ if has("autocmd")
 
   " Allow stylesheets to autocomplete hyphenated words
   au FileType css,scss,sass setlocal iskeyword+=-
+
+  " Code Folding
+  " ------------------------------------- {{{
+  " In order for SimpylFold to be properly loaded in certain cases
+  autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+  autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+
+  " Mardown Settings
+  " ------------------------------------- {{{
+
+  " Sppellchecking for Markdown
+  "au FileType markdown setlocal spell
+
+  " Treat .md files as Markdown
+  au BufNewFile,BufRead *.md setlocal filetype=markdown
+
+  " Parse content between the ---s as comment. Make YML files look better
+  au BufNewFile,BufRead,BufWrite *.md syntax match Comment /\%^---\_.\{-}---$/
+
+  " Set Markdown Textwidth
+  au FileType markdown setlocal textwidth=100
+
+  " Fenced-in Languages
+  let g:markdown_fenced_languages = ['javascript', 'ruby', 'sh', 'yaml', 'javascript', 'html', 'vim', 'coffee', 'json', 'diff']
+
 endif
 
 
 " Mouse Settings
 " ------------------------------------------------------------------------- {{{
-
 if has('mouse')
-    " Enable mouse everywhere.
-    set mouse=a
-
-    " Show a pop-up for right-click.
-    set mousemodel=popup_setpos
-
-    " Hide mouse while typing.
-    set mousehide
+  set mouse=a " Enable mouse everywhere.
+  set mousemodel=popup_setpos  " Show a pop-up for right-click.
+  set mousehide " Hide mouse while typing.
 endif
-
 
 " Plugin Settings
 " ------------------------------------------------------------------------- {{{
 
+"Vim Airline
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+highlight SignColumn ctermbg=232 "Set gutter background to black
+highlight StatusLine ctermfg=blue ctermbg=yellow "Highlight the status line
+
+" UltiSnips Trigger configuration.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" Goyo - Distraction Free Writing
+nmap <Leader>/ :Goyo<CR>
+
+" Minimap
+" ------------------------------------ {{{
+let g:minimap_highlight='Visual'
+
 " CtrP Search
 " ------------------------------------ {{{
-let g:ctrlp_max_files=0 " Remove limit files to search
+
+" Remove limit files to search
+let g:ctrlp_max_files=0
+" Filtering garbage out of CtrlP
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|^.git$\|_site'
 
 " Bufferline
 " ------------------------------------ {{{
@@ -245,8 +261,15 @@ let g:bufferline_active_buffer_left = '['  " The separator used on the left side
 let g:bufferline_active_buffer_right = ']' " The separator used on the right side of a buffer
 let g:bufferline_modified = '+'            " The symbol to denote that a buffer is modified
 let g:bufferline_show_bufnr = 1            " Denotes whether buffer numbers should be displayed
-let g:SimpylFold_docstring_preview = 1     " SimpleFold
 let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'startify'] " Better Line Number
+
+" SimpylFold
+" ------------------------------------ {{{
+" Enable previewing of your folded classes' and functions'
+let g:SimpylFold_docstring_preview = 1
+
+" Enable/Disable SimpylFold
+let g:SimpylFold_fold_docstring = 0
 
 " Syntasitc
 " ------------------------------------ {{{
@@ -299,7 +322,7 @@ nmap <silent> <S-c> :XtermColorTable<CR>
 
 " NERDTree
 " ------------------------------------ {{{
-let g:NERDTreeWinSize = 31 " Set NERDTree Windows Size
+let g:NERDTreeWinSize = 25 " Set NERDTree Windows Size
 nmap <silent> <C-t> :NERDTreeToggle<CR> " Mapp Ctrl t to toggle NERDTree
 nmap <silent> <S-f> :NERDTreeFind<CR> " Mapp Shift F to show file in NERDTree
 
@@ -333,12 +356,12 @@ call NERDTreeHighlightFile('rb', 'Magenta', 'none', '#ff00ff', '#151515')
 
 " Indent Guide
 " ------------------------------------ {{{
-hi IndentGuidesOdd  ctermbg=0
-hi IndentGuidesEven ctermbg=232
-nmap <silent> <Leader>l <Plug>IndentGuidesToggle
-let g:indent_guides_auto_colors = 0
-let g:indent_guides_start_level = 2
+let g:indent_guides_auto_colors = 1
 let g:indent_guides_guide_size  = 1
+let g:indent_guides_start_level = 2
+hi IndentGuidesOdd  ctermbg=black
+hi IndentGuidesEven ctermbg=green
+nmap <silent> <Leader>l <Plug>IndentGuidesToggle
 
 " Gitgutter Settings
 " ------------------------------------ {{{
