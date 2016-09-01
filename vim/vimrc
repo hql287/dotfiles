@@ -5,7 +5,8 @@ endif
 
 syntax on           " Set syntax on by default
 set background=dark " I prefer using dark background while writing code
-colorscheme onedark   " Favourite Colorsheme
+colo hybrid  " Favourite Colorsheme
+let g:hybrid_custom_term_colors = 1
 
 " Keymapping
 " ------------------------------------------------------------------------- {{{
@@ -13,11 +14,17 @@ colorscheme onedark   " Favourite Colorsheme
 " Set leader key
 let mapleader=","
 
+" Get off my lawn
+" nnoremap <Left>  :echoe "Use h"<CR>
+" nnoremap <Right> :echoe "Use l"<CR>
+" nnoremap <Up>    :echoe "Use k"<CR>
+" nnoremap <Down>  :echoe "Use j"<CR>
+
 " Custom Shortcuts
 " ------------------------------------------------------------------------- {{{
 
 " Quickly reload .vimrc
-map <leader>vr :source ~/.vimrc<CR> :AirlineRefresh <CR>
+map <leader>vr :source ~/.vimrc<CR>
 
 " Quickly open .vimrc in new tab
 map <leader>vc :tabedit ~/.vimrc<CR>
@@ -103,7 +110,7 @@ set grepformat=%f:%l:%c:%m
 
 " Invisible Characters
 " ------------------------------------------------------------------------- {{{
-set nolist " Do not show invisible characters.
+set list                                                 " Show invisible characters.
 set listchars=tab:▸\ ,eol:¬,trail:⌴,extends:❯,precedes:❮ " List of characters to show instead of whitespace.
 
 " Folding
@@ -118,8 +125,6 @@ set viewoptions=folds " Remember folds
 " Autocomplete
 " ------------------------------------------------------------------------- {{{
 set complete+=kspell " Autocomplete with dictionary words when spell check is on
-set wildmenu         " Enhance command-line completion
-set wildchar=<Tab>   " Enable completion on tab.
 
 " Windows Mangements
 " ------------------------------------------------------------------------- {{{
@@ -148,7 +153,6 @@ nmap <leader>fw  :StripWhitespace<CR>
 
 " Tab Navigation
 " ------------------------------------------------------------------------- {{{
-
 map <Leader>tt :tabnew<CR>          " Easily create a new tab.
 map <Leader>tc :tabclose<CR>        " Easily close a tab.
 noremap <Leader>tm :tabmove<CR>     " Easily move a tab.
@@ -229,10 +233,11 @@ endif
 " ------------------------------------------------------------------------- {{{
 
 "Vim Airline
-let g:airline_theme='onedark'                    " Airline Theme
-let g:airline_powerline_fonts = 1                " Enable using powerline font
-let g:airline#extensions#tabline#enabled = 1     " Enable Tab line
-let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename
+let g:airline_powerline_fonts = 1                 " Enable using powerline font
+let g:airline#extensions#tabline#enabled = 1      " Enable Tab line
+let g:airline#extensions#tabline#show_buffers = 0 " Do not show buffer in tab bar
+let g:airline#extensions#tabline#fnamemod = ':t'  " Show just the filename
+let g:airline_theme='tomorrow'                    " Airline Them
 
 " UltiSnips Trigger configuration.
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -249,7 +254,8 @@ let g:minimap_highlight='Visual'  " Highlight current section
 " CtrP Search
 " ------------------------------------ {{{
 let g:ctrlp_max_files=0 " Remove limit files to search
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|^.git$\|_site' " Filtering garbage out of CtrlP
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|^.git$\' " Filtering garbage out of CtrlP
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
 " Bufferline
 " ------------------------------------ {{{
@@ -276,12 +282,6 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 let g:syntastic_html_tidy_exec = 'tidy5'
-
-" Recommended Settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
 
 " Easy Motion
 " ------------------------------------ {{{
@@ -326,6 +326,12 @@ let g:NERDTreeWinSize = 25 " Set NERDTree Windows Size
 nmap <silent> <C-t> :NERDTreeToggle<CR> " Mapp Ctrl t to toggle NERDTree
 nmap <silent> <S-f> :NERDTreeFind<CR> " Mapp Shift F to show file in NERDTree
 
+" NERDTree Tabs
+" ------------------------------------ {{{
+let g:nerdtree_tabs_open_on_console_startup = 0 " Run NERDTreeTabs on console vim startup
+let g:nerdtree_tabs_autoclose = 0               " Do not close current tab if there is only one window in it and it's NERDTree
+let g:nerdtree_tabs_autofind = 0                " Automatically find and select currently opened file in NERDTree.
+
 " NERDTress File highlighting
 " ------------------------------------ {{{
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
@@ -353,6 +359,16 @@ call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', '#151515')
 call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', '#151515')
 call NERDTreeHighlightFile('haml', 'green', 'none', 'green', '#151515')
 call NERDTreeHighlightFile('rb', 'Magenta', 'none', '#ff00ff', '#151515')
+
+" Nerd Commenter
+" ------------------------------------ {{{
+let g:NERDSpaceDelims = 1            " Add spaces after comment delimiters by default
+let g:NERDCompactSexyComs = 1        " Use compact syntax for prettified multi-line comments
+let g:NERDDefaultAlign = 'left'      " Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDAltDelims_java = 1         " Set a language to use its alternate delimiters by default
+let g:NERDCommentEmptyLines = 1      " Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDTrimTrailingWhitespace = 1 " Enable trimming of trailing whitespace when uncommenting
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } } " Add your own custom formats or override the defaults
 
 " Indent Guide
 " ------------------------------------ {{{
@@ -383,13 +399,22 @@ hi LineNr ctermfg=239 ctermbg=NONE
 hi FoldColumn ctermfg=red ctermbg=black
 
 " Highlight the status line
-hi StatusLine ctermfg=blue ctermbg=black
+hi StatusLine   ctermfg=darkblue ctermbg=black
+
+" Highlight Wildmenu Selected Item
+hi WildMenu     ctermfg=white ctermbg=darkblue
+
+" Wildmenu Setitngs
+set wildmenu         " Enhance command-line completion
+set wildignorecase   " Ignore casing
+set wildchar=<Tab>   " Enable completion on tab.
 
 " Set Line Number Width
 set nuw=3
 
 " Set Fold Column Width
 set foldcolumn=1
+highlight Folded guibg=blue guifg=blue
 
 " Line highlights
 "hi GitGutterAdd ctermfg=green ctermbg=NONE

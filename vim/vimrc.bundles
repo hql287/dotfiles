@@ -10,21 +10,22 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-bundler'
 
 " Display
-Plugin 'joshdick/onedark.vim'             " A dark Vim color scheme inspired by Atom's One Dark syntax theme.
-Plugin 'joshdick/airline-onedark.vim'     " vim-airline theme for use with joshdick/onedark.vim.
+Plugin 'w0ng/vim-hybrid'
 Plugin 'ntpeters/vim-better-whitespace'   " Better whitespace highlighting for Vim
 Plugin 'severin-lemaignan/vim-minimap'    " A Sublime-like minimap for VIM, based on the Drawille console-based drawing library
 Plugin 'airblade/vim-gitgutter'           " Add git changes symbols to gutter
 Plugin 'vim-airline/vim-airline'          " Lean & mean status/tabline for vim that's light as air
+Plugin 'vim-airline/vim-airline-themes'   " A collection of Airline theme
 Plugin 'nathanaelkane/vim-indent-guides'  " Visually displaying indent levels in code
 Plugin 'SimpylFold'                       " No-BS Python code folding for Vim
 Plugin 'guns/xterm-color-table.vim'
 
 " Navigate & Search
 Plugin 'scrooloose/nerdtree'                " Files Explorer
+Plugin 'jistr/vim-nerdtree-tabs'            " NERDTree and tabs together in Vim, painlessly
 Plugin 'scrooloose/nerdcommenter'           " Vim plugin for intensely orgasmic commenting
 Plugin 'Xuyuanp/nerdtree-git-plugin'        " Sndenhowing changes in Nerdtree
-Plugin 'kien/ctrlp.vim'                     " Files Explorer
+Plugin 'ctrlpvim/ctrlp.vim'                 " Files Explorer
 Plugin 'easymotion/vim-easymotion'          " Search Replacement
 Plugin 'mileszs/ack.vim'                    " Integrate Ack
 Plugin 'christoomey/vim-tmux-navigator'     " Seamless navigation between tmux panes and vim splits
@@ -34,7 +35,7 @@ Plugin 'tmux-plugins/vim-tmux-focus-events' " Make terminal vim and tmux work be
 " Code Completion
 Plugin 'SirVer/ultisnips'               " Snippets Engine
 Plugin 'honza/vim-snippets'             " Snippets Collections
-"Plugin 'Valloric/YouCompleteMe'          " A Code Completion for Vim
+"Plugin 'Valloric/YouCompleteMe'        " A Code Completion for Vim
 
 " Syntax
 Plugin 'sheerun/vim-polyglot'           " A solid language pack for Vim.
