@@ -59,6 +59,13 @@ alias sshcon="vi ~/.ssh/config" # Open SSH Config File
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
 alias sshkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
 
+# Tmux
+# ------------------------------------------------------------------------- {{{
+
+alias tl='tmux ls'              # List Tmux sessions
+alias tn='tmux new -s'          # Create a session named <name>
+alias ta='tmux attach -t'       # Attach to a session named <name>
+alias tk='tmux kill-session -t' # Kill a session named <name>
 
 # Utilities
 # ------------------------------------------------------------------------- {{{
@@ -112,4 +119,18 @@ extract() {
   else
      echo "'$1' is not a valid file to extract"
   fi
+}
+
+# Determine size of a file or total size of a directory
+function fs() {
+	if du -b /dev/null > /dev/null 2>&1; then
+		local arg=-sbh;
+	else
+		local arg=-sh;
+	fi
+	if [[ -n "$@" ]]; then
+		du $arg -- "$@";
+	else
+		du $arg .[^.]* ./*;
+	fi;
 }
