@@ -1,11 +1,12 @@
-" Load Vim bundles
+" Load NeoVim bundles
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
 
-syntax on           " Set syntax on by default
-set background=dark " I prefer using dark background while writing code
-colo hybrid  " Favourite Colorsheme
+syntax on              " Set syntax on by default
+set termguicolors      " Using True Colors
+set background=dark    " I prefer using dark background while writing code
+colorscheme deep-space " Favourite Colorsheme
 let g:hybrid_custom_term_colors = 1
 
 " Keymapping
@@ -34,6 +35,9 @@ map <leader>vb :tabedit ~/.vimrc.bundles<CR>
 
 " Quick Save
 nmap <silent> <S-s> :w!<CR>
+
+" :W sudo saves the file (handling the permission-denied error)
+" command W w !sudo tee % > /dev/null
 
 " Remove Sarch Hightlight
 nmap <silent> <S-h> :nohl<CR>
@@ -64,6 +68,7 @@ set ttyfast           " Optimize for fast terminal connections
 set binary            " Don’t add empty newlines at the end of files
 set showmatch         " Show matching brackets.
 set noerrorbells      " Disable error bells
+set novisualbell
 set nostartofline     " Don’t reset cursor to start of line when moving around.
 set diffopt+=vertical " Always use vertical diffs
 set autowrite         " Automatically :write before running commands
@@ -102,11 +107,13 @@ set nojoinspaces  " Use one space, not two, after punctuation.
 " Search & Navigation
 " ------------------------------------------------------------------------- {{{
 set hlsearch                             " Enable Highlight Search
-set incsearch                            " Highligt while search
-set ignorecase                           " Case Insensitivite Pattern Matching
+set incsearch                            " Highlight while search
+set ignorecase                           " Case Insensitivity Pattern Matching
 set smartcase                            " Overrides ignorecase if pattern contains upcase
 set grepprg=ack\ --nogroup\ --column\ $* " Make grep use ack instead
 set grepformat=%f:%l:%c:%m
+" Disable highlight when <leader><cr> is pressed
+map <silent> <leader><cr> :noh<cr>
 
 " Invisible Characters
 " ------------------------------------------------------------------------- {{{
@@ -125,14 +132,16 @@ set viewoptions=folds " Remember folds
 " Autocomplete
 " ------------------------------------------------------------------------- {{{
 set complete+=kspell " Autocomplete with dictionary words when spell check is on
+" Pressing ,ss will toggle spell checking
+map <leader>ss :setlocal spell!<cr>
 
-" Windows Mangements
+" Windows Managements
 " ------------------------------------------------------------------------- {{{
 
 " Windows Split
 set winwidth=60
 set winheight=20
-set winminheight=20
+:silent! set winminheight=20
 set winheight=999
 
 " Open new split panes to right and bottom, which feels more natural
@@ -147,18 +156,26 @@ let &colorcolumn="80,".join(range(120,999),",")
 
 
 " Better Whitespace Settings
-highlight ExtraWhitespace ctermbg=red
+highlight ExtraWhitespace ctermbg=red guibg=#C80000
 nmap <leader>tw  :ToggleWhitespace<CR>
 nmap <leader>fw  :StripWhitespace<CR>
 
 " Tab Navigation
 " ------------------------------------------------------------------------- {{{
-map <Leader>tt :tabnew<CR>          " Easily create a new tab.
+map <Leader>tn :tabnew<CR>          " Easily create a new tab.
 map <Leader>tc :tabclose<CR>        " Easily close a tab.
 noremap <Leader>tm :tabmove<CR>     " Easily move a tab.
 noremap <Leader>tn :tabnext<CR>     " Easily go to next tab.
 noremap <Leader>tp :tabprevious<CR> " Easily go to previous tab.
 
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 " Auto Command
 " ------------------------------------------------------------------------- {{{
@@ -200,6 +217,9 @@ if has("autocmd")
   autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
   autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
+  " Load EE Snippets
+  autocmd FileType html UltiSnipsAddFiletypes html-ee
+
   " Mardown Settings
   " ------------------------------------- {{{
 
@@ -237,7 +257,7 @@ let g:airline_powerline_fonts = 1                 " Enable using powerline font
 let g:airline#extensions#tabline#enabled = 1      " Enable Tab line
 let g:airline#extensions#tabline#show_buffers = 0 " Do not show buffer in tab bar
 let g:airline#extensions#tabline#fnamemod = ':t'  " Show just the filename
-let g:airline_theme='tomorrow'                    " Airline Them
+let g:airline_theme='deep_space'
 
 " UltiSnips Trigger configuration.
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -255,7 +275,6 @@ let g:minimap_highlight='Visual'  " Highlight current section
 " ------------------------------------ {{{
 let g:ctrlp_max_files=0 " Remove limit files to search
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|^.git$\' " Filtering garbage out of CtrlP
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
 " Bufferline
 " ------------------------------------ {{{
@@ -375,8 +394,8 @@ let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } } " Add your
 let g:indent_guides_auto_colors = 1
 let g:indent_guides_guide_size  = 1
 let g:indent_guides_start_level = 2
-hi IndentGuidesOdd  ctermbg=black
-hi IndentGuidesEven ctermbg=green
+hi IndentGuidesOdd  ctermbg=black guibg=black
+hi IndentGuidesEven ctermbg=green guibg=green
 nmap <silent> <Leader>l <Plug>IndentGuidesToggle
 
 " Gitgutter Settings
@@ -391,33 +410,46 @@ let g:gitgutter_max_signs          = 500
 
 " Highlight SignColum (Gutter)
 hi SignColumn ctermfg=118 ctermbg=NONE
+hi SignColumn guifg=#000000 guibg=NONE
 
 " Highlight Number Column Width
-hi LineNr ctermfg=239 ctermbg=NONE
+" hi LineNr ctermfg=239 ctermbg=NONE
+" hi LineNr guifg=#555555 guibg=NONE
 
 " Highlight Fold Column
 hi FoldColumn ctermfg=red ctermbg=black
+hi FoldColumn guifg=#628db8 guibg=black
+
 
 " Highlight the status line
+hi StatusLine   ctermfg=darkblue ctermbg=black
 hi StatusLine   ctermfg=darkblue ctermbg=black
 
 " Highlight Wildmenu Selected Item
 hi WildMenu     ctermfg=white ctermbg=darkblue
+hi WildMenu     guifg=white guibg=#6b9c6e
 
 " Wildmenu Setitngs
 set wildmenu         " Enhance command-line completion
 set wildignorecase   " Ignore casing
 set wildchar=<Tab>   " Enable completion on tab.
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+
 
 " Set Line Number Width
 set nuw=3
 
 " Set Fold Column Width
 set foldcolumn=1
-highlight Folded guibg=blue guifg=blue
+highlight Folded ctermbg=blue ctermfg=white
+highlight Folded guibg=#628db8 guifg=white
 
 " Line highlights
-"hi GitGutterAdd ctermfg=green ctermbg=NONE
+hi GitGutterAdd ctermfg=green ctermbg=NONE
+hi GitGutterAdd guifg=#6b9c6e guibg=NONE
 "GitGutterAddLine          " default: links to DiffAdd
 "GitGutterChangeLine       " default: links to DiffChange
 "GitGutterDeleteLine       " default: links to DiffDelete
@@ -427,31 +459,31 @@ highlight Folded guibg=blue guifg=blue
 " Rainbow Parenthesis
 " ------------------------------------ {{{
 let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
+  \ ['brown',       'RoyalBlue3'],
+  \ ['Darkblue',    'SeaGreen3'],
+  \ ['darkgray',    'DarkOrchid3'],
+  \ ['darkgreen',   'firebrick3'],
+  \ ['darkcyan',    'RoyalBlue3'],
+  \ ['darkred',     'SeaGreen3'],
+  \ ['darkmagenta', 'DarkOrchid3'],
+  \ ['brown',       'firebrick3'],
+  \ ['gray',        'RoyalBlue3'],
+  \ ['black',       'SeaGreen3'],
+  \ ['darkmagenta', 'DarkOrchid3'],
+  \ ['Darkblue',    'firebrick3'],
+  \ ['darkgreen',   'RoyalBlue3'],
+  \ ['darkcyan',    'SeaGreen3'],
+  \ ['darkred',     'DarkOrchid3'],
+  \ ['red',         'firebrick3'],
+  \ ]
 
 " Custom Functions
 " ------------------------------------------------------------------------- {{{
 function! StripTrailingWhitespace()
-    if !&binary && &modifiable && &filetype != 'diff'
-        let l:winview = winsaveview()
-        %s/\s\+$//e
-        let @/=''
-        call winrestview(l:winview)
-    endif
+  if !&binary && &modifiable && &filetype != 'diff'
+      let l:winview = winsaveview()
+      %s/\s\+$//e
+      let @/=''
+      call winrestview(l:winview)
+  endif
 endfunction
