@@ -84,8 +84,9 @@ alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
 
-# Make vi = vim
-alias vi='vim'
+# Make vi & vim = nvim
+alias vi='nvim'
+alias vim='nvim'
 
 
 # Custom
