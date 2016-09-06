@@ -8,7 +8,7 @@ filetype plugin indent on
 syntax on              " Set syntax on by default
 set termguicolors      " Using True Colors
 set background=dark    " I prefer using dark background while writing code
-colorscheme deep-space " Favourite Colorsheme
+colorscheme one        " Colorsheme
 let g:hybrid_custom_term_colors = 1
 
 " Keymapping
@@ -34,6 +34,9 @@ map <leader>vc :tabedit ~/.vimrc<CR>
 
 " Quickly open .vimrc.bundles in new tab
 map <leader>vb :tabedit ~/.vimrc.bundles<CR>
+
+" Quickly open .tmux.conf in new tab
+map <leader>mx :tabedit ~/.tmux.conf<CR>
 
 " Quick Save
 nmap <silent> <S-s> :w!<CR>
@@ -279,7 +282,7 @@ let g:airline_powerline_fonts = 1                 " Enable using powerline font
 let g:airline#extensions#tabline#enabled = 1      " Enable Tab line
 let g:airline#extensions#tabline#show_buffers = 0 " Do not show buffer in tab bar
 let g:airline#extensions#tabline#fnamemod = ':t'  " Show just the filename
-let g:airline_theme='deep_space'
+let g:airline_theme='one'
 
 " UltiSnips Trigger configuration.
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -361,8 +364,8 @@ nmap ga <Plug>(EasyAlign)
 " NERDTree
 " ------------------------------------ {{{
 let g:NERDTreeWinSize = 25 " Set NERDTree Windows Size
-nmap <silent> <C-t> :NERDTreeToggle<CR> " Mapp Ctrl t to toggle NERDTree
-nmap <silent> <S-f> :NERDTreeFind<CR> " Mapp Shift F to show file in NERDTree
+nmap <Leader>t :NERDTreeToggle<CR> " Mapp Ctrl t to toggle NERDTree
+nmap <Leader>f :NERDTreeFind<CR>   " Mapp Shift F to show file in NERDTree
 
 " NERDTree Tabs
 " ------------------------------------ {{{
