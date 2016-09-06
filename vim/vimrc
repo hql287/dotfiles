@@ -1,8 +1,10 @@
-" Load NeoVim bundles
+" Load Plugins
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
 
+
+filetype plugin indent on
 syntax on              " Set syntax on by default
 set termguicolors      " Using True Colors
 set background=dark    " I prefer using dark background while writing code
@@ -16,10 +18,10 @@ let g:hybrid_custom_term_colors = 1
 let mapleader=","
 
 " Get off my lawn
-" nnoremap <Left>  :echoe "Use h"<CR>
-" nnoremap <Right> :echoe "Use l"<CR>
-" nnoremap <Up>    :echoe "Use k"<CR>
-" nnoremap <Down>  :echoe "Use j"<CR>
+nnoremap <Left>  :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up>    :echoe "Use k"<CR>
+nnoremap <Down>  :echoe "Use j"<CR>
 
 " Custom Shortcuts
 " ------------------------------------------------------------------------- {{{
@@ -36,8 +38,8 @@ map <leader>vb :tabedit ~/.vimrc.bundles<CR>
 " Quick Save
 nmap <silent> <S-s> :w!<CR>
 
-" :W sudo saves the file (handling the permission-denied error)
-" command W w !sudo tee % > /dev/null
+" Saves the file (handling the permission-denied error)
+cmap w!! w !sudo tee > /dev/null %
 
 " Remove Sarch Hightlight
 nmap <silent> <S-h> :nohl<CR>
@@ -112,6 +114,7 @@ set ignorecase                           " Case Insensitivity Pattern Matching
 set smartcase                            " Overrides ignorecase if pattern contains upcase
 set grepprg=ack\ --nogroup\ --column\ $* " Make grep use ack instead
 set grepformat=%f:%l:%c:%m
+
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
 
@@ -122,16 +125,16 @@ set listchars=tab:▸\ ,eol:¬,trail:⌴,extends:❯,precedes:❮ " List of char
 
 " Folding
 " ------------------------------------------------------------------------- {{{
-"set nofoldenable      " Disable folding
 set foldenable        " Enable folding.
 set foldmethod=indent " Syntax dictates folding.
 set foldlevel=0       " Use a one level fold.
-set foldnestmax=2     " Do not nest more than 2 folds.
+set foldnestmax=5     " Do not nest more than 10 folds.
 set viewoptions=folds " Remember folds
 
 " Autocomplete
 " ------------------------------------------------------------------------- {{{
 set complete+=kspell " Autocomplete with dictionary words when spell check is on
+
 " Pressing ,ss will toggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
@@ -139,16 +142,35 @@ map <leader>ss :setlocal spell!<cr>
 " ------------------------------------------------------------------------- {{{
 
 " Windows Split
-set winwidth=60
-set winheight=20
-:silent! set winminheight=20
-set winheight=999
+" set winwidth=60
+" set winheight=40
+" :silent! set winminheight=20
 
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
 
-filetype plugin indent on
+" Move between splits faster without the prefix key
+" Use ctrl-[hjkl] to select the active split!
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Use ctrl-[arrow-kews] to select the active split!
+" nnoremap <C-Down> <C-W><C-J>
+" nnoremap <C-Up> <C-W><C-K>
+" nnoremap <C-Right> <C-W><C-L>
+" nnoremap <C-Left> <C-W><C-H>
+"
+" Make tmux navigator works in NeoVim
+" https://github.com/christoomey/vim-tmux-navigator#it-doesnt-work-in-neovim-specifically-c-h
+" A more complete and less-hacky solution would be to update the incorrect
+" terminfo entry that is part of the problem on OS X (and some Linux
+" distributions) as described in this comment: https://github.com/neovim/neovim/issues/2048#issuecomment-78045837
+nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
+
+
 
 " Highlight > 81 character range
 let &colorcolumn=join(range(81,999),",")
@@ -336,9 +358,6 @@ vmap <Enter> <Plug>(EasyAlign)
 "Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" XtermColorTable
-nmap <silent> <S-c> :XtermColorTable<CR>
-
 " NERDTree
 " ------------------------------------ {{{
 let g:NERDTreeWinSize = 25 " Set NERDTree Windows Size
@@ -358,26 +377,37 @@ function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
   exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
 
-call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-call NERDTreeHighlightFile('ds_store', 'Gray', 'none', '#686868', '#151515')
-call NERDTreeHighlightFile('gitconfig', 'Gray', 'none', '#686868', '#151515')
-call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', '#151515')
-call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', '#151515')
-call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', '#151515')
-call NERDTreeHighlightFile('haml', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('rb', 'Magenta', 'none', '#ff00ff', '#151515')
+" HTML
+call NERDTreeHighlightFile('jade', 'green', 'none', '#719c6e', 'none')
+call NERDTreeHighlightFile('html', 'yellow', 'none', '#f0f0f0', 'none')
+call NERDTreeHighlightFile('haml', 'green', 'none', '#719c6e', 'none')
+
+" Shell
+call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', 'none')
+call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', 'none')
+call NERDTreeHighlightFile('gitconfig', 'Gray', 'none', '#686868', 'none')
+call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', 'none')
+
+" Programming Languages
+call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', 'none')
+call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', 'none')
+call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', 'none')
+call NERDTreeHighlightFile('rb', 'Magenta', 'none', '#ff00ff', 'none')
+
+" Systems
+call NERDTreeHighlightFile('ini', 'yellow', 'none', '#f0f0f0', 'none')
+call NERDTreeHighlightFile('config', 'yellow', 'none', '#f0f0f0', 'none')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', '#f0f0f0', 'none')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', '#f0f0f0', 'none')
+call NERDTreeHighlightFile('ds_store', 'Gray', 'none', '#686868', 'none')
+
+" Text
+call NERDTreeHighlightFile('json', 'yellow', 'none', '#f0f0f0', 'none')
+call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', 'none')
+
+" CSS
+call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', 'none')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', 'none')
 
 " Nerd Commenter
 " ------------------------------------ {{{
