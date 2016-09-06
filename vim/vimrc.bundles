@@ -1,75 +1,55 @@
-" Note: Skip initialization for vim-tiny or vim-small.
-if 0 | endif
-
-if &compatible
-  set nocompatible " Be iMproved
-endif
-
-" Required:
-set runtimepath+=~/.vim/bundle/neobundle.vim/
-
-" Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
+call plug#begin('~/.vim/plugged')
 
 " Display
-NeoBundle 'tyrannicaltoucan/vim-deep-space'  " An intergalactically friendly color scheme for Vim.
-NeoBundle 'ntpeters/vim-better-whitespace'   " Better whitespace highlighting for Vim
-NeoBundle 'severin-lemaignan/vim-minimap'    " A Sublime-like minimap for VIM, based on the Drawille console-based drawing library
-NeoBundle 'airblade/vim-gitgutter'           " Add git changes symbols to gutter
-NeoBundle 'vim-airline/vim-airline'          " Lean & mean status/tabline for vim that's light as air
-NeoBundle 'vim-airline/vim-airline-themes'   " A collection of Airline theme
-NeoBundle 'nathanaelkane/vim-indent-guides'  " Visually displaying indent levels in code
-NeoBundle 'SimpylFold'                       " No-BS Python code folding for Vim
-NeoBundle 'guns/xterm-color-table.vim'
+Plug 'tyrannicaltoucan/vim-deep-space'         " An intergalactically friendly color scheme for Vim.
+Plug 'ntpeters/vim-better-whitespace'          " Better whitespace highlighting for Vim
+Plug 'severin-lemaignan/vim-minimap'           " A Sublime-like minimap for VIM, based on the Drawille console-based drawing library
+Plug 'airblade/vim-gitgutter'                  " Add git changes symbols to gutter
+Plug 'vim-airline/vim-airline'                 " Lean & mean status/tabline for vim that's light as air
+Plug 'vim-airline/vim-airline-themes'          " A collection of Airline theme
+Plug 'nathanaelkane/vim-indent-guides'         " Visually displaying indent levels in code
+Plug 'SimpylFold'                              " No-BS Python code folding for Vim
+Plug 'guns/xterm-color-table.vim'
 
 " Navigate & Search
-NeoBundle 'scrooloose/nerdtree'                " Files Explorer
-NeoBundle 'jistr/vim-nerdtree-tabs'            " NERDTree and tabs together in Vim, painlessly
-NeoBundle 'scrooloose/nerdcommenter'           " Vim plugin for intensely orgasmic commenting
-NeoBundle 'Xuyuanp/nerdtree-git-plugin'        " Sndenhowing changes in Nerdtree
-NeoBundle 'ctrlpvim/ctrlp.vim'                 " Files Explorer
-NeoBundle 'easymotion/vim-easymotion'          " Search Replacement
-NeoBundle 'mileszs/ack.vim'                    " Integrate Ack
-NeoBundle 'christoomey/vim-tmux-navigator'     " Seamless navigation between tmux panes and vim splits
-NeoBundle 'tmux-plugins/vim-tmux'              " Make editing tmux.conf easier
-NeoBundle 'tmux-plugins/vim-tmux-focus-events' " Make terminal vim and tmux work better together.
+Plug 'scrooloose/nerdtree'                     " Files Explorer
+Plug 'scrooloose/nerdcommenter'                " Vim plugin for intensely orgasmic commenting
+Plug 'Xuyuanp/nerdtree-git-plugin'             " Sndenhowing changes in Nerdtree
+Plug 'jistr/vim-nerdtree-tabs'                 " NERDTree and tabs together in Vim, painlessly
+Plug 'ctrlpvim/ctrlp.vim'                      " Files Explorer
+Plug 'mileszs/ack.vim'                         " Integrate Ack
+Plug 'easymotion/vim-easymotion'               " Search Replacement
+Plug 'christoomey/vim-tmux-navigator'          " Seamless navigation between tmux panes and vim splits
+Plug 'tmux-plugins/vim-tmux'                   " Make editing tmux.conf easier
+Plug 'tmux-plugins/vim-tmux-focus-events'      " Make terminal vim and tmux work better together.
 
 " Code Completion
-NeoBundle 'SirVer/ultisnips'               " Snippets Engine
-NeoBundle 'honza/vim-snippets'             " Snippets Collections
+Plug 'SirVer/ultisnips'                        " Snippets Engine
+Plug 'honza/vim-snippets'                      " Snippets Collections
 
-" Syntax
-NeoBundle 'sheerun/vim-polyglot'           " A solid language pack for Vim.
-NeoBundle 'cakebaker/scss-syntax.vim'      " Syntax file for scss
-NeoBundle 'ap/vim-css-color'               " Preview colours in source code while editing
-NeoBundle 'neomake/neomake'                " A plugin for asynchronous :make using Neovim's job-control functionality
-NeoBundle 'vim-ruby/vim-ruby'              " Vim/Ruby Configuration Files
-NeoBundle 'tpope/vim-rails'                " Ruby on Rails power tools
-" NeoBundle 'scrooloose/syntastic'           " Syntax checking hacks for vim
+                                               " Syntax
+Plug 'sheerun/vim-polyglot'                    " A solid language pack for Vim.
+Plug 'cakebaker/scss-syntax.vim'               " Syntax file for scss
+Plug 'ap/vim-css-color'                        " Preview colours in source code while editing
+Plug 'neomake/neomake'                         " A plugin for asynchronous :make using Neovim's job-control functionality
+Plug 'vim-ruby/vim-ruby'                       " Vim/Ruby Configuration Files
+Plug 'tpope/vim-rails'                         " Ruby on Rails power tools
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " Extra syntax and highlight for nerdtree files
 
 
 " Utilities
-NeoBundle 'junegunn/goyo.vim'              " Distraction Free Writing in Vim
-NeoBundle 'mbbill/undotree'                " The ultimate undo history visualizer for VIM
-NeoBundle 'tpope/vim-surround'             " Change surrounding character with ease
-NeoBundle 'tpope/vim-endwise'              " Automatically add ending word
-NeoBundle 'tpope/vim-repeat'               " Repeat.vim: enable repeating supported plugin maps with .
-NeoBundle 'terryma/vim-multiple-cursors'   " Add multiple cursors functionality like Sublime
-NeoBundle 'terryma/vim-expand-region'      " Visually select increasingly larger regions of text using the same key combination
-NeoBundle 'kien/rainbow_parentheses.vim'   " Mark a serie of parentheses with different colors
-NeoBundle 'junegunn/vim-easy-align'        " Quickly Align Code
-NeoBundle 'tpope/vim-fugitive'             " Control git in vim
-NeoBundle 'csscomb/vim-csscomb'            " Tool for sorting CSS properties in specific order
+Plug 'junegunn/goyo.vim'                       " Distraction Free Writing in Vim
+Plug 'junegunn/limelight.vim'                  " Hyperfocus-writing in Vim
+Plug 'mbbill/undotree'                         " The ultimate undo history visualizer for VIM
+Plug 'tpope/vim-surround'                      " Change surrounding character with ease
+Plug 'tpope/vim-endwise'                       " Automatically add ending word
+Plug 'tpope/vim-repeat'                        " Repeat.vim: enable repeating supported plugin maps with .
+Plug 'terryma/vim-multiple-cursors'            " Add multiple cursors functionality like Sublime
+Plug 'terryma/vim-expand-region'               " Visually select increasingly larger regions of text using the same key combination
+Plug 'kien/rainbow_parentheses.vim'            " Mark a serie of parentheses with different colors
+Plug 'junegunn/vim-easy-align'                 " Quickly Align Code
+Plug 'tpope/vim-fugitive'                      " Control git in vim
+Plug 'csscomb/vim-csscomb'                     " Tool for sorting CSS properties in specific order
 
-call neobundle#end()
-
-" Required:
-filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
+" Add plugins to &runtimepath
+call plug#end()
