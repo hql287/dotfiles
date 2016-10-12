@@ -1,8 +1,7 @@
 call plug#begin('~/.vim/bundle')
 
 " Display
-Plug 'tyrannicaltoucan/vim-deep-space'         " An intergalactically friendly color scheme for Vim.
-Plug 'rakr/vim-one'                            " Adaptation of one-light and one-dark colorschemes for Vim
+Plug 'joshdick/onedark.vim'                    " A dark Vim color scheme inspired by Atom's One Dark syntax theme.<Paste>
 Plug 'ntpeters/vim-better-whitespace'          " Better whitespace highlighting for Vim
 Plug 'severin-lemaignan/vim-minimap'           " A Sublime-like minimap for VIM, based on the Drawille console-based drawing library
 Plug 'airblade/vim-gitgutter'                  " Add git changes symbols to gutter
