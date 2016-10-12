@@ -25,9 +25,6 @@ Plug 'tmux-plugins/vim-tmux'                   " Make editing tmux.conf easier
 Plug 'tmux-plugins/vim-tmux-focus-events'      " Make terminal vim and tmux work better together.
 "
 " Code Completion
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Dark powered asynchronous completion framework for neovim
-" Plug 'Shougo/neosnippet'                       " Neo-snippet plugin contains neocomplcache snippets source
-" Plug 'Shougo/neosnippet-snippets'              " The standard snippets repository for neosnippet
 Plug 'SirVer/ultisnips'                        " Snippets Engine
 Plug 'honza/vim-snippets'                      " Extra Snippets Collections
 
@@ -39,6 +36,7 @@ Plug 'neomake/neomake'                         " A plugin for asynchronous :make
 Plug 'vim-ruby/vim-ruby'                       " Vim/Ruby Configuration Files
 Plug 'tpope/vim-rails'                         " Ruby on Rails power tools
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " Extra syntax and highlight for nerdtree files
+Plug 'lumiliet/vim-twig'                       " Twig syntax highlighting, snipMate, etc.
 Plug 'hungle88/Expression-Engine-Vim-syntax'
 
 
@@ -55,6 +53,7 @@ Plug 'kien/rainbow_parentheses.vim'            " Mark a serie of parentheses wit
 Plug 'junegunn/vim-easy-align'                 " Quickly Align Code
 Plug 'tpope/vim-fugitive'                      " Control git in vim
 Plug 'csscomb/vim-csscomb'                     " Tool for sorting CSS properties in specific order
+Plug 'sjl/gundo.vim'                           " Graph your Vim undo tree in style
 "
 " Add plugins to &runtimepath
 call plug#end()

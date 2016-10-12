@@ -6,13 +6,14 @@ if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
 
-filetype plugin indent on
+filetype indent on
+filetype plugin on
 set autoindent
-syntax on                 " Set syntax on by default
-colorscheme one           " Colorsheme
-set termguicolors         " Using True Colors
-set background=dark       " I prefer using dark background while writing code
-let g:hybrid_custom_term_colors = 1
+syntax on                           " Set syntax on by default
+colorscheme one                     " Colorsheme
+set termguicolors                   " Using True Colors
+set background=dark                 " I prefer using dark background while writing code
+let g:hybrid_custom_term_colors = 1 " Fix using true color issue with tmux
 
 set history=500       " Keep 500 lines of command line history
 set ruler             " Show the cursor position all the time
@@ -53,8 +54,6 @@ set textwidth=81    " Maximum line width before wrapping.
 set laststatus=2    " Always display status line
 set smartindent     " Smart Indent
 set showbreak=a     " Set break character
-" highlight last inserted text
-nnoremap gV `[v`]
 
 " Invisible Characters
 set list                                                 " Show invisible characters.
@@ -114,14 +113,14 @@ set nojoinspaces  " Use one space, not two, after punctuation.
 " Better Whitespace Settings
 highlight ExtraWhitespace ctermbg=red guibg=#C80000
 nmap <leader>tw  :ToggleWhitespace<CR>
-nmap <leader>fw  :StripWhitespace<CR>
+nmap <leader>cw  :StripWhitespace<CR>
 " }}}
 
 " Keymapping {{{
 " Set leader key
 let mapleader=","
 
-" Get off my lawn
+" Use HJKL instead of arrow keys
 nnoremap <Left>  :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up>    :echoe "Use k"<CR>
@@ -343,6 +342,10 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " }}}
 
+
+" Gundo - Undo tree
+" nnoremap <F5> :GundoToggle<CR>
+
 " Goyo - Distraction Free Writing {{{
 nmap <Leader>/ :Goyo<CR>
 " }}}
@@ -352,12 +355,12 @@ let g:minimap_highlight='Visual'  " Highlight current section
 " }}}
 
 " CtrlP Search {{{
-let g:ctrlp_max_files=0 " Remove limit files to search
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|^.git$\' " Filtering garbage out of CtrlP
-let g:ctrlp_match_window = 'bottom,order:ttb' " Order matching files top to bottom
-let g:ctrlp_switch_buffer = 0 " Always open files in new buffers
-let g:ctrlp_working_path_mode = 0 " Change the working directory during a Vim session
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""' " Use CtrlP with Ag -> Wicked fast
+let g:ctrlp_max_files=0                                               " Remove limit files to search
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|^.git$\'         " Filtering garbage out of CtrlP
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10' " Order matching files from bottom to top, limit 10 results
+let g:ctrlp_switch_buffer = 0                                         " Always open files in new buffers
+let g:ctrlp_working_path_mode = 0                                     " Change the working directory during a Vim session
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'        " Make CtrlP use Ag (The Silver Searcher) search engine for better performance(faster)
 " }}}
 
 " Bufferline {{{
