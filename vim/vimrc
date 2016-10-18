@@ -345,10 +345,21 @@ let g:airline#extensions#tabline#fnamemod = ':t'  " Show just the filename
 let g:airline_theme='onedark'
 " }}}
 
-" UltiSnips Trigger configuration.{{{
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" Code Completion.{{{
+" Deoplete Settings
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#file#enable_buffer_path = 1
+
+" Neosnippet Plugin key-mappings.
+let g:neosnippet#enable_completed_snippet = 1
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 " }}}
 
 " Gundo - Undo tree {{{
@@ -541,6 +552,4 @@ function! StripTrailingWhitespace()
     call winrestview(l:winview)
   endif
 endfunction
-" }}}
-"
 " vim:foldmethod=marker:foldlevel=0

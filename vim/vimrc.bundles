@@ -25,12 +25,13 @@ Plug 'tmux-plugins/vim-tmux'                   " Make editing tmux.conf easier
 Plug 'tmux-plugins/vim-tmux-focus-events'      " Make terminal vim and tmux work better together.
 " }}}
 
-" Code Completion {{{
-Plug 'SirVer/ultisnips'                        " Snippets Engine
-Plug 'honza/vim-snippets'                      " Extra Snippets Collections
+" Autocomple {{
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Dark powered asynchronous completion framework for neovim
+Plug 'Shougo/neosnippet'                                      " Snippets Engine
+Plug 'Shougo/neosnippet-snippets'                             " Snippets Source
 " }}}
 
-" Syntax {{{
+" Syntax {{
 Plug 'sheerun/vim-polyglot'                    " A solid language pack for Vim.
 Plug 'cakebaker/scss-syntax.vim'               " Syntax file for scss
 Plug 'ap/vim-css-color'                        " Preview colours in source code while editing
@@ -38,7 +39,7 @@ Plug 'neomake/neomake'                         " A plugin for asynchronous :make
 Plug 'vim-ruby/vim-ruby'                       " Vim/Ruby Configuration Files
 Plug 'tpope/vim-rails'                         " Ruby on Rails power tools
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " Extra syntax and highlight for nerdtree files
-Plug 'lumiliet/vim-twig'                       " Twig syntax highlighting, snipMate, etc.
+Plug 'nelsyeung/twig.vim'                      " Twig syntax
 Plug 'hungle88/Expression-Engine-Vim-syntax'
 " }}}
 
