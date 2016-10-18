@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/bundle')
 
-" Display
+" Display {{{
 Plug 'joshdick/onedark.vim'                    " A dark Vim color scheme inspired by Atom's One Dark syntax theme.<Paste>
 Plug 'ntpeters/vim-better-whitespace'          " Better whitespace highlighting for Vim
 Plug 'severin-lemaignan/vim-minimap'           " A Sublime-like minimap for VIM, based on the Drawille console-based drawing library
@@ -10,8 +10,9 @@ Plug 'vim-airline/vim-airline-themes'          " A collection of Airline theme
 Plug 'nathanaelkane/vim-indent-guides'         " Visually displaying indent levels in code
 Plug 'SimpylFold'                              " No-BS Python code folding for Vim
 Plug 'guns/xterm-color-table.vim'
+" }}}
 
-" Navigate & Search
+" Navigate & Search {{{
 Plug 'scrooloose/nerdtree'                     " Files Explorer
 Plug 'scrooloose/nerdcommenter'                " Vim plugin for intensely orgasmic commenting
 Plug 'Xuyuanp/nerdtree-git-plugin'             " Sndenhowing changes in Nerdtree
@@ -22,12 +23,14 @@ Plug 'easymotion/vim-easymotion'               " Search Replacement
 Plug 'christoomey/vim-tmux-navigator'          " Seamless navigation between tmux panes and vim splits
 Plug 'tmux-plugins/vim-tmux'                   " Make editing tmux.conf easier
 Plug 'tmux-plugins/vim-tmux-focus-events'      " Make terminal vim and tmux work better together.
-"
-" Code Completion
+" }}}
+
+" Code Completion {{{
 Plug 'SirVer/ultisnips'                        " Snippets Engine
 Plug 'honza/vim-snippets'                      " Extra Snippets Collections
+" }}}
 
-" Syntax
+" Syntax {{{
 Plug 'sheerun/vim-polyglot'                    " A solid language pack for Vim.
 Plug 'cakebaker/scss-syntax.vim'               " Syntax file for scss
 Plug 'ap/vim-css-color'                        " Preview colours in source code while editing
@@ -37,9 +40,9 @@ Plug 'tpope/vim-rails'                         " Ruby on Rails power tools
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " Extra syntax and highlight for nerdtree files
 Plug 'lumiliet/vim-twig'                       " Twig syntax highlighting, snipMate, etc.
 Plug 'hungle88/Expression-Engine-Vim-syntax'
+" }}}
 
-
-" Utilities
+" Utilities {{{
 Plug 'junegunn/goyo.vim'                       " Distraction Free Writing in Vim
 Plug 'junegunn/limelight.vim'                  " Hyperfocus-writing in Vim
 Plug 'mbbill/undotree'                         " The ultimate undo history visualizer for VIM
@@ -53,6 +56,9 @@ Plug 'junegunn/vim-easy-align'                 " Quickly Align Code
 Plug 'tpope/vim-fugitive'                      " Control git in vim
 Plug 'csscomb/vim-csscomb'                     " Tool for sorting CSS properties in specific order
 Plug 'sjl/gundo.vim'                           " Graph your Vim undo tree in style
+" }}}
 "
 " Add plugins to &runtimepath
 call plug#end()
+
+" vim:foldmethod=marker:foldlevel=0
