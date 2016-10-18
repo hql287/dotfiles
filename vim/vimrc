@@ -6,12 +6,9 @@ if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
 
-filetype indent on
-filetype plugin on
-syntax on                           " Set syntax on by default
-set autoindent                      " Auto indent
 set background=dark                 " Using dark background while writing code
 set termguicolors                   " Using True Colors
+syntax enable                           " Set syntax on by default
 colorscheme onedark                 " A dark Vim color scheme inspired by Atom's One Dark syntax theme.
 let g:onedark_terminal_italics = 1  " Enable using italic character
 
@@ -107,15 +104,21 @@ hi GitGutterAdd guifg=#6b9c6e guibg=NONE
 "GitGutterChangeDeleteLine " default: links to GitGutterChangeLineDefault, i.e. DiffChange
 " }}}
 "
-" Whitespace {{{
-set selection=old " Do not select the end of line.
-set expandtab     " Expand tabs into spaces.
+" Tabs, Spaces & Whitespace {{{
 set tabstop=2     " Set tab to equal 2 spaces.
+set expandtab     " Expand tabs into spaces.
+set smarttab      " Insert spaces in front of lines.
 set softtabstop=2 " Set soft tabs equal to 2 spaces.
+set modeline
+set modelines=1
+filetype indent on
+filetype plugin on
+set autoindent    " Auto indent
+set selection=old " Do not select the end of line.
 set shiftwidth=2  " Set auto indent spacing.
 set shiftround    " Shift to the next round tab stop.
-set smarttab      " Insert spaces in front of lines.
 set nojoinspaces  " Use one space, not two, after punctuation.
+
 " Better Whitespace Settings
 highlight ExtraWhitespace ctermbg=red guibg=#C80000
 nmap <leader>tw  :ToggleWhitespace<CR>
@@ -348,9 +351,9 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " }}}
 
-
-" Gundo - Undo tree
+" Gundo - Undo tree {{{
 " nnoremap <F5> :GundoToggle<CR>
+" }}}
 
 " Goyo - Distraction Free Writing {{{
 nmap <Leader>/ :Goyo<CR>
@@ -539,3 +542,5 @@ function! StripTrailingWhitespace()
   endif
 endfunction
 " }}}
+"
+" vim:foldmethod=marker:foldlevel=0
