@@ -135,14 +135,14 @@ nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up>    :echoe "Use k"<CR>
 nnoremap <Down>  :echoe "Use j"<CR>
 
-" Quickly reload .vimrc
-map <leader>vr :source ~/.vimrc<CR>
+" Quickly source .vimrc
+map <leader>r :source $MYVIMRC<CR>
 
 " Quickly open .vimrc in new tab
-map <leader>vc :tabedit ~/.vimrc<CR>
+map <leader>v :tabedit ~/.vimrc<CR>
 
 " Quickly open .vimrc.bundles in new tab
-map <leader>vb :tabedit ~/.vimrc.bundles<CR>
+map <leader>b :tabedit ~/.vimrc.bundles<CR>
 
 " Quickly open .tmux.conf in new tab
 map <leader>mx :tabedit ~/.tmux.conf<CR>
@@ -270,7 +270,6 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 " Autocommand {{{
 if has("autocmd")
   " Enable file type detection
-  filetype on
 	au BufWinLeave * silent! mkview
 	au BufWinEnter * silent! loadview
 
@@ -300,13 +299,13 @@ if has("autocmd")
   " Allow stylesheets to autocomplete hyphenated words
   au FileType css,scss,sass setlocal iskeyword+=-
 
+  " Autoload craft.snippets when editing *.twig files
+  autocmd FileType twig UltiSnipsAddFiletypes craft
+
   " Code Folding
   " In order for SimpylFold to be properly loaded in certain cases
   autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
   autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
-
-  " Load EE Snippets
-  autocmd FileType html UltiSnipsAddFiletypes html-ee
 
   " Mardown Settings
 
@@ -328,10 +327,23 @@ if has("autocmd")
   " Map bc to run CSScomb. bc stands for beautify css
   autocmd FileType css noremap <buffer> <leader>bc :CSScomb<CR>
 
-  " Automatically reload vimrc when it's saved
-  " au BufWritePost .vimrc so ~/.vimrc
-
 endif
+" }}}
+"
+" Markdown {{{
+"
+" Enable TOC window auto-fit
+let g:vim_markdown_toc_autofit = 1
+
+" Do not conceal [link text](link url) as just link text
+let g:vim_markdown_conceal = 0
+
+" Highlight YAML front matter as used by Jekyll or Hugo.
+let g:vim_markdown_frontmatter = 1
+
+" Adjust new list item indent
+let g:vim_markdown_new_list_item_indent = 2
+"
 " }}}
 "
 " Plugin Settings {{{
@@ -346,20 +358,21 @@ let g:airline_theme='onedark'
 " }}}
 
 " Code Completion.{{{
-" Deoplete Settings
+" Deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
-
-" Neosnippet Plugin key-mappings.
-let g:neosnippet#enable_completed_snippet = 1
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " For conceal markers.
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
+
+" Ultisnips
+" Trigger configuration.
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+
 " }}}
 
 " Gundo - Undo tree {{{
