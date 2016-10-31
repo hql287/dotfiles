@@ -15,14 +15,16 @@ Plug 'guns/xterm-color-table.vim'
 " Navigate & Search {{{
 Plug 'scrooloose/nerdtree'                " Files Explorer
 Plug 'scrooloose/nerdcommenter'           " Vim plugin for intensely orgasmic commenting
-Plug 'Xuyuanp/nerdtree-git-plugin'        " Sndenhowing changes in Nerdtree
 Plug 'jistr/vim-nerdtree-tabs'            " NERDTree and tabs together in Vim, painlessly
-Plug 'ctrlpvim/ctrlp.vim'                 " Files Explorer
+Plug 'tmux-plugins/vim-tmux'              " Make editing tmux.conf easier
+Plug 'tmux-plugins/vim-tmux-focus-events' " Make terminal vim and tmux work better together.
+Plug 'junegunn/fzf.vim'                   " Fzf Wrapper for Vim
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Fuzzy Finder wittern in Go
+Plug 'Xuyuanp/nerdtree-git-plugin'        " Showing changes in Nerdtree
+Plug 'majutsushi/tagbar'                  " Vim plugin that displays tags in a window, ordered by scope
 Plug 'mileszs/ack.vim'                    " Integrate Ack
 Plug 'easymotion/vim-easymotion'          " Search Replacement
 Plug 'christoomey/vim-tmux-navigator'     " Seamless navigation between tmux panes and vim splits
-Plug 'tmux-plugins/vim-tmux'              " Make editing tmux.conf easier
-Plug 'tmux-plugins/vim-tmux-focus-events' " Make terminal vim and tmux work better together.
 " }}}
 
 " Autocomple {{{
@@ -39,27 +41,31 @@ Plug 'ap/vim-css-color'                        " Preview colours in source code 
 Plug 'neomake/neomake'                         " A plugin for asynchronous :make using Neovim's job-control functionality
 Plug 'vim-ruby/vim-ruby'                       " Vim/Ruby Configuration Files
 Plug 'tpope/vim-rails'                         " Ruby on Rails power tools
+Plug 'tpope/vim-git'                           " Vim Git runtime files
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " Extra syntax and highlight for nerdtree files
 Plug 'nelsyeung/twig.vim'                      " Twig syntax
 Plug 'plasticboy/vim-markdown'                 " Markdown Vim Mode
+Plug 'ekalinin/Dockerfile.vim'                 " Vim syntax file & snippets for Docker's Dockerfile
 " }}}
 
 " Utilities {{{
 Plug 'junegunn/goyo.vim'            " Distraction Free Writing in Vim
+Plug 'junegunn/vim-peekaboo'        " Show contents of the registers.
 Plug 'junegunn/limelight.vim'       " Hyperfocus-writing in Vim
-Plug 'mbbill/undotree'              " The ultimate undo history visualizer for VIM
+Plug 'junegunn/vim-easy-align'      " Quickly Align Code
 Plug 'tpope/vim-surround'           " Change surrounding character with ease
 Plug 'tpope/vim-endwise'            " Automatically add ending word
 Plug 'tpope/vim-repeat'             " Repeat.vim: enable repeating supported plugin maps with .
+Plug 'tpope/vim-obsession'          " Continuously updated session files
+Plug 'tpope/vim-fugitive'           " Control git in vim
 Plug 'terryma/vim-multiple-cursors' " Add multiple cursors functionality like Sublime
 Plug 'terryma/vim-expand-region'    " Visually select increasingly larger regions of text using the same key combination
 Plug 'kien/rainbow_parentheses.vim' " Mark a serie of parentheses with different colors
-Plug 'junegunn/vim-easy-align'      " Quickly Align Code
-Plug 'tpope/vim-fugitive'           " Control git in vim
 Plug 'csscomb/vim-csscomb'          " Tool for sorting CSS properties in specific order
+Plug 'mbbill/undotree'              " The ultimate undo history visualizer for VIM
 Plug 'sjl/gundo.vim'                " Graph your Vim undo tree in style
 " }}}
-"
-" Add plugins to &runtimepath
+
 call plug#end()
+
 " vim:foldmethod=marker:foldlevel=0

@@ -8,7 +8,7 @@ endif
 
 set background=dark                 " Using dark background while writing code
 set termguicolors                   " Using True Colors
-syntax enable                           " Set syntax on by default
+syntax enable                       " Set syntax on by default
 colorscheme onedark                 " A dark Vim color scheme inspired by Atom's One Dark syntax theme.
 let g:onedark_terminal_italics = 1  " Enable using italic character
 
@@ -45,7 +45,7 @@ set nobackup          " Do not backup
 set nowb
 "
 " }}}
-"
+
 " Presentation {{{
 set cursorline      " Highlight current line
 set number          " Show line number
@@ -103,7 +103,7 @@ hi GitGutterAdd guifg=#6b9c6e guibg=NONE
 "GitGutterDeleteLine       " default: links to DiffDelete
 "GitGutterChangeDeleteLine " default: links to GitGutterChangeLineDefault, i.e. DiffChange
 " }}}
-"
+
 " Tabs, Spaces & Whitespace {{{
 set tabstop=2     " Set tab to equal 2 spaces.
 set expandtab     " Expand tabs into spaces.
@@ -121,8 +121,6 @@ set nojoinspaces  " Use one space, not two, after punctuation.
 
 " Better Whitespace Settings
 highlight ExtraWhitespace ctermbg=red guibg=#C80000
-nmap <leader>tw  :ToggleWhitespace<CR>
-nmap <leader>cw  :StripWhitespace<CR>
 " }}}
 
 " Keymapping {{{
@@ -168,6 +166,9 @@ nnoremap <silent> <leader>p :set paste!<CR>
 " CTags
 nnoremap <F5> :!ctags -R<CR>
 
+" Start tracking Vim session
+map <leader>o :Obsession<CR>
+
 " move to beginning/end of line
 nnoremap B ^
 nnoremap E $
@@ -176,7 +177,7 @@ nnoremap $ <nop>
 nnoremap ^ <nop>
 
 " }}}
-"
+
 " Tab Navigation {{{
 map <Leader>tn :tabnew<CR>          " Easily create a new tab.
 map <Leader>tc :tabclose<CR>        " Easily close a tab.
@@ -194,7 +195,7 @@ au TabLeave * let g:lasttab = tabpagenr()
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 " }}}
-"
+
 " UI Layouts & Windows Management {{{
 " Windows Managements
 " Windows Split
@@ -219,7 +220,7 @@ nnoremap <C-H> <C-W><C-H>
 " distributions) as described in this comment: https://github.com/neovim/neovim/issues/2048#issuecomment-78045837
 nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 " }}}
-"
+
 " Search {{{
 set hlsearch                             " Enable Highlight Search
 set incsearch                            " Highlight while search
@@ -230,7 +231,7 @@ set grepformat=%f:%l:%c:%m
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
 " }}}
-"
+
 " Foldings {{{
 " Space open/closes folds
 nnoremap <space> za
@@ -240,7 +241,7 @@ set foldnestmax=5     " Do not nest more than 5 folds.
 set foldlevelstart=10 " Open most folds by default
 set viewoptions=folds " Remember folds
 " }}}
-"
+
 " Misc {{{
 " Autocomplete with dictionary words when spell check is on
 set complete+=kspell
@@ -266,9 +267,26 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 
 " }}}
+
+" Markdown {{{
 "
+" Enable TOC window auto-fit
+let g:vim_markdown_toc_autofit = 1
+
+" Do not conceal [link text](link url) as just link text
+let g:vim_markdown_conceal = 0
+
+" Highlight YAML front matter as used by Jekyll or Hugo.
+let g:vim_markdown_frontmatter = 1
+
+" Adjust new list item indent
+let g:vim_markdown_new_list_item_indent = 2
+"
+" }}}
+
 " Autocommand {{{
 if has("autocmd")
+
   " Enable file type detection
 	au BufWinLeave * silent! mkview
 	au BufWinEnter * silent! loadview
@@ -277,8 +295,7 @@ if has("autocmd")
 	au VimResized * exe "normal! \<c-w>="
 
 	" Strip trailing whitespace.
-	au BufWritePre,FileWritePre,FileAppendPre,FilterWritePre *
-			\ call StripTrailingWhitespace()
+	au BufWritePre,FileWritePre,FileAppendPre,FilterWritePre * StripWhitespace
 
   " Treat .json files as .js
   au BufNewFile,BufRead *.json setfiletype json syntax=javascript
@@ -310,7 +327,7 @@ if has("autocmd")
   " Mardown Settings
 
   " Sppellchecking for Markdown
-  "au FileType markdown setlocal spell
+  au FileType markdown setlocal spell
 
   " Treat .md files as Markdown
   au BufNewFile,BufRead *.md setlocal filetype=markdown
@@ -322,31 +339,155 @@ if has("autocmd")
   au FileType markdown setlocal textwidth=100
 
   " Fenced-in Languages
-  let g:markdown_fenced_languages = ['javascript', 'ruby', 'sh', 'yaml', 'javascript', 'html', 'vim', 'coffee', 'json', 'diff']
+  let g:markdown_fenced_languages = [
+    \ 'javascript',
+    \ 'ruby',
+    \ 'sh',
+    \ 'yaml',
+    \ 'javascript',
+    \ 'html',
+    \ 'vim',
+    \ 'coffee',
+    \ 'json',
+    \ 'diff']
 
   " Map bc to run CSScomb. bc stands for beautify css
   autocmd FileType css noremap <buffer> <leader>bc :CSScomb<CR>
 
 endif
 " }}}
-"
-" Markdown {{{
-"
-" Enable TOC window auto-fit
-let g:vim_markdown_toc_autofit = 1
 
-" Do not conceal [link text](link url) as just link text
-let g:vim_markdown_conceal = 0
+" Plugin Settings
 
-" Highlight YAML front matter as used by Jekyll or Hugo.
-let g:vim_markdown_frontmatter = 1
+" FZF Settings {{{
+" Fuzzy-find Files
+map  <C-p> :Files<cr>
+nmap <C-p> :Files<cr>
 
-" Adjust new list item indent
-let g:vim_markdown_new_list_item_indent = 2
+" Line matching
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Setup  window using a Vim command
+let g:fzf_layout = { 'window': 'enew' }
+let g:fzf_layout = { 'window': '-tabnew' }
+
+" This is the default extra key bindings
+let g:fzf_action = { 'enter': 'tab split'}
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors = {
+  \ 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" File preview using Highlight
+let g:fzf_files_options =
+  \ '--preview "(highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 "
 " }}}
+
+" NERDTree {{{
 "
-" Plugin Settings {{{
+" Map Leader F to show file in NERDTree
+nmap <Leader>f :NERDTreeFind<CR>
+let g:NERDTreeWinSize=40
+let g:NERDTreeShowHidden=1
+let g:NERDTreeShowLineNumbers=0
+let g:NERDTreeMinimalUI=1
+let g:NERDTreeCascadeSingleChildDir=0
+let g:NERDTreeHighlightCursorline=1
+
+" }}}
+
+" NERDTree Tabs {{{
+
+" Map Leader t to toggle NERDTree
+nmap <Leader>t :NERDTreeTabsToggle<CR>
+
+" Run NERDTreeTabs on console vim startup
+let g:nerdtree_tabs_open_on_console_startup = 2
+"
+" Automatically find and select currently opened file in NERDTree.
+let g:nerdtree_tabs_autofind = 1
+"
+" On startup, focus NERDTree if opening a directory, focus file if opening a file. (When set to 2, always focus file window after startup).
+let g:nerdtree_tabs_smart_startup_focus = 1
+"
+" Open NERDTree on new tab creation (if NERDTree was globally opened by :NERDTreeTabsToggle)
+let g:nerdtree_tabs_open_on_new_tab = 1
+
+" When switching into a tab, make sure that focus is on the file window, not in the NERDTree window.
+let g:nerdtree_tabs_focus_on_files = 1
+
+" }}}
+
+" NERDTres File highlighting {{{
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+  exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+  exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+" HTML
+call NERDTreeHighlightFile('jade', 'green', 'none', '#719c6e', 'none')
+call NERDTreeHighlightFile('html', 'yellow', 'none', '#f0f0f0', 'none')
+call NERDTreeHighlightFile('haml', 'green', 'none', '#719c6e', 'none')
+
+" Shell
+call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', 'none')
+call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', 'none')
+call NERDTreeHighlightFile('gitconfig', 'Gray', 'none', '#686868', 'none')
+call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', 'none')
+
+" Programming Languages
+call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', 'none')
+call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', 'none')
+call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', 'none')
+call NERDTreeHighlightFile('rb', 'Magenta', 'none', '#ff00ff', 'none')
+
+" Systems
+call NERDTreeHighlightFile('ini', 'yellow', 'none', '#f0f0f0', 'none')
+call NERDTreeHighlightFile('config', 'yellow', 'none', '#f0f0f0', 'none')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', '#f0f0f0', 'none')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', '#f0f0f0', 'none')
+call NERDTreeHighlightFile('ds_store', 'Gray', 'none', '#686868', 'none')
+
+" Text
+call NERDTreeHighlightFile('json', 'yellow', 'none', '#f0f0f0', 'none')
+call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', 'none')
+
+" CSS
+call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', 'none')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', 'none')
+" }}}
+
+" NERD Commenter {{{
+let g:NERDSpaceDelims = 1            " Add spaces after comment delimiters by default
+let g:NERDCompactSexyComs = 1        " Use compact syntax for prettified multi-line comments
+let g:NERDDefaultAlign = 'left'      " Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDAltDelims_java = 1         " Set a language to use its alternate delimiters by default
+let g:NERDCommentEmptyLines = 1      " Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDTrimTrailingWhitespace = 1 " Enable trimming of trailing whitespace when uncommenting
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } } " Add your own custom formats or override the defaults
 " }}}
 
 "Vim Airline {{{
@@ -354,7 +495,11 @@ let g:airline_powerline_fonts = 1                 " Enable using powerline font
 let g:airline#extensions#tabline#enabled = 1      " Enable Tab line
 let g:airline#extensions#tabline#show_buffers = 0 " Do not show buffer in tab bar
 let g:airline#extensions#tabline#fnamemod = ':t'  " Show just the filename
-let g:airline_theme='onedark'
+let g:airline_theme='onedark'                     " Set airline theme
+
+"Integration with vim-obsession
+let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
+
 " }}}
 
 " Code Completion.{{{
@@ -387,13 +532,12 @@ nmap <Leader>/ :Goyo<CR>
 let g:minimap_highlight='Visual'  " Highlight current section
 " }}}
 
-" CtrlP Search {{{
-let g:ctrlp_max_files=0                                               " Remove limit files to search
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|^.git$\'         " Filtering garbage out of CtrlP
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10' " Order matching files from bottom to top, limit 10 results
-let g:ctrlp_switch_buffer = 0                                         " Always open files in new buffers
-let g:ctrlp_working_path_mode = 0                                     " Change the working directory during a Vim session
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'        " Make CtrlP use Ag (The Silver Searcher) search engine for better performance(faster)
+" Vim Peekaboo {{{
+let g:peekaboo_window = 'vertical botright 60new' " Default peekaboo window
+let g:peekaboo_compact = 0                        " Compact display; do not display the names of the register groups
+" let g:peekaboo_delay = 0                          " Delay opening of peekaboo window (in ms. default: 0)
+" let g:peekaboo_prefix = '<leader>'                " Prefix for the peekaboo key mapping (default: '')
+" let g:peekaboo_ins_prefix = '<c-x>'               " Prefix for CTRL-R insert key mapping (default: '')
 " }}}
 
 " Bufferline {{{
@@ -455,67 +599,6 @@ vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 " }}}
 
-" NERDTree {{{
-let g:NERDTreeWinSize = 35 " Set NERDTree Windows Size
-nmap <Leader>t :NERDTreeToggle<CR> " Mapp Ctrl t to toggle NERDTree
-nmap <Leader>f :NERDTreeFind<CR>   " Mapp Shift F to show file in NERDTree
-" }}}
-
-" NERDTree Tabs {{{
-let g:nerdtree_tabs_open_on_console_startup = 0 " Run NERDTreeTabs on console vim startup
-let g:nerdtree_tabs_autoclose = 0               " Do not close current tab if there is only one window in it and it's NERDTree
-let g:nerdtree_tabs_autofind = 0                " Automatically find and select currently opened file in NERDTree.
-" }}}
-
-" NERDTress File highlighting {{{
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-  exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-  exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
-
-" HTML
-call NERDTreeHighlightFile('jade', 'green', 'none', '#719c6e', 'none')
-call NERDTreeHighlightFile('html', 'yellow', 'none', '#f0f0f0', 'none')
-call NERDTreeHighlightFile('haml', 'green', 'none', '#719c6e', 'none')
-
-" Shell
-call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', 'none')
-call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', 'none')
-call NERDTreeHighlightFile('gitconfig', 'Gray', 'none', '#686868', 'none')
-call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', 'none')
-
-" Programming Languages
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', 'none')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', 'none')
-call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', 'none')
-call NERDTreeHighlightFile('rb', 'Magenta', 'none', '#ff00ff', 'none')
-
-" Systems
-call NERDTreeHighlightFile('ini', 'yellow', 'none', '#f0f0f0', 'none')
-call NERDTreeHighlightFile('config', 'yellow', 'none', '#f0f0f0', 'none')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', '#f0f0f0', 'none')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', '#f0f0f0', 'none')
-call NERDTreeHighlightFile('ds_store', 'Gray', 'none', '#686868', 'none')
-
-" Text
-call NERDTreeHighlightFile('json', 'yellow', 'none', '#f0f0f0', 'none')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', 'none')
-
-" CSS
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', 'none')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', 'none')
-" }}}
-
-" Nerd Commenter {{{
-let g:NERDSpaceDelims = 1            " Add spaces after comment delimiters by default
-let g:NERDCompactSexyComs = 1        " Use compact syntax for prettified multi-line comments
-let g:NERDDefaultAlign = 'left'      " Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDAltDelims_java = 1         " Set a language to use its alternate delimiters by default
-let g:NERDCommentEmptyLines = 1      " Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDTrimTrailingWhitespace = 1 " Enable trimming of trailing whitespace when uncommenting
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } } " Add your own custom formats or override the defaults
-" }}}
-"
 " Indent Guide {{{
 let g:indent_guides_auto_colors = 1
 let g:indent_guides_guide_size  = 1
@@ -525,7 +608,7 @@ hi IndentGuidesEven ctermbg=green guibg=green
 nmap <silent> <Leader>l <Plug>IndentGuidesToggle
 " }}}
 
-" Gitgutter Settings {{{
+" Gitgutter {{{
 let g:gitgutter_enabled            = 1
 let g:gitgutter_signs              = 1
 let g:gitgutter_highlight_lines    = 0
@@ -555,14 +638,5 @@ let g:rbpt_colorpairs = [
   \ ['red',         'firebrick3'],
   \ ]
 " }}}
-"
-" Custom Functions {{{
-function! StripTrailingWhitespace()
-  if !&binary && &modifiable && &filetype != 'diff'
-    let l:winview = winsaveview()
-    %s/\s\+$//e
-    let @/=''
-    call winrestview(l:winview)
-  endif
-endfunction
+
 " vim:foldmethod=marker:foldlevel=0
