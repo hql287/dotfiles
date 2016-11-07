@@ -1,71 +1,73 @@
 call plug#begin('~/.vim/bundle')
 
-" Display {{{
-Plug 'joshdick/onedark.vim'            " A dark Vim color scheme inspired by Atom's One Dark syntax theme.<Paste>
-Plug 'ntpeters/vim-better-whitespace'  " Better whitespace highlighting for Vim
-Plug 'severin-lemaignan/vim-minimap'   " A Sublime-like minimap for VIM, based on the Drawille console-based drawing library
-Plug 'airblade/vim-gitgutter'          " Add git changes symbols to gutter
-Plug 'vim-airline/vim-airline'         " Lean & mean status/tabline for vim that's light as air
-Plug 'vim-airline/vim-airline-themes'  " A collection of Airline theme
-Plug 'nathanaelkane/vim-indent-guides' " Visually displaying indent levels in code
-Plug 'SimpylFold'                      " No-BS Python code folding for Vim
-Plug 'guns/xterm-color-table.vim'
+" Languages {{{
+Plug 'cakebaker/scss-syntax.vim' " Syntax file for scss
+Plug 'ekalinin/Dockerfile.vim'   " Vim syntax file & snippets for Docker's Dockerfile
+Plug 'elzr/vim-json'             " A better JSON for Vim
+Plug 'nelsyeung/twig.vim'        " Twig syntax
+Plug 'plasticboy/vim-markdown'   " Markdown Vim Mode
+Plug 'sheerun/vim-polyglot'      " A solid language pack for Vim.
+Plug 'tpope/vim-git'             " Vim Git runtime files
+Plug 'tpope/vim-rails'           " Ruby on Rails power tools
+Plug 'vim-ruby/vim-ruby'         " Vim/Ruby Configuration Files
 " }}}
 
-" Navigate & Search {{{
-Plug 'scrooloose/nerdtree'                " Files Explorer
-Plug 'scrooloose/nerdcommenter'           " Vim plugin for intensely orgasmic commenting
-Plug 'jistr/vim-nerdtree-tabs'            " NERDTree and tabs together in Vim, painlessly
-Plug 'tmux-plugins/vim-tmux'              " Make editing tmux.conf easier
-Plug 'tmux-plugins/vim-tmux-focus-events' " Make terminal vim and tmux work better together.
-Plug 'junegunn/fzf.vim'                   " Fzf Wrapper for Vim
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Fuzzy Finder wittern in Go
-Plug 'Xuyuanp/nerdtree-git-plugin'        " Showing changes in Nerdtree
-Plug 'majutsushi/tagbar'                  " Vim plugin that displays tags in a window, ordered by scope
-Plug 'mileszs/ack.vim'                    " Integrate Ack
-Plug 'easymotion/vim-easymotion'          " Search Replacement
-Plug 'christoomey/vim-tmux-navigator'     " Seamless navigation between tmux panes and vim splits
-" }}}
-
-" Autocomple {{{
+" Completion {{{
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Autocompletion framework for Neovim
 Plug 'SirVer/ultisnips'                                       " Snippet Engine
 Plug 'honza/vim-snippets'                                     " Snippets Source
 Plug 'hungle88/vim-craft-snippets'                            " Craft CMS snippets
+Plug 'mattn/emmet-vim'                                        " Emmet for Vim
+" }}}
+"
+" Code Display {{{
+Plug 'nathanaelkane/vim-indent-guides' " A Vim plugin for visually displaying indent levels in code
+Plug 'ap/vim-css-color'                " Preview colours in source code while editing
+Plug 'joshdick/onedark.vim'            " A dark Vim color scheme inspired by Atom's One Dark syntax theme.<Paste>
+Plug 'kien/rainbow_parentheses.vim'    " Mark a serie of parentheses with different colors
 " }}}
 
-" Syntax {{{
-Plug 'sheerun/vim-polyglot'                    " A solid language pack for Vim.
-Plug 'cakebaker/scss-syntax.vim'               " Syntax file for scss
-Plug 'ap/vim-css-color'                        " Preview colours in source code while editing
-Plug 'neomake/neomake'                         " A plugin for asynchronous :make using Neovim's job-control functionality
-Plug 'vim-ruby/vim-ruby'                       " Vim/Ruby Configuration Files
-Plug 'tpope/vim-rails'                         " Ruby on Rails power tools
-Plug 'tpope/vim-git'                           " Vim Git runtime files
+" Integrations {{{
+Plug 'christoomey/vim-tmux-navigator'     " Seamless navigation between tmux panes and vim splits
+Plug 'junegunn/fzf.vim'                   " Fzf Wrapper for Vim
+Plug 'mileszs/ack.vim'                    " Integrate Ack
+Plug 'scrooloose/nerdcommenter'           " Vim plugin for intensely orgasmic commenting
+Plug 'tmux-plugins/vim-tmux'              " Make editing tmux.conf easier
+Plug 'tmux-plugins/vim-tmux-focus-events' " Make terminal vim and tmux work better together.
+Plug 'tpope/vim-fugitive'                 " Control git in vim
+Plug 'Xuyuanp/nerdtree-git-plugin'        " Showing changes in Nerdtree
+" }}}
+"
+" Interface {{{
+Plug 'airblade/vim-gitgutter'                  " Add git changes symbols to gutter
+Plug 'jistr/vim-nerdtree-tabs'                 " NERDTree and tabs together in Vim, painlessly
+Plug 'junegunn/vim-peekaboo'                   " Show contents of the registers.
+Plug 'scrooloose/nerdtree'                     " Files Explorer
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " Extra syntax and highlight for nerdtree files
-Plug 'nelsyeung/twig.vim'                      " Twig syntax
-Plug 'plasticboy/vim-markdown'                 " Markdown Vim Mode
-Plug 'ekalinin/Dockerfile.vim'                 " Vim syntax file & snippets for Docker's Dockerfile
+Plug 'vim-airline/vim-airline'                 " Lean & mean status/tabline for vim that's light as air
+Plug 'vim-airline/vim-airline-themes'          " A collection of Airline theme
+Plug 'rhysd/clever-f.vim'                      " Extended f, F, t and T key mappings for Vim.
 " }}}
-
-" Utilities {{{
-Plug 'junegunn/goyo.vim'            " Distraction Free Writing in Vim
-Plug 'junegunn/vim-peekaboo'        " Show contents of the registers.
-Plug 'junegunn/limelight.vim'       " Hyperfocus-writing in Vim
-Plug 'junegunn/vim-easy-align'      " Quickly Align Code
-Plug 'tpope/vim-surround'           " Change surrounding character with ease
-Plug 'tpope/vim-endwise'            " Automatically add ending word
-Plug 'tpope/vim-repeat'             " Repeat.vim: enable repeating supported plugin maps with .
-Plug 'tpope/vim-obsession'          " Continuously updated session files
-Plug 'tpope/vim-fugitive'           " Control git in vim
-Plug 'terryma/vim-multiple-cursors' " Add multiple cursors functionality like Sublime
-Plug 'terryma/vim-expand-region'    " Visually select increasingly larger regions of text using the same key combination
-Plug 'kien/rainbow_parentheses.vim' " Mark a serie of parentheses with different colors
-Plug 'csscomb/vim-csscomb'          " Tool for sorting CSS properties in specific order
-Plug 'mbbill/undotree'              " The ultimate undo history visualizer for VIM
-Plug 'sjl/gundo.vim'                " Graph your Vim undo tree in style
+"
+" Commands {{{
+Plug 'easymotion/vim-easymotion'                                  " Search Replacement
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Fuzzy Finder wittern in Go
+Plug 'junegunn/vim-easy-align'                                    " Quickly Align Code
+Plug 'neomake/neomake'                                            " A plugin for asynchronous :make using Neovim's job-control functionality
+Plug 'ntpeters/vim-better-whitespace'                             " Better whitespace highlighting for Vim
+Plug 'terryma/vim-multiple-cursors'                               " Add multiple cursors functionality like Sublime
+Plug 'tpope/vim-repeat'                                           " Enable repeating supported plugin maps with .
+Plug 'tpope/vim-surround'                                         " Change surrounding character with ease
+Plug 'AndrewRadev/splitjoin.vim'                                  " A vim plugin that simplifies the transition between multiline and single-line code
+" }}}
+"
+" Others {{{
+Plug 'terryma/vim-expand-region'   " Visually select increasingly larger regions of text using the same key combination
+Plug 'tpope/vim-endwise'           " Automatically add ending word
+Plug 'tpope/vim-obsession'         " Continuously updated session files
+Plug 'guns/xterm-color-table.vim'  " All 256 xterm colors with their RGB equivalents, right in Vim!
+Plug 'esneider/YUNOcommit.vim'     " Y U NO commit after so many writes???
 " }}}
 
 call plug#end()
-
 " vim:foldmethod=marker:foldlevel=0
