@@ -11,6 +11,8 @@ set termguicolors                   " Using True Colors
 syntax enable                       " Set syntax on by default
 colorscheme onedark                 " A dark Vim color scheme inspired by Atom's One Dark syntax theme.
 let g:onedark_terminal_italics = 1  " Enable using italic character
+" Set the color of non text characters to be the same as the background color
+hi NonText guifg=bg
 
 " Enable using true color in Neovim
 " For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
@@ -43,7 +45,6 @@ set noswapfile        " Stop vim from creating automatic backup ..
 set novisualbell      " Do not show visual bell
 set nobackup          " Do not backup
 set nowb
-"
 " }}}
 
 " Presentation {{{
@@ -146,13 +147,13 @@ map <leader>b :tabedit ~/.vimrc.bundles<CR>
 map <leader>mx :tabedit ~/.tmux.conf<CR>
 
 " Quick Save
-nmap <silent> <S-s> :w!<CR>
+nnoremap <S-s> :w<CR>
 
 " Saves the file (handling the permission-denied error)
 cmap w!! w !sudo tee % >/dev/null
 
-" Remove Sarch Hightlight
-nmap <silent> <S-h> :nohl<CR>
+" Select all text
+noremap vA ggVG
 
 " Toggle Relative Number
 nnoremap <silent> <leader>nb :set relativenumber!<CR>
@@ -185,6 +186,17 @@ noremap <Leader>tm :tabmove<CR>     " Easily move a tab.
 noremap <Leader>tn :tabnext<CR>     " Easily go to next tab.
 noremap <Leader>tp :tabprevious<CR> " Easily go to previous tab.
 
+" Switch between tabs
+nmap <leader>1 1gt
+nmap <leader>2 2gt
+nmap <leader>3 3gt
+nmap <leader>4 4gt
+nmap <leader>5 5gt
+nmap <leader>6 6gt
+nmap <leader>7 7gt
+nmap <leader>8 8gt
+nmap <leader>9 9gt
+
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
 nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
@@ -202,6 +214,12 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " set winwidth=60
 " set winheight=40
 " :silent! set winminheight=20
+"
+"" Creating splits with empty buffers in all directions
+nnoremap <Leader>hn :leftabove  vnew<CR>
+nnoremap <Leader>ln :rightbelow vnew<CR>
+nnoremap <Leader>kn :leftabove  new<CR>
+nnoremap <Leader>jn :rightbelow new<CR>
 
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
@@ -228,16 +246,23 @@ set ignorecase                           " Case Insensitivity Pattern Matching
 set smartcase                            " Overrides ignorecase if pattern contains upcase
 set grepprg=ack\ --nogroup\ --column\ $* " Make grep use ack instead
 set grepformat=%f:%l:%c:%m
+
+" Keep search results at the center of screen
+nmap n nzz
+nmap N Nzz
+nmap * *zz
+nmap # #zz
+nmap g* g*zz
+nmap g# g#zz
+
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
 " }}}
 
 " Foldings {{{
-" Space open/closes folds
-nnoremap <space> za
 set foldenable        " Enable folding.
-set foldmethod=indent " Syntax dictates folding.
-set foldnestmax=5     " Do not nest more than 5 folds.
+set foldmethod=manual " Syntax dictates folding.
+set foldnestmax=10    " Do not nest more than 5 folds.
 set foldlevelstart=10 " Open most folds by default
 set viewoptions=folds " Remember folds
 " }}}
@@ -286,57 +311,24 @@ let g:vim_markdown_new_list_item_indent = 2
 
 " Autocommand {{{
 if has("autocmd")
-
   " Enable file type detection
 	au BufWinLeave * silent! mkview
 	au BufWinEnter * silent! loadview
 
+  " Parse content between the ---s as comment. Make YML files look better
+  au BufNewFile,BufRead,BufWrite *.md syntax match Comment /\%^---\_.\{-}---$/
 	" Resize splits when the window is resized.
 	au VimResized * exe "normal! \<c-w>="
 
-	" Strip trailing whitespace.
-	au BufWritePre,FileWritePre,FileAppendPre,FilterWritePre * StripWhitespace
-
-  " Treat .json files as .js
-  au BufNewFile,BufRead *.json setfiletype json syntax=javascript
-
-  " Automatically wrap at 80 characters for Markdown
-  au BufRead,BufNewFile *.md setlocal textwidth=80
-
-  " Automatically wrap at 72 characters and spell check git commit messages
-  au FileType gitcommit setlocal textwidth=72
-  au FileType gitcommit setlocal spell
-
-  " Remember last position in file
-  au BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-
-  " Allow stylesheets to autocomplete hyphenated words
-  au FileType css,scss,sass setlocal iskeyword+=-
-
-  " Autoload craft.snippets when editing *.twig files
-  autocmd FileType twig UltiSnipsAddFiletypes craft
-
-  " Code Folding
-  " In order for SimpylFold to be properly loaded in certain cases
-  autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-  autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+	au BufWritePre,FileWritePre,FileAppendPre,FilterWritePre * StripWhitespace " Strip trailing whitespace.
+  au BufNewFile,BufRead *.json setfiletype json syntax=javascript            " Treat .json files as .js
+  au FileType twig UltiSnipsAddFiletypes craft                               " Autoload craft.snippets when editing *.twig files
 
   " Mardown Settings
-
-  " Sppellchecking for Markdown
-  au FileType markdown setlocal spell
-
-  " Treat .md files as Markdown
-  au BufNewFile,BufRead *.md setlocal filetype=markdown
-
-  " Parse content between the ---s as comment. Make YML files look better
-  au BufNewFile,BufRead,BufWrite *.md syntax match Comment /\%^---\_.\{-}---$/
-
-  " Set Markdown Textwidth
-  au FileType markdown setlocal textwidth=100
+  au BufNewFile,BufRead *.md setlocal filetype=markdown " Treat .md files as Markdown
+  au BufRead,BufNewFile *.md setlocal textwidth=80      " Automatically wrap at 80 characters for Markdown
+  au FileType markdown setlocal textwidth=100           " Set Markdown Textwidth
+  au FileType markdown setlocal spell                   " Sppellchecking for Markdown
 
   " Fenced-in Languages
   let g:markdown_fenced_languages = [
@@ -351,13 +343,106 @@ if has("autocmd")
     \ 'json',
     \ 'diff']
 
-  " Map bc to run CSScomb. bc stands for beautify css
-  autocmd FileType css noremap <buffer> <leader>bc :CSScomb<CR>
+  " Automatically wrap at 72 characters and spell check git commit messages
+  " au FileType gitcommit setlocal textwidth=72
+  " au FileType gitcommit setlocal spell
 
+  " Remember last position in file
+  " au BufReadPost *
+  "   \ if line("'\"") > 0 && line("'\"") <= line("$") |
+  "   \   exe "normal g`\"" |
+  "   \ endif
+
+  " Allow stylesheets to autocomplete hyphenated words
+  " au FileType css,scss,sass setlocal iskeyword+=-
+
+  " Code Folding
+
+  " In order for SimpylFold to be properly loaded in certain cases
+  " au BufWinLeave *.py setlocal foldexpr< foldmethod<
+
+  " Use Emmet on HTML & CSS only
+  " au FileType html,css EmmetInstall
 endif
 " }}}
 
+"" Cursor configuration {{{
+" ====================================================================
+" Use a blinking upright bar cursor in Insert mode, a solid block in normal
+" and a blinking underline in replace mode
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+  let &t_SI = "\<Esc>[5 q"
+  let &t_SR = "\<Esc>[3 q"
+  let &t_EI = "\<Esc>[2 q"
+" }}}
+
 " Plugin Settings
+" Bufferline {{{
+let g:bufferline_echo = 1                  " Denotes whether bufferline should automatically echo to the command bar
+let g:bufferline_active_buffer_left = '['  " The separator used on the left side of a buffer
+let g:bufferline_active_buffer_right = ']' " The separator used on the right side of a buffer
+let g:bufferline_modified = '+'            " The symbol to denote that a buffer is modified
+let g:bufferline_show_bufnr = 1            " Denotes whether buffer numbers should be displayed
+let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'startify'] " Better Line Number
+" }}}
+
+" Code Completion.{{{
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#file#enable_buffer_path = 1
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+" Ultisnips
+" Trigger configuration.
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+
+" }}}
+
+" Easy Motion {{{
+" Replace default Vim search with EasyMotion n-character search motion
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+let g:EasyMotion_smartcase = 1        " This setting makes EasyMotion work similarly to Vim's smartcase option for global searches
+let g:EasyMotion_use_smartsign_us = 1 " With this option set, v will match both v and V, but V will match V only. Default: 0. Works with US layout
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+
+" 2-character search motion
+nmap <Leader><Leader>s <Plug>(easymotion-s2)
+nmap <Leader><Leader>t <Plug>(easymotion-t2)
+
+" Within line motion
+" Every motion also has variants that are restricted to just the current line
+" This can be helpful if you find the full search distracting or slows down vim.
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+" }}}
+
+" Easy Align {{{
+ " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+
+"Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" }}}
+
+" Emmet Vim {{{
+let g:user_emmet_mode='a'           " Only enable Insert mode functions.
+let g:user_emmet_install_global = 1 " Enable just for html/css
+let g:user_emmet_leader_key='<Tab>' " Using Tab to expand
+" }}}
 
 " FZF Settings {{{
 " Fuzzy-find Files
@@ -406,12 +491,65 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 "
 " }}}
 
+" Vim Fugitive {{{
+" Fix broken syntax highlight in gitcommit files
+" (https://github.com/tpope/vim-git/issues/12)
+let g:fugitive_git_executable = 'LANG=en_US.UTF-8 git'
+
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>ge :Gedit<CR>
+nnoremap <silent> <leader>gE :Gedit<space>
+nnoremap <silent> <leader>gr :Gread<CR>
+nnoremap <silent> <leader>gR :Gread<space>
+nnoremap <silent> <leader>gw :Gwrite<CR>
+nnoremap <silent> <leader>gW :Gwrite!<CR>
+nnoremap <silent> <leader>gq :Gwq<CR>
+nnoremap <silent> <leader>gQ :Gwq!<CR>
+
+function! ReviewLastCommit()
+  if exists('b:git_dir')
+    Gtabedit HEAD^{}
+    nnoremap <buffer> <silent> q :<C-U>bdelete<CR>
+  else
+    echo 'No git a git repository:' expand('%:p')
+  endif
+endfunction
+nnoremap <silent> <leader>g` :call ReviewLastCommit()<CR>
+
+augroup fugitiveSettings
+  autocmd!
+  autocmd FileType gitcommit setlocal nolist
+  autocmd BufReadPost fugitive://* setlocal bufhidden=delete
+augroup END
+" }}}
+
+" Gitgutter {{{
+let g:gitgutter_enabled            = 1
+let g:gitgutter_signs              = 1
+let g:gitgutter_highlight_lines    = 0
+let g:gitgutter_sign_column_always = 1
+let g:gitgutter_realtime           = 1
+let g:gitgutter_eager              = 0
+let g:gitgutter_max_signs          = 500
+" }}}
+
+" Indent Guide {{{
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_default_mapping = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'rogue']
+" }}}
+
 " NERDTree {{{
 "
 " Map Leader F to show file in NERDTree
 nmap <Leader>f :NERDTreeFind<CR>
 let g:NERDTreeWinSize=40
-let g:NERDTreeShowHidden=1
+let g:NERDTreeShowHidden=0
 let g:NERDTreeShowLineNumbers=0
 let g:NERDTreeMinimalUI=1
 let g:NERDTreeCascadeSingleChildDir=0
@@ -490,134 +628,6 @@ let g:NERDTrimTrailingWhitespace = 1 " Enable trimming of trailing whitespace wh
 let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } } " Add your own custom formats or override the defaults
 " }}}
 
-"Vim Airline {{{
-let g:airline_powerline_fonts = 1                 " Enable using powerline font
-let g:airline#extensions#tabline#enabled = 1      " Enable Tab line
-let g:airline#extensions#tabline#show_buffers = 0 " Do not show buffer in tab bar
-let g:airline#extensions#tabline#fnamemod = ':t'  " Show just the filename
-let g:airline_theme='onedark'                     " Set airline theme
-
-"Integration with vim-obsession
-let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
-
-" }}}
-
-" Code Completion.{{{
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#file#enable_buffer_path = 1
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
-" Ultisnips
-" Trigger configuration.
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-
-" }}}
-
-" Gundo - Undo tree {{{
-" nnoremap <F5> :GundoToggle<CR>
-" }}}
-
-" Goyo - Distraction Free Writing {{{
-nmap <Leader>/ :Goyo<CR>
-" }}}
-
-" Minimap {{{
-let g:minimap_highlight='Visual'  " Highlight current section
-" }}}
-
-" Vim Peekaboo {{{
-let g:peekaboo_window = 'vertical botright 60new' " Default peekaboo window
-let g:peekaboo_compact = 0                        " Compact display; do not display the names of the register groups
-" let g:peekaboo_delay = 0                          " Delay opening of peekaboo window (in ms. default: 0)
-" let g:peekaboo_prefix = '<leader>'                " Prefix for the peekaboo key mapping (default: '')
-" let g:peekaboo_ins_prefix = '<c-x>'               " Prefix for CTRL-R insert key mapping (default: '')
-" }}}
-
-" Bufferline {{{
-let g:bufferline_echo = 1                  " Denotes whether bufferline should automatically echo to the command bar
-let g:bufferline_active_buffer_left = '['  " The separator used on the left side of a buffer
-let g:bufferline_active_buffer_right = ']' " The separator used on the right side of a buffer
-let g:bufferline_modified = '+'            " The symbol to denote that a buffer is modified
-let g:bufferline_show_bufnr = 1            " Denotes whether buffer numbers should be displayed
-let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'startify'] " Better Line Number
-" }}}
-
-" SimpylFold {{{
-" Enable previewing of your folded classes' and functions'
-let g:SimpylFold_docstring_preview = 1
-
-" Enable/Disable SimpylFold
-let g:SimpylFold_fold_docstring = 0
-" }}}
-
-" Syntasitc {{{
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_html_tidy_exec = 'tidy5'
-" }}}
-
-" Easy Motion {{{
-" Replace default Vim search with EasyMotion n-character search motion
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
-let g:EasyMotion_smartcase = 1        " This setting makes EasyMotion work similarly to Vim's smartcase option for global searches
-let g:EasyMotion_use_smartsign_us = 1 " With this option set, v will match both v and V, but V will match V only. Default: 0. Works with US layout
-
-" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
-" Without these mappings, `n` & `N` works fine. (These mappings just provide
-" different highlight method and have some other features )
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
-
-" 2-character search motion
-nmap <Leader><Leader>s <Plug>(easymotion-s2)
-nmap <Leader><Leader>t <Plug>(easymotion-t2)
-
-" Within line motion
-" Every motion also has variants that are restricted to just the current line
-" This can be helpful if you find the full search distracting or slows down vim.
-map <Leader>l <Plug>(easymotion-lineforward)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map <Leader>h <Plug>(easymotion-linebackward)
-" }}}
-
-" Easy Align {{{
- " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-vmap <Enter> <Plug>(EasyAlign)
-
-"Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-" }}}
-
-" Indent Guide {{{
-let g:indent_guides_auto_colors = 1
-let g:indent_guides_guide_size  = 1
-let g:indent_guides_start_level = 2
-hi IndentGuidesOdd  ctermbg=black guibg=black
-hi IndentGuidesEven ctermbg=green guibg=green
-nmap <silent> <Leader>l <Plug>IndentGuidesToggle
-" }}}
-
-" Gitgutter {{{
-let g:gitgutter_enabled            = 1
-let g:gitgutter_signs              = 1
-let g:gitgutter_highlight_lines    = 0
-let g:gitgutter_sign_column_always = 1
-let g:gitgutter_realtime           = 0
-let g:gitgutter_eager              = 0
-let g:gitgutter_max_signs          = 500
-" }}}
-
 " Rainbow Parenthesis {{{
 let g:rbpt_colorpairs = [
   \ ['brown',       'RoyalBlue3'],
@@ -637,6 +647,40 @@ let g:rbpt_colorpairs = [
   \ ['darkred',     'DarkOrchid3'],
   \ ['red',         'firebrick3'],
   \ ]
+" }}}
+
+" Syntasitc {{{
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+let g:syntastic_html_tidy_exec = 'tidy5'
+" }}}
+
+" SplitJoin {{{
+"
+nmap <Leader>j :SplitjoinJoin<CR>
+nmap <Leader>s :SplitjoinSplit<CR>
+" }}}
+
+"Vim Airline {{{
+let g:airline_powerline_fonts = 1                 " Enable using powerline font
+let g:airline#extensions#tabline#enabled = 1      " Enable Tab line
+let g:airline#extensions#tabline#show_buffers = 0 " Do not show buffer in tab bar
+let g:airline#extensions#tabline#fnamemod = ':t'  " Show just the filename
+let g:airline_theme='onedark'                     " Set airline theme
+
+"Integration with vim-obsession
+let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
+
+" }}}
+
+" Vim Peekaboo {{{
+let g:peekaboo_window = 'vertical botright 60new' " Default peekaboo window
+let g:peekaboo_compact = 0                        " Compact display; do not display the names of the register groups
+" let g:peekaboo_delay = 0                          " Delay opening of peekaboo window (in ms. default: 0)
+" let g:peekaboo_prefix = '<leader>'                " Prefix for the peekaboo key mapping (default: '')
+" let g:peekaboo_ins_prefix = '<c-x>'               " Prefix for CTRL-R insert key mapping (default: '')
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0
