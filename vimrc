@@ -143,6 +143,9 @@ map <leader>v :tabedit ~/.vimrc<CR>
 " Quickly open .vimrc.bundles in new tab
 map <leader>b :tabedit ~/.vimrc.bundles<CR>
 
+" Quickly quit editting without save
+map <leader>q :q!<CR>
+
 " Quickly open .tmux.conf in new tab
 map <leader>mx :tabedit ~/.tmux.conf<CR>
 
@@ -176,7 +179,6 @@ nnoremap E $
 " $/^ doesn't do anything
 nnoremap $ <nop>
 nnoremap ^ <nop>
-
 " }}}
 
 " Tab Navigation {{{
@@ -294,6 +296,9 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 " }}}
 
 " Markdown {{{
+
+" Jekyll Integration.
+let g:vim_markdown_frontmatter=1
 "
 " Enable TOC window auto-fit
 let g:vim_markdown_toc_autofit = 1
@@ -307,6 +312,20 @@ let g:vim_markdown_frontmatter = 1
 " Adjust new list item indent
 let g:vim_markdown_new_list_item_indent = 2
 "
+" Fenced-in Languages
+let g:markdown_fenced_languages = [
+  \ 'javascript',
+  \ 'ruby',
+  \ 'sh',
+  \ 'yaml',
+  \ 'javascript',
+  \ 'html',
+  \ 'python',
+  \ 'bash=sh',
+  \ 'vim',
+  \ 'coffee',
+  \ 'json',
+  \ 'diff']
 " }}}
 
 " Autocommand {{{
@@ -317,35 +336,30 @@ if has("autocmd")
 
   " Parse content between the ---s as comment. Make YML files look better
   au BufNewFile,BufRead,BufWrite *.md syntax match Comment /\%^---\_.\{-}---$/
+
 	" Resize splits when the window is resized.
 	au VimResized * exe "normal! \<c-w>="
 
-	au BufWritePre,FileWritePre,FileAppendPre,FilterWritePre * StripWhitespace " Strip trailing whitespace.
-  au BufNewFile,BufRead *.json setfiletype json syntax=javascript            " Treat .json files as .js
-  au FileType twig UltiSnipsAddFiletypes craft                               " Autoload craft.snippets when editing *.twig files
+" Strip trailing whitespace on save.
+	au BufWritePre,FileWritePre,FileAppendPre,FilterWritePre * StripWhitespace
+
+  " Treat .json files as .js
+  au BufNewFile,BufRead *.json setfiletype json syntax=javascript
+
+" Autoload craft.snippets when editing *.twig files
+  au FileType twig UltiSnipsAddFiletypes craft
 
   " Mardown Settings
-  au BufNewFile,BufRead *.md setlocal filetype=markdown " Treat .md files as Markdown
-  au BufRead,BufNewFile *.md setlocal textwidth=80      " Automatically wrap at 80 characters for Markdown
-  au FileType markdown setlocal textwidth=100           " Set Markdown Textwidth
-  au FileType markdown setlocal spell                   " Sppellchecking for Markdown
+  " ============================================================================
+  au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
+  au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set textwidth=80
 
-  " Fenced-in Languages
-  let g:markdown_fenced_languages = [
-    \ 'javascript',
-    \ 'ruby',
-    \ 'sh',
-    \ 'yaml',
-    \ 'javascript',
-    \ 'html',
-    \ 'vim',
-    \ 'coffee',
-    \ 'json',
-    \ 'diff']
+  " Spellchecking for Markdown
+  au FileType markdown setlocal spell
 
   " Automatically wrap at 72 characters and spell check git commit messages
-  " au FileType gitcommit setlocal textwidth=72
-  " au FileType gitcommit setlocal spell
+  au FileType gitcommit setlocal textwidth=72
+  au FileType gitcommit setlocal spell
 
   " Remember last position in file
   " au BufReadPost *
@@ -362,11 +376,12 @@ if has("autocmd")
   " au BufWinLeave *.py setlocal foldexpr< foldmethod<
 
   " Use Emmet on HTML & CSS only
-  " au FileType html,css EmmetInstall
+  au FileType html,css EmmetInstall
+  "
 endif
 " }}}
 
-"" Cursor configuration {{{
+" Cursor configuration {{{
 " ====================================================================
 " Use a blinking upright bar cursor in Insert mode, a solid block in normal
 " and a blinking underline in replace mode
@@ -386,21 +401,17 @@ let g:bufferline_show_bufnr = 1            " Denotes whether buffer numbers shou
 let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'startify'] " Better Line Number
 " }}}
 
-" Code Completion.{{{
-" Deoplete
+" Deoplete {{{
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
+let g:deoplete#auto_completion_start_length = 1
+let g:deoplete#sources = {}
+let g:deoplete#sources._=['buffer', 'ultisnips', 'file']
 
 " For conceal markers.
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
-
-" Ultisnips
-" Trigger configuration.
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 
 " }}}
 
@@ -535,6 +546,29 @@ let g:gitgutter_realtime           = 1
 let g:gitgutter_eager              = 0
 let g:gitgutter_max_signs          = 500
 " }}}
+"
+" GoYo {{{
+" Automatically turn on Limglight when using Goyo
+autocmd! User GoyoEnter call <SID>goyo_enter()
+autocmd! User GoyoLeave call <SID>goyo_leave()
+
+function! s:goyo_enter()
+  set nolist        " Hide Invisible Characters
+  NERDTreeTabsClose " Close NERDTree Tab
+  Limelight         " Toggle Limelight
+endfunction
+
+function! s:goyo_leave()
+  set list         " Hide Invisible Characters
+  NERDTreeTabsOpen " Reopen NERDTree Tab
+  Limelight!       " Toggle Limelight
+endfunction
+" }}}
+"
+" Limelight {{{
+" Number of preceding/following paragraphs to include (default: 0)
+let g:limelight_paragraph_span = 1
+" }}}
 
 " Indent Guide {{{
 let g:indent_guides_enable_on_vim_startup = 1
@@ -542,6 +576,10 @@ let g:indent_guides_start_level = 2
 let g:indent_guides_default_mapping = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'rogue']
+" }}}
+
+" Markdown {{{
+let g:marked_app = "Marked"
 " }}}
 
 " NERDTree {{{
@@ -661,6 +699,13 @@ let g:syntastic_html_tidy_exec = 'tidy5'
 "
 nmap <Leader>j :SplitjoinJoin<CR>
 nmap <Leader>s :SplitjoinSplit<CR>
+" }}}
+"
+" Utilsnips {{{
+" Trigger configuration.
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 " }}}
 
 "Vim Airline {{{
