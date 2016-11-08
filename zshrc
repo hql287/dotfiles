@@ -1,3 +1,10 @@
+# User configuration sourced by interactive shells
+
+# Source zim
+if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
+  source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
+fi
+
 # Editors
 export EDITOR='vim'
 export VISUAL='vim'
@@ -16,3 +23,6 @@ path=(
 
 # Load FASD
 eval "$(fasd --init auto)"
+
+# Load FZF
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
