@@ -58,6 +58,7 @@ set textwidth=81    " Maximum line width before wrapping.
 set laststatus=2    " Always display status line
 set smartindent     " Smart Indent
 set showbreak=a     " Set break character
+set scrolloff=10    " Keep at least 5 lines above & below cursor position
 
 " Invisible Characters
 set list                                                 " Show invisible characters.
@@ -726,6 +727,14 @@ let g:peekaboo_compact = 0                        " Compact display; do not disp
 " let g:peekaboo_delay = 0                          " Delay opening of peekaboo window (in ms. default: 0)
 " let g:peekaboo_prefix = '<leader>'                " Prefix for the peekaboo key mapping (default: '')
 " let g:peekaboo_ins_prefix = '<c-x>'               " Prefix for CTRL-R insert key mapping (default: '')
+" }}}
+
+" Vim Move {{{
+let g:move_map_keys = 0
+nmap <S-k> <Plug>MoveLineUp
+nmap <S-j> <Plug>MoveLineDown
+vmap <S-k> <Plug>MoveBlockUp
+vmap <S-j> <Plug>MoveBlockDown
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0
