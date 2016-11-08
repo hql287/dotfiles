@@ -72,38 +72,41 @@ let &colorcolumn=join(range(81,999),",")
 let &colorcolumn="80,".join(range(120,999),",")
 
 " Highlight SignColum (Gutter)
-hi SignColumn ctermfg=118 ctermbg=NONE
-hi SignColumn guifg=#000000 guibg=NONE
+hi SignColumn ctermfg=bg ctermbg=NONE
+hi SignColumn guifg=red guibg=NONE
+
+" Set Fold Column Width
+set foldcolumn=0
 
 " Highlight Fold Column
-hi FoldColumn ctermfg=red ctermbg=black
-hi FoldColumn guifg=#628db8 guibg=black
+hi FoldColumn ctermfg=darkblue ctermbg=black
+hi FoldColumn guifg=#628db8 guibg=NONE
 
+" Folded Line
+hi Folded ctermbg=blue ctermfg=white
+hi Folded guibg=#628db8 guifg=white
 
 " Highlight the status line
 hi StatusLine   ctermfg=darkblue ctermbg=black
 hi StatusLine   ctermfg=darkblue ctermbg=black
 
 " Highlight Wildmenu Selected Item
-hi WildMenu     ctermfg=white ctermbg=darkblue
+hi WildMenu     ctermfg=white ctermbg=green
 hi WildMenu     guifg=white guibg=#6b9c6e
 
+" Hide tilde signs on blank lines
+hi! EndOfBuffer ctermbg=bg ctermfg=bg guibg=bg guifg=bg
+
+" Vertical Split
+set fillchars+=vert:│
+hi VertSplit guifg=#444444 guibg=NONE
 
 " Set Line Number Width
 set nuw=3
 
-" Set Fold Column Width
-set foldcolumn=1
-highlight Folded ctermbg=blue ctermfg=white
-highlight Folded guibg=#628db8 guifg=white
-
 " Line highlights
 hi GitGutterAdd ctermfg=green ctermbg=NONE
 hi GitGutterAdd guifg=#6b9c6e guibg=NONE
-"GitGutterAddLine          " default: links to DiffAdd
-"GitGutterChangeLine       " default: links to DiffChange
-"GitGutterDeleteLine       " default: links to DiffDelete
-"GitGutterChangeDeleteLine " default: links to GitGutterChangeLineDefault, i.e. DiffChange
 " }}}
 
 " Tabs, Spaces & Whitespace {{{
@@ -572,7 +575,7 @@ let g:limelight_paragraph_span = 1
 " }}}
 
 " Indent Guide {{{
-let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_enable_on_vim_startup = 0
 let g:indent_guides_start_level = 2
 let g:indent_guides_default_mapping = 1
 let g:indent_guides_guide_size = 1
@@ -587,7 +590,7 @@ let g:marked_app = "Marked"
 "
 " Map Leader F to show file in NERDTree
 nmap <Leader>f :NERDTreeFind<CR>
-let g:NERDTreeWinSize=40
+let g:NERDTreeWinSize=30
 let g:NERDTreeShowHidden=0
 let g:NERDTreeShowLineNumbers=0
 let g:NERDTreeMinimalUI=1
