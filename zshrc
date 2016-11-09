@@ -1,28 +1,31 @@
-# User configuration sourced by interactive shells
+# Quoc Hung Le's .zshrc
 
-# Source zim
+# Source ZIM {{{
 if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
   source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
 fi
+# }}}
 
-# Editors
+# Editors Settings {{{
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
+# }}}
 
-# Set the list of directories that Zsh searches for programs.
+# PATH {{{
 path=(
-/usr/local/bin
-/usr/local/sbin
-$path
+  /usr/local/bin
+  /usr/local/sbin
+  $path
 )
 
-# Load Custom Aliases
-source ~/.dotfiles/aliases
+# }}}
 
-# Load FZF {{{
+# FZF {{{
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # }}}
+
+# ZPlug {{{
 
 # Check if zplug is installed
 if [[ ! -d ~/.zplug ]]; then
@@ -37,6 +40,9 @@ zplug "djui/alias-tips"
 
 # Enhanced CD
 zplug "b4b4r07/enhancd", use:init.sh
+
+# Custom aliases
+zplug "hungle88/dotfiles", use:aliases
 
 # Github contirbution calendar
 zplug "k4rthik/git-cal", as:command
@@ -76,3 +82,5 @@ fi
 zplug load
 
 # }}}
+
+# vim:foldmethod=marker:foldlevel=0
