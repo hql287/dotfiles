@@ -19,14 +19,12 @@ Symlink the zsh startup file to the home directory. This step is important since
 $ ln -s ~/.dotfiles/zshrc ~/.zshrc
 ```
 
-**ZIM**
 If [ZIM](https://github.com/Eriner/zim) is NOT installed yet, follow the instruction on Github and then symlink ZIM config file by running the command below. This will actually override the newly created `~/.zimrc` file.
 
 ```sh
 $ ln -s ~/.dotfiles/zimrc ~/.zimrc
 ```
 
-**Zplug**
 Similarly, if [Zplug](https://github.com/zplug/zplug) is NOT installed, do it now:
 
 ```sh
