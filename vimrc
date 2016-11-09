@@ -299,39 +299,6 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 
 " }}}
 
-" Markdown {{{
-
-" Jekyll Integration.
-let g:vim_markdown_frontmatter=1
-"
-" Enable TOC window auto-fit
-let g:vim_markdown_toc_autofit = 1
-
-" Do not conceal [link text](link url) as just link text
-let g:vim_markdown_conceal = 0
-
-" Highlight YAML front matter as used by Jekyll or Hugo.
-let g:vim_markdown_frontmatter = 1
-
-" Adjust new list item indent
-let g:vim_markdown_new_list_item_indent = 2
-"
-" Fenced-in Languages
-let g:markdown_fenced_languages = [
-  \ 'javascript',
-  \ 'ruby',
-  \ 'sh',
-  \ 'yaml',
-  \ 'javascript',
-  \ 'html',
-  \ 'python',
-  \ 'bash=sh',
-  \ 'vim',
-  \ 'coffee',
-  \ 'json',
-  \ 'diff']
-" }}}
-
 " Autocommand {{{
 if has("autocmd")
   " Enable file type detection
@@ -550,7 +517,7 @@ let g:gitgutter_realtime           = 1
 let g:gitgutter_eager              = 0
 let g:gitgutter_max_signs          = 500
 " }}}
-"
+
 " GoYo {{{
 " Automatically turn on Limglight when using Goyo
 autocmd! User GoyoEnter call <SID>goyo_enter()
@@ -568,7 +535,7 @@ function! s:goyo_leave()
   Limelight!       " Toggle Limelight
 endfunction
 " }}}
-"
+
 " Limelight {{{
 " Number of preceding/following paragraphs to include (default: 0)
 let g:limelight_paragraph_span = 1
@@ -580,10 +547,6 @@ let g:indent_guides_start_level = 2
 let g:indent_guides_default_mapping = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'rogue']
-" }}}
-
-" Markdown {{{
-let g:marked_app = "Marked"
 " }}}
 
 " NERDTree {{{
@@ -704,7 +667,7 @@ let g:syntastic_html_tidy_exec = 'tidy5'
 nmap <Leader>j :SplitjoinJoin<CR>
 nmap <Leader>s :SplitjoinSplit<CR>
 " }}}
-"
+
 " Utilsnips {{{
 " Trigger configuration.
 let g:UltiSnipsExpandTrigger="<Tab>"
@@ -722,6 +685,45 @@ let g:airline_theme='onedark'                     " Set airline theme
 "Integration with vim-obsession
 let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
 
+" }}}
+
+" Vim Markdown (Plasticboy) {{{
+
+" Set header folding level
+let g:vim_markdown_folding_level = 1
+
+" Set the number of spaces of indent
+let g:vim_markdown_new_list_item_indent = 2
+"
+" Enable TOC window auto-fit
+let g:vim_markdown_toc_autofit = 1
+
+" Do not conceal [link text](link url) as just link text
+let g:vim_markdown_conceal = 0
+
+" Highlight YAML front matter as used by Jekyll or Hugo.
+let g:vim_markdown_frontmatter = 1
+"}}}
+"
+" Vim Markdown (Tpope) {{{
+" Fenced-in Languages
+" let g:markdown_fenced_languages = [
+"   \ 'javascript',
+"   \ 'ruby',
+"   \ 'sh',
+"   \ 'yaml',
+"   \ 'javascript',
+"   \ 'html',
+"   \ 'python',
+"   \ 'bash=sh',
+"   \ 'vim',
+"   \ 'coffee',
+"   \ 'json',
+"   \ 'diff']
+" }}}
+
+" Vim Markded App {{{
+let g:marked_app = "Marked"
 " }}}
 
 " Vim Peekaboo {{{
