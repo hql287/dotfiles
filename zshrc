@@ -18,7 +18,6 @@ path=(
   /usr/local/sbin
   $path
 )
-
 # }}}
 
 # FZF {{{
@@ -26,58 +25,28 @@ path=(
 # }}}
 
 # ZPlug {{{
-
 # Check if zplug is installed
 if [[ ! -d ~/.zplug ]]; then
   git clone https://github.com/zplug/zplug ~/.zplug
   source ~/.zplug/init.zsh && zplug update --self
 fi
-# Load Zplug
+
+# Load Zplug Init file
 source ~/.zplug/init.zsh
 
-# Aliases tips
-zplug "djui/alias-tips"
+zplug "Valiev/almostontop"               # Almost On Top
+zplug "b4b4r07/enhancd", use:init.sh     # Enhanced CD
+zplug "djui/alias-tips"                  # Aliases tips
+zplug "hungle88/dotfiles", use:aliases   # Custom aliases
+zplug "k4rthik/git-cal", as:command      # Github contirbution calendar
+zplug "lukechilds/zsh-nvm"               # Nvm wrapper
+zplug "plugins/extract", from:oh-my-zsh  # Extracting utility
+zplug "supercrabtree/k"                  # K is the new l, yo!
+zplug "tcnksm/docker-alias", use:zshrc   # Docker completion
+zplug "urbainvaes/fzf-marks"             # Bookmark
+zplug "voronkovich/gitignore.plugin.zsh" # Creating .gitignore files.
 
-# Enhanced CD
-zplug "b4b4r07/enhancd", use:init.sh
-
-# K is the new l, yo!
-zplug "supercrabtree/k"
-
-# Custom aliases
-zplug "hungle88/dotfiles", use:aliases
-
-# Bookmark
-zplug "urbainvaes/fzf-marks"
-
-# Github contirbution calendar
-zplug "k4rthik/git-cal", as:command
-
-# Nvm wrapper
-zplug "lukechilds/zsh-nvm"
-
-# Desktop notifications for long-running commands in zsh.
-zplug "marzocchi/zsh-notify"
-
-# Extracting utility
-zplug "plugins/extract", from:oh-my-zsh
-
-# Encoding to base64
-zplug "plugins/encode64", from:oh-my-zsh
-
-# Use lib/clipboard plugin only on Mac
-zplug "lib/clipboard", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
-
-# Docker completion
-zplug "tcnksm/docker-alias", use:zshrc
-
-# Almost On Top
-zplug "Valiev/almostontop", use:almostontop.plugin.zsh
-
-# Creating .gitignore files.
-zplug "voronkovich/gitignore.plugin.zsh", use:gitignore.plugin.zsh
-
-# Install packages that have not been installed yet
+ # Install packages that have not been installed yet
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
   if read -q; then
