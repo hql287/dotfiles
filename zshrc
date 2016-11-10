@@ -41,11 +41,23 @@ zplug "djui/alias-tips"
 # Enhanced CD
 zplug "b4b4r07/enhancd", use:init.sh
 
+# K is the new l, yo!
+zplug "supercrabtree/k"
+
 # Custom aliases
 zplug "hungle88/dotfiles", use:aliases
 
+# Bookmark
+zplug "urbainvaes/fzf-marks"
+
 # Github contirbution calendar
 zplug "k4rthik/git-cal", as:command
+
+# Nvm wrapper
+zplug "lukechilds/zsh-nvm"
+
+# Desktop notifications for long-running commands in zsh.
+zplug "marzocchi/zsh-notify"
 
 # Extracting utility
 zplug "plugins/extract", from:oh-my-zsh
@@ -55,9 +67,6 @@ zplug "plugins/encode64", from:oh-my-zsh
 
 # Use lib/clipboard plugin only on Mac
 zplug "lib/clipboard", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
-
-# Runs `ls` and `git status` after chpwd
-zplug "dbkaplun/smart-cd"
 
 # Docker completion
 zplug "tcnksm/docker-alias", use:zshrc
