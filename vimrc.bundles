@@ -1,17 +1,18 @@
 call plug#begin('~/.vim/bundle')
 
 " Languages {{{
+Plug 'StanAngeloff/php.vim'           " Up-to-date PHP syntax file
 Plug 'cakebaker/scss-syntax.vim'      " Syntax file for scss
 Plug 'ekalinin/Dockerfile.vim'        " Vim syntax file & snippets for Docker's Dockerfile
 Plug 'elzr/vim-json'                  " A better JSON for Vim
-Plug 'nelsyeung/twig.vim'             " Twig syntax
 Plug 'itspriddle/vim-marked'          " Open the current Markdown buffer in Marked.app
+Plug 'jtratner/vim-flavored-markdown' " Extends the Tim Pope's markdown
+Plug 'nelsyeung/twig.vim'             " Twig syntax
 Plug 'plasticboy/vim-markdown'        " Markdown Vim Mode
 Plug 'sheerun/vim-polyglot'           " A solid language pack for Vim.
 Plug 'tpope/vim-git'                  " Vim Git runtime files
-Plug 'jtratner/vim-flavored-markdown' " Extends the Tim Pope's markdown
-Plug 'tpope/vim-rails'                " Ruby on Rails power tools
 Plug 'tpope/vim-liquid'               " Vim Liquid runtime files with Jekyll enhancements
+Plug 'tpope/vim-rails'                " Ruby on Rails power tools
 Plug 'vim-ruby/vim-ruby'              " Vim/Ruby Configuration Files
 " }}}
 
@@ -44,8 +45,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin'        " Showing changes in Nerdtree
 " Interface {{{
 Plug 'airblade/vim-gitgutter'                  " Add git changes symbols to gutter
 Plug 'jistr/vim-nerdtree-tabs'                 " NERDTree and tabs together in Vim, painlessly
-Plug 'junegunn/goyo.vim'                       " Distraction-free writing in Vim
 Plug 'junegunn/limelight.vim'                  " Hyperfocus-writing in Vim.
+Plug 'junegunn/goyo.vim'                       " Distraction-free writing in Vim
 Plug 'junegunn/vim-peekaboo'                   " Show contents of the registers.
 Plug 'matze/vim-move'                          " Plugin to move lines and selections up and down
 Plug 'scrooloose/nerdtree'                     " Files Explorer
