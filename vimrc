@@ -305,8 +305,6 @@ if has("autocmd")
 	au BufWinLeave * silent! mkview
 	au BufWinEnter * silent! loadview
 
-  " Parse content between the ---s as comment. Make YML files look better
-  au BufNewFile,BufRead,BufWrite *.md syntax match Comment /\%^---\_.\{-}---$/
 
 	" Resize splits when the window is resized.
 	au VimResized * exe "normal! \<c-w>="
@@ -322,15 +320,18 @@ if has("autocmd")
 
   " Mardown Settings
   " ============================================================================
-  au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
-  au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set textwidth=80
+  " Set filetype as Github Markdown instead of normal markdown
+  au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
 
-  " Spellchecking for Markdown
-  au FileType markdown setlocal spell
+  au FileType markdown setlocal spell        " Spellchecking for Markdown
+  au FileType markdown setlocal wrap         " Enable text to fit within windows width
+  au FileType markdown setlocal linebreak    " Avoid wrap breaking words
+  au FileType markdown setlocal nolist       " Make sure linebreak work as expected
+  au FileType markdown setlocal showbreak=↳\ " Know where we're
+  au FileType markdown setlocal textwidth=0  " Remove text width limit
 
-  " Automatically wrap at 72 characters and spell check git commit messages
-  au FileType gitcommit setlocal textwidth=72
-  au FileType gitcommit setlocal spell
+  " Parse content between the ---s as comment. Make YML files look better
+  au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
 
   " Remember last position in file
   " au BufReadPost *
@@ -524,21 +525,33 @@ autocmd! User GoyoEnter call <SID>goyo_enter()
 autocmd! User GoyoLeave call <SID>goyo_leave()
 
 function! s:goyo_enter()
-  set nolist        " Hide Invisible Characters
-  NERDTreeTabsClose " Close NERDTree Tab
-  Limelight         " Toggle Limelight
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  set nolist
+  set listchars=
+  silent !tmux set status off
+  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  NERDTreeTabsClose
+  Limelight
 endfunction
 
 function! s:goyo_leave()
-  set list         " Hide Invisible Characters
-  NERDTreeTabsOpen " Reopen NERDTree Tab
-  Limelight!       " Toggle Limelight
+  set showmode
+  set showcmd
+  set scrolloff=5
+  set list
+  set listchars=tab:▸\ ,eol:↵,trail:⌴,extends:❯,precedes:❮
+  silent !tmux set status on
+  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  NERDTreeTabsOpen
+  Limelight!
 endfunction
 " }}}
 
 " Limelight {{{
 " Number of preceding/following paragraphs to include (default: 0)
-let g:limelight_paragraph_span = 1
+let g:limelight_paragraph_span = 3
 " }}}
 
 " Indent Guide {{{
@@ -687,7 +700,7 @@ let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', ''''
 
 " }}}
 
-" Vim Markdown (Plasticboy) {{{
+" Vim Markdown {{{
 
 " Set header folding level
 let g:vim_markdown_folding_level = 1
@@ -703,29 +716,29 @@ let g:vim_markdown_conceal = 0
 
 " Highlight YAML front matter as used by Jekyll or Hugo.
 let g:vim_markdown_frontmatter = 1
+
+" Syntax highlighting for fenced code block
+let g:vim_markdown_fenced_languages = ['csharp=cs', 'ruby=rb', 'viml=vim', 'bash=sh']
+
 "}}}
-"
-" Vim Markdown (Tpope) {{{
-" Fenced-in Languages
-" let g:markdown_fenced_languages = [
-"   \ 'javascript',
-"   \ 'ruby',
-"   \ 'sh',
-"   \ 'yaml',
-"   \ 'javascript',
-"   \ 'html',
-"   \ 'python',
-"   \ 'bash=sh',
-"   \ 'vim',
-"   \ 'coffee',
-"   \ 'json',
-"   \ 'diff']
-" }}}
 
 " Vim Markded App {{{
 let g:marked_app = "Marked"
 " }}}
 
+" Other Markdown Settings {{{
+vmap <D-j> gj
+vmap <D-k> gk
+vmap <D-4> g$
+vmap <D-6> g^
+vmap <D-0> g^
+nmap <D-j> gj
+nmap <D-k> gk
+nmap <D-4> g$
+nmap <D-6> g^
+nmap <D-0> g^
+" }}}
+"
 " Vim Peekaboo {{{
 let g:peekaboo_window = 'vertical botright 60new' " Default peekaboo window
 let g:peekaboo_compact = 0                        " Compact display; do not display the names of the register groups
