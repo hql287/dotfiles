@@ -24,6 +24,10 @@ path=(
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # }}}
 
+# PHP Brew {{{
+[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
+# }}}
+
 # ZPlug {{{
 # Check if zplug is installed
 if [[ ! -d ~/.zplug ]]; then
