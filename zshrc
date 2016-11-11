@@ -37,12 +37,11 @@ source ~/.zplug/init.zsh
 zplug "Valiev/almostontop"               # Almost On Top
 zplug "b4b4r07/enhancd", use:init.sh     # Enhanced CD
 zplug "djui/alias-tips"                  # Aliases tips
-zplug "hungle88/dotfiles", use:aliases   # Custom aliases
+zplug "hungle88/aka"                     # Custom aliases
 zplug "k4rthik/git-cal", as:command      # Github contirbution calendar
 zplug "lukechilds/zsh-nvm"               # Nvm wrapper
 zplug "plugins/extract", from:oh-my-zsh  # Extracting utility
 zplug "supercrabtree/k"                  # K is the new l, yo!
-zplug "tcnksm/docker-alias", use:zshrc   # Docker completion
 zplug "urbainvaes/fzf-marks"             # Bookmark
 zplug "voronkovich/gitignore.plugin.zsh" # Creating .gitignore files.
 
@@ -58,7 +57,6 @@ fi
 
 # Source plugins & add commands to $PATH
 zplug load
-
 # }}}
 
 # vim:foldmethod=marker:foldlevel=0
