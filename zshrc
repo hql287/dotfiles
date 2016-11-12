@@ -7,14 +7,16 @@ fi
 # }}}
 
 # Editors Settings {{{
-export EDITOR='vim'
-export VISUAL='vim'
-export PAGER='less'
-
 # If Neovim is installed
-if type nvim > /dev/null 2>&1; then
+if type nvim > /dev/null 2>&1;
+then
   export EDITOR='nvim'
+  export VISUAL='nvim'
+else
+  export EDITOR='vim'
+  export VISUAL='vim'
 fi
+export PAGER='less'
 # }}}
 
 # PATH {{{
@@ -25,15 +27,14 @@ path=(
 )
 # }}}
 
-# FZF {{{
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Custom Programs {{{
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh                 # Fzf
+[ -n "$DESK_ENV" ] && source "$DESK_ENV" || true       # Desk
+[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc # Phpbrew
 # }}}
 
-# PHP Brew {{{
-[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
-# }}}
-
-# ZPlug {{{
+# Zplug Configuration {{{
+#
 # Check if zplug is installed
 if [[ ! -d ~/.zplug ]]; then
   git clone https://github.com/zplug/zplug ~/.zplug
@@ -43,19 +44,20 @@ fi
 # Load Zplug Init file
 source ~/.zplug/init.zsh
 
-zplug "Valiev/almostontop"               # Almost On Top
-zplug "b4b4r07/enhancd", use:init.sh     # Enhanced CD
-zplug "djui/alias-tips"                  # Aliases tips
-zplug "hungle88/aka"                     # Custom aliases
-zplug "k4rthik/git-cal", as:command      # Github contirbution calendar
-zplug "lukechilds/zsh-nvm"               # Nvm wrapper
-zplug "plugins/extract", from:oh-my-zsh  # Extracting utility
-zplug "shannonmoeller/up", use:up.sh     # Quickly navigate to a parent directory via tab-completion.
-zplug "supercrabtree/k"                  # K is the new l, yo!
-zplug "urbainvaes/fzf-marks"             # Bookmark
-zplug "voronkovich/gitignore.plugin.zsh" # Creating .gitignore files.
+zplug "Valiev/almostontop"                                  # Almost On Top
+zplug "b4b4r07/enhancd", use:init.sh                        # Enhanced CD
+zplug "djui/alias-tips"                                     # Aliases tips
+zplug "hungle88/aka"                                        # Custom aliases
+zplug "k4rthik/git-cal", as:command                         # Github contirbution calendar
+zplug "lukechilds/zsh-nvm"                                  # Nvm wrapper
+zplug "plugins/extract", from:oh-my-zsh                     # Extracting utility
+zplug "shannonmoeller/up", use:up.sh                        # Quickly navigate to a parent directory via tab-completion.
+zplug "supercrabtree/k"                                     # K is the new l, yo!
+zplug "urbainvaes/fzf-marks"                                # Bookmark
+zplug "voronkovich/gitignore.plugin.zsh"                    # Creating .gitignore files.
+zplug "jamesob/desk", use:shell_plugins/zsh/desk.plugin.zsh # A lightweight workspace manager for the shell
 
- # Install packages that have not been installed yet
+# Install packages that have not been installed yet
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
   if read -q; then
