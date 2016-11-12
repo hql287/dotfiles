@@ -10,6 +10,11 @@ fi
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
+
+# If Neovim is installed
+if type nvim > /dev/null 2>&1; then
+  export EDITOR='nvim'
+fi
 # }}}
 
 # PATH {{{
@@ -45,6 +50,7 @@ zplug "hungle88/aka"                     # Custom aliases
 zplug "k4rthik/git-cal", as:command      # Github contirbution calendar
 zplug "lukechilds/zsh-nvm"               # Nvm wrapper
 zplug "plugins/extract", from:oh-my-zsh  # Extracting utility
+zplug "shannonmoeller/up", use:up.sh     # Quickly navigate to a parent directory via tab-completion.
 zplug "supercrabtree/k"                  # K is the new l, yo!
 zplug "urbainvaes/fzf-marks"             # Bookmark
 zplug "voronkovich/gitignore.plugin.zsh" # Creating .gitignore files.
