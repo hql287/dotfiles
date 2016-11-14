@@ -267,7 +267,7 @@ map <silent> <leader><cr> :noh<cr>
 
 " Foldings {{{
 set foldenable        " Enable folding.
-set foldmethod=manual " Syntax dictates folding.
+set foldmethod=syntax " Syntax dictates folding.
 set foldnestmax=10    " Do not nest more than 5 folds.
 set foldlevelstart=10 " Open most folds by default
 set viewoptions=folds " Remember folds
@@ -301,6 +301,9 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 
 " Autocommand {{{
 if has("autocmd")
+  " Run NeoMake on read and write operations
+  autocmd! BufReadPost,BufWritePost * Neomake
+
   " Enable file type detection
 	au BufWinLeave * silent! mkview
 	au BufWinEnter * silent! loadview
@@ -364,6 +367,7 @@ endif
 " }}}
 
 " Plugin Settings
+
 " Bufferline {{{
 let g:bufferline_echo = 1                  " Denotes whether bufferline should automatically echo to the command bar
 let g:bufferline_active_buffer_left = '['  " The separator used on the left side of a buffer
@@ -562,6 +566,11 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'rogue']
 " }}}
 
+" NeoMake {{{
+let g:neomake_serialize = 1
+let g:neomake_serialize_abort_on_error = 1
+" }}}
+
 " NERDTree {{{
 "
 " Map Leader F to show file in NERDTree
@@ -665,14 +674,6 @@ let g:rbpt_colorpairs = [
   \ ['darkred',     'DarkOrchid3'],
   \ ['red',         'firebrick3'],
   \ ]
-" }}}
-
-" Syntasitc {{{
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_html_tidy_exec = 'tidy5'
 " }}}
 
 " SplitJoin {{{

@@ -38,6 +38,7 @@ Plug 'mileszs/ack.vim'                    " Integrate Ack
 Plug 'scrooloose/nerdcommenter'           " Vim plugin for intensely orgasmic commenting
 Plug 'tmux-plugins/vim-tmux'              " Make editing tmux.conf easier
 Plug 'tmux-plugins/vim-tmux-focus-events' " Make terminal vim and tmux work better together.
+Plug 'bolasblack/csslint.vim'             " Vim plugin based on csslint of nodejs http://plafer.info/
 Plug 'tpope/vim-fugitive'                 " Control git in vim
 Plug 'Xuyuanp/nerdtree-git-plugin'        " Showing changes in Nerdtree
 " }}}
