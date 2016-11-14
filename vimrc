@@ -321,7 +321,7 @@ if has("autocmd")
   " Mardown Settings
   " ============================================================================
   " Set filetype as Github Markdown instead of normal markdown
-  au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
+  au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
 
   au FileType markdown setlocal spell        " Spellchecking for Markdown
   au FileType markdown setlocal wrap         " Enable text to fit within windows width
