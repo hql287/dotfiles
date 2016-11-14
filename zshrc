@@ -17,6 +17,8 @@ else
   export VISUAL='vim'
 fi
 export PAGER='less'
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 # }}}
 
 # PATH {{{
@@ -58,6 +60,7 @@ zplug "shannonmoeller/up", use:up.sh     # Quickly navigate to a parent director
 zplug "supercrabtree/k"                  # K is the new l, yo!
 zplug "urbainvaes/fzf-marks"             # Bookmark
 zplug "voronkovich/gitignore.plugin.zsh" # Creating .gitignore files.
+zplug "rupa/z", use:z.sh                 # z jump
 
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
