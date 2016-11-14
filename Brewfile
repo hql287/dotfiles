@@ -35,6 +35,8 @@ brew "sshrc"    # Bring SSH config
 brew "thefuck"             # Wtf?
 brew "the_silver_searcher" # Ag
 brew "desk"                # Workspace manager
+brew "shellcheck"          # A static analysis tool for shell scripts
+brew "ripgrep"             # Rest in peace, Grep
 # }}}
 
 # Default libs {{{
@@ -55,6 +57,7 @@ brew "mcrypt"
 brew "gmp"
 brew "libevent"
 brew "imagemagick"
+brew "zlib"
 # }}}
 
 # Zsh {{{
