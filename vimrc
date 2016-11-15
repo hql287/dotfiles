@@ -727,6 +727,10 @@ let g:vim_markdown_fenced_languages = ['csharp=cs', 'ruby=rb', 'viml=vim', 'bash
 let g:marked_app = "Marked"
 " }}}
 
+" Vim Table Mode {{{
+let g:table_mode_corner="|"
+" }}}
+
 " Other Markdown Settings {{{
 vmap <D-j> gj
 vmap <D-k> gk

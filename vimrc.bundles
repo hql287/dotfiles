@@ -41,6 +41,8 @@ Plug 'tmux-plugins/vim-tmux-focus-events' " Make terminal vim and tmux work bett
 Plug 'bolasblack/csslint.vim'             " Vim plugin based on csslint of nodejs http://plafer.info/
 Plug 'tpope/vim-fugitive'                 " Control git in vim
 Plug 'Xuyuanp/nerdtree-git-plugin'        " Showing changes in Nerdtree
+Plug 'dhruvasagar/vim-table-mode'         " VIM Table Mode for instant table creation.
+Plug 'junegunn/vim-emoji'                 " Emoji in Vim
 " }}}
 "
 " Interface {{{
