@@ -37,14 +37,6 @@ eval "$(thefuck --alias)"                              # Thefuck
 eval "$(thefuck --alias FUCK)"
 # }}}
 
-# Run Tmux by default {{{
-if [[ "$TERM" != "screen-256color" ]]
-then
-  tmux attach-session -t "$USER" || tmux new-session -s "$USER"
-  exit
-fi
-# }}}
-
 # Zplug Configuration {{{
 # Check if zplug is installed
 if [[ ! -d ~/.zplug ]]; then
