@@ -37,6 +37,7 @@ brew "the_silver_searcher" # Ag
 brew "desk"                # Workspace manager
 brew "shellcheck"          # A static analysis tool for shell scripts
 brew "ripgrep"             # Rest in peace, Grep
+brew "git-extras"          # GIT utilities
 brew "reattach-to-user-namespace"
 # }}}
 
