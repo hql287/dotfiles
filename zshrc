@@ -6,7 +6,7 @@ if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
 fi
 # }}}
 
-# Editors Settings {{{
+# Environment Variables Settings {{{
 # If Neovim is installed
 if type nvim > /dev/null 2>&1;
 then
@@ -19,9 +19,8 @@ fi
 export PAGER='less'
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-# }}}
 
-# PATH {{{
+# PATH
 path=(
   /usr/local/bin
   /usr/local/sbin
@@ -38,8 +37,15 @@ eval "$(thefuck --alias)"                              # Thefuck
 eval "$(thefuck --alias FUCK)"
 # }}}
 
+# Run Tmux by default {{{
+if [[ "$TERM" != "screen-256color" ]]
+then
+  tmux attach-session -t "$USER" || tmux new-session -s "$USER"
+  exit
+fi
+# }}}
+
 # Zplug Configuration {{{
-#
 # Check if zplug is installed
 if [[ ! -d ~/.zplug ]]; then
   git clone https://github.com/zplug/zplug ~/.zplug
