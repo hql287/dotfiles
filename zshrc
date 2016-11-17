@@ -32,6 +32,7 @@ path=(
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh                 # Fzf
 [ -n "$DESK_ENV" ] && source "$DESK_ENV" || true       # Desk
 [[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc # Phpbrew
+eval "$(hub alias -s)"                                 # Hub
 eval "$(pyenv init -)"                                 # Pyenv
 eval "$(thefuck --alias)"                              # Thefuck
 eval "$(thefuck --alias FUCK)"
@@ -54,11 +55,12 @@ zplug "hungle88/aka"                     # Custom aliases
 zplug "k4rthik/git-cal", as:command      # Github contirbution calendar
 zplug "lukechilds/zsh-nvm"               # Node versions manager
 zplug "plugins/extract", from:oh-my-zsh  # Extracting utility
+zplug "rupa/z", use:z.sh                 # z jump
 zplug "shannonmoeller/up", use:up.sh     # Quickly navigate to a parent directory via tab-completion.
 zplug "supercrabtree/k"                  # K is the new l, yo!
 zplug "urbainvaes/fzf-marks"             # Bookmark
 zplug "voronkovich/gitignore.plugin.zsh" # Creating .gitignore files.
-zplug "rupa/z", use:z.sh                 # z jump
+zplug "zplug/zplug"                      # Manage zplug in the same way as any other packages<Paste>
 
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
