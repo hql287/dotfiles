@@ -39,6 +39,7 @@ brew "shellcheck"          # A static analysis tool for shell scripts
 brew "ripgrep"             # Rest in peace, Grep
 brew "git-extras"          # GIT utilities
 brew "reattach-to-user-namespace"
+brew "hub"                 # Integrate with GitHub
 # }}}
 
 # Default libs {{{
