@@ -584,15 +584,25 @@ let g:neomake_list_height = 10
 " Shows warning and error counts in vim-airline
 let g:airline#extensions#neomake#enabled = 1
 
-" CSS Linting
-let g:neomake_css_enabled_makers = ['csslint']
+" HTML
+let g:neomake_html_enabled_makers = ['htmlhint']
 
-" Javascript Linting
-let g:neomake_javascript_enabled_makers = ['jshint']
-let g:neomake_javascript_jshint_maker = {
-    \ 'args': ['--verbose'],
-    \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
-    \ }
+" CSS & SCSS
+let g:neomake_css_enabled_makers = ['stylelint']
+let g:neomake_sass_enabled_makers = ['stylelint']
+let g:neomake_scss_enabled_makers = ['stylelint']
+
+" Javascript
+let g:neomake_javascript_enabled_makers = ['eslint']
+
+" Ruby
+let g:neomake_ruby_enabled_makers = ['rubocop']
+
+" PHP
+let g:neomake_php_enabled_makers = ['phpcs']
+
+" Markdown
+let g:neomake_markdown_enabled_makers = ['mdl']
 " }}}
 
 " NERDTree {{{
