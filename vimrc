@@ -302,7 +302,8 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 " Autocommand {{{
 if has("autocmd")
   " Run NeoMake on read and write operations
-  autocmd! BufReadPost,BufWritePost * Neomake
+  au BufReadPost * Neomake
+  au BufWritePost * Neomake
 
   " Enable file type detection
 	au BufWinLeave * silent! mkview
@@ -317,6 +318,7 @@ if has("autocmd")
 
   " Treat .json files as .js
   au BufNewFile,BufRead *.json setfiletype json syntax=javascript
+  au BufNewFile,BufRead *.js setfiletype javascript syntax=javascript
 
 " Autoload craft.snippets when editing *.twig files
   au FileType twig UltiSnipsAddFiletypes craft
@@ -567,12 +569,33 @@ let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'rogue']
 " }}}
 
 " NeoMake {{{
+" Run each enabled maker one after the other.
 let g:neomake_serialize = 1
+
+" Abort after the first error status is encountered
 let g:neomake_serialize_abort_on_error = 1
+
+" Preseve cursor position when quickfix window is open
+let g:neomake_open_list = 2
+
+" The height of quickfix list opened by Neomake
+let g:neomake_list_height = 10
+
+" Shows warning and error counts in vim-airline
+let g:airline#extensions#neomake#enabled = 1
+
+" CSS Linting
+let g:neomake_css_enabled_makers = ['csslint']
+
+" Javascript Linting
+let g:neomake_javascript_enabled_makers = ['jshint']
+let g:neomake_javascript_jshint_maker = {
+    \ 'args': ['--verbose'],
+    \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
+    \ }
 " }}}
 
 " NERDTree {{{
-"
 " Map Leader F to show file in NERDTree
 nmap <Leader>f :NERDTreeFind<CR>
 let g:NERDTreeWinSize=30
