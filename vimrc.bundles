@@ -10,6 +10,8 @@ Plug 'helino/vim-json'                 " Filetype detection and syntax highlight
 Plug 'itspriddle/vim-marked'           " Open the current Markdown buffer in Marked.app
 Plug 'jelera/vim-javascript-syntax'    " Enhanced javascript syntax file for Vim
 Plug 'jtratner/vim-flavored-markdown'  " Extends the Tim Pope's markdown
+Plug 'moll/vim-node'                   " Tools and environment to make Vim superb for developing with Node.js
+Plug 'mxw/vim-jsx'                     " React JSX syntax highlighting and indenting for vim.
 Plug 'nelsyeung/twig.vim'              " Twig syntax
 Plug 'pangloss/vim-javascript'         " Vastly improved Javascript indentation and syntax support in Vim.
 Plug 'plasticboy/vim-markdown'         " Markdown Vim Mode
@@ -18,8 +20,6 @@ Plug 'tpope/vim-git'                   " Vim Git runtime files
 Plug 'tpope/vim-liquid'                " Vim Liquid runtime files with Jekyll enhancements
 Plug 'tpope/vim-rails'                 " Ruby on Rails power tools
 Plug 'vim-ruby/vim-ruby'               " Vim/Ruby Configuration Files
-Plug 'moll/vim-node'                   " Tools and environment to make Vim superb for developing with Node.js
-Plug 'mxw/vim-jsx'                     " React JSX syntax highlighting and indenting for vim.
 " }}}
 
 " Completion {{{
@@ -27,6 +27,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Dark powered asy
 Plug 'SirVer/ultisnips'                                       " Snippet Engine
 Plug 'honza/vim-snippets'                                     " Snippets Source
 Plug 'hungle88/vim-craft-snippets'                            " Craft CMS snippets
+Plug 'jiangmiao/auto-pairs'                                   " Provides insert mode auto-completion for quotes, parens, brackets, etc
 Plug 'mattn/emmet-vim'                                        " Emmet for Vim
 " }}}
 "
@@ -50,8 +51,6 @@ Plug 'scrooloose/nerdcommenter'           " Vim plugin for intensely orgasmic co
 Plug 'tmux-plugins/vim-tmux'              " Make editing tmux.conf easier
 Plug 'tmux-plugins/vim-tmux-focus-events' " Make terminal vim and tmux work better together.
 Plug 'tpope/vim-fugitive'                 " Control git in vim
-Plug 'Shougo/vimshell.vim'                " Powerful shell implemented by vim.
-Plug 'Shougo/vimproc.vim'                 " Interactive command execution in Vim.
 " }}}
 "
 " Interface {{{
@@ -60,6 +59,7 @@ Plug 'jistr/vim-nerdtree-tabs'                 " NERDTree and tabs together in V
 Plug 'junegunn/goyo.vim'                       " Distraction-free writing in Vim
 Plug 'junegunn/limelight.vim'                  " Hyperfocus-writing in Vim.
 Plug 'junegunn/vim-peekaboo'                   " Show contents of the registers.
+Plug 'majutsushi/tagbar'                       " Vim plugin that displays tags in a window, ordered by scope
 Plug 'matze/vim-move'                          " Plugin to move lines and selections up and down
 Plug 'rhysd/clever-f.vim'                      " Extended f, F, t and T key mappings for Vim.
 Plug 'scrooloose/nerdtree'                     " Files Explorer
