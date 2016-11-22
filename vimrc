@@ -370,15 +370,6 @@ endif
 
 " Plugin Settings
 
-" Bufferline {{{
-let g:bufferline_echo = 1                  " Denotes whether bufferline should automatically echo to the command bar
-let g:bufferline_active_buffer_left = '['  " The separator used on the left side of a buffer
-let g:bufferline_active_buffer_right = ']' " The separator used on the right side of a buffer
-let g:bufferline_modified = '+'            " The symbol to denote that a buffer is modified
-let g:bufferline_show_bufnr = 1            " Denotes whether buffer numbers should be displayed
-let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'startify'] " Better Line Number
-" }}}
-
 " Deoplete {{{
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
@@ -723,15 +714,30 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 " }}}
 
 "Vim Airline {{{
+let g:airline_theme='onedark'                     " Set airline theme
 let g:airline_powerline_fonts = 1                 " Enable using powerline font
 let g:airline#extensions#tabline#enabled = 1      " Enable Tab line
-let g:airline#extensions#tabline#show_buffers = 0 " Do not show buffer in tab bar
+let g:airline#extensions#tmuxline#enabled = 1     " Enable/disable tmuxline integration >
 let g:airline#extensions#tabline#fnamemod = ':t'  " Show just the filename
-let g:airline_theme='onedark'                     " Set airline theme
+let g:airline#extensions#tabline#show_buffers = 1 " Do not show buffer in tab bar
+let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v ']) "Integration with vim-obsession
+" }}}
+"
+" Vim Javascript {{{
+" Enables syntax highlighting for JSDocs.
+let g:javascript_plugin_jsdoc = 1
 
-"Integration with vim-obsession
-let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
-
+" Concealing characters
+let g:javascript_conceal_function       = "ƒ"
+let g:javascript_conceal_null           = "ø"
+let g:javascript_conceal_this           = "@"
+let g:javascript_conceal_return         = "⇚"
+let g:javascript_conceal_undefined      = "¿"
+let g:javascript_conceal_NaN            = "ℕ"
+let g:javascript_conceal_prototype      = "¶"
+let g:javascript_conceal_static         = "•"
+let g:javascript_conceal_super          = "Ω"
+let g:javascript_conceal_arrow_function = "⇒"
 " }}}
 
 " Vim Markdown {{{
