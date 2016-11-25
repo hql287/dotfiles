@@ -1,5 +1,5 @@
 {
-  "extends": ["eslint:recommended", "google"],
+  "extends": ["eslint:recommended"],
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -14,7 +14,11 @@
 
   "rules": {
     "indent": ["error", 2],
-    "quotes": ["error", "double"],
-    "require-jsdoc": "off"
+    "quotes": ["error", "single"],
+    "require-jsdoc": "off",
+    "no-undef": "off",
+    "func-names": "off",
+    "no-extra-semi": "error",
+    "semi": ["error", "always"]
   }
 }
