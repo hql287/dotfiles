@@ -1,0 +1,22 @@
+# Full Reference
+# https://github.com/Kuniwak/vint/wiki/Vint-linting-policy-summary
+
+cmdargs:
+  # Checking more strictly
+  severity: style_problem
+
+  # Enable coloring
+  color: true
+
+  # Enable Neovim syntax
+  env:
+    neovim: true
+
+policies:
+  # Disable a violation
+  ProhibitSomethingEvil:
+    enabled: false
+
+  # Enable a violation
+  ProhibitSomethingBad:
+    enabled: true
