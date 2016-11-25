@@ -302,8 +302,8 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 " Autocommand {{{
 if has("autocmd")
   " Run NeoMake on read and write operations
-  au BufReadPost * Neomake
-  au BufWritePost * Neomake
+  " au BufReadPost * Neomake
+  " au BufWritePost * Neomake
 
   " Enable file type detection
 	au BufWinLeave * silent! mkview
@@ -369,6 +369,37 @@ endif
 " }}}
 
 " Plugin Settings
+
+" ALE  {{{
+
+" Setup linters
+let g:ale_linters = {
+  \ 'bash':       ['shellcheck'],
+  \ 'javascript': ['eslint'],
+  \ 'ruby':       ['rubocop'],
+  \ 'markdown':   ['mdl'],
+  \ 'php':        ['phpcs'],
+  \ 'css':        ['csslint'],
+  \ 'html':       ['htmlhint'],
+  \ 'json':       ['jsonlint'],
+  \ 'python':     ['flake8'],
+  \ 'sass':       ['sasslint'],
+  \ 'scss':       ['scsslint'],
+  \ 'viml':       ['vint'],
+  \ 'yml':        ['yamllint'],
+\ }
+
+" Display waring & erros in airline
+let g:airline#extensions#ale#enabled = 1
+
+" Custom Characters
+let g:ale_sign_error = '➤'
+let g:ale_sign_warning = '⚠'
+
+" Set Error Format
+let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
+
+" }}}
 
 " Deoplete {{{
 let g:deoplete#enable_at_startup = 1
@@ -471,41 +502,6 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 "
 " }}}
 
-" Vim Fugitive {{{
-" Fix broken syntax highlight in gitcommit files
-" (https://github.com/tpope/vim-git/issues/12)
-let g:fugitive_git_executable = 'LANG=en_US.UTF-8 git'
-
-nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gc :Gcommit<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>ge :Gedit<CR>
-nnoremap <silent> <leader>gE :Gedit<space>
-nnoremap <silent> <leader>gr :Gread<CR>
-nnoremap <silent> <leader>gR :Gread<space>
-nnoremap <silent> <leader>gw :Gwrite<CR>
-nnoremap <silent> <leader>gW :Gwrite!<CR>
-nnoremap <silent> <leader>gq :Gwq<CR>
-nnoremap <silent> <leader>gQ :Gwq!<CR>
-
-function! ReviewLastCommit()
-  if exists('b:git_dir')
-    Gtabedit HEAD^{}
-    nnoremap <buffer> <silent> q :<C-U>bdelete<CR>
-  else
-    echo 'No git a git repository:' expand('%:p')
-  endif
-endfunction
-nnoremap <silent> <leader>g` :call ReviewLastCommit()<CR>
-
-augroup fugitiveSettings
-  autocmd!
-  autocmd FileType gitcommit setlocal nolist
-  autocmd BufReadPost fugitive://* setlocal bufhidden=delete
-augroup END
-" }}}
-
 " Gitgutter {{{
 let g:gitgutter_enabled            = 1
 let g:gitgutter_signs              = 1
@@ -560,40 +556,40 @@ let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'rogue']
 " }}}
 
 " NeoMake {{{
-" Run each enabled maker one after the other.
-let g:neomake_serialize = 1
-
-" Abort after the first error status is encountered
-let g:neomake_serialize_abort_on_error = 1
-
-" Preseve cursor position when quickfix window is open
-let g:neomake_open_list = 2
-
-" The height of quickfix list opened by Neomake
-let g:neomake_list_height = 10
-
-" Shows warning and error counts in vim-airline
-let g:airline#extensions#neomake#enabled = 1
-
-" HTML
-let g:neomake_html_enabled_makers = ['htmlhint']
-
-" CSS & SCSS
-let g:neomake_css_enabled_makers = ['stylelint']
-let g:neomake_sass_enabled_makers = ['stylelint']
-let g:neomake_scss_enabled_makers = ['stylelint']
-
-" Javascript
-let g:neomake_javascript_enabled_makers = ['eslint']
-
-" Ruby
-let g:neomake_ruby_enabled_makers = ['rubocop']
-
-" PHP
-let g:neomake_php_enabled_makers = ['phpcs']
-
-" Markdown
-let g:neomake_markdown_enabled_makers = ['mdl']
+" " Run each enabled maker one after the other.
+" let g:neomake_serialize = 1
+"
+" " Abort after the first error status is encountered
+" let g:neomake_serialize_abort_on_error = 1
+"
+" " Preseve cursor position when quickfix window is open
+" let g:neomake_open_list = 0
+"
+" " The height of quickfix list opened by Neomake
+" let g:neomake_list_height = 10
+"
+" " Shows warning and error counts in vim-airline
+" let g:airline#extensions#neomake#enabled = 1
+"
+" " HTML
+" let g:neomake_html_enabled_makers = ['htmlhint']
+"
+" " CSS & SCSS
+" let g:neomake_css_enabled_makers = ['stylelint']
+" let g:neomake_sass_enabled_makers = ['stylelint']
+" let g:neomake_scss_enabled_makers = ['stylelint']
+"
+" " Javascript
+" let g:neomake_javascript_enabled_makers = ['eslint']
+"
+" " Ruby
+" let g:neomake_ruby_enabled_makers = ['rubocop']
+"
+" " PHP
+" let g:neomake_php_enabled_makers = ['phpcs']
+"
+" " Markdown
+" let g:neomake_markdown_enabled_makers = ['mdl']
 " }}}
 
 " NERDTree {{{
@@ -719,10 +715,45 @@ let g:airline_powerline_fonts = 1                 " Enable using powerline font
 let g:airline#extensions#tabline#enabled = 1      " Enable Tab line
 let g:airline#extensions#tmuxline#enabled = 1     " Enable/disable tmuxline integration >
 let g:airline#extensions#tabline#fnamemod = ':t'  " Show just the filename
-let g:airline#extensions#tabline#show_buffers = 1 " Do not show buffer in tab bar
+let g:airline#extensions#tabline#show_buffers = 0 " Do not show buffer in tab bar
 let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v ']) "Integration with vim-obsession
 " }}}
-"
+
+" Vim Fugitive {{{
+" Fix broken syntax highlight in gitcommit files
+" (https://github.com/tpope/vim-git/issues/12)
+let g:fugitive_git_executable = 'LANG=en_US.UTF-8 git'
+
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>ge :Gedit<CR>
+nnoremap <silent> <leader>gE :Gedit<space>
+nnoremap <silent> <leader>gr :Gread<CR>
+nnoremap <silent> <leader>gR :Gread<space>
+nnoremap <silent> <leader>gw :Gwrite<CR>
+nnoremap <silent> <leader>gW :Gwrite!<CR>
+nnoremap <silent> <leader>gq :Gwq<CR>
+nnoremap <silent> <leader>gQ :Gwq!<CR>
+
+function! ReviewLastCommit()
+  if exists('b:git_dir')
+    Gtabedit HEAD^{}
+    nnoremap <buffer> <silent> q :<C-U>bdelete<CR>
+  else
+    echo 'No git a git repository:' expand('%:p')
+  endif
+endfunction
+nnoremap <silent> <leader>g` :call ReviewLastCommit()<CR>
+
+augroup fugitiveSettings
+  autocmd!
+  autocmd FileType gitcommit setlocal nolist
+  autocmd BufReadPost fugitive://* setlocal bufhidden=delete
+augroup END
+" }}}
+
 " Vim Javascript {{{
 " Enables syntax highlighting for JSDocs.
 let g:javascript_plugin_jsdoc = 1
