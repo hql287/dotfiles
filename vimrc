@@ -63,9 +63,10 @@ set scrolloff=10    " Keep at least 5 lines above & below cursor position
 " Invisible Characters
 set list                                                 " Show invisible characters.
 set listchars=tab:▸\ ,eol:↵,trail:⌴,extends:❯,precedes:❮ " List of characters to show instead of whitespace.
+
 "Invisible character colors
-highlight NonText guifg=#4a4a59
-highlight SpecialKey ctermfg=5
+hi NonText guifg=#4a4a59
+hi SpecialKey ctermfg=5
 
 " Highlight > 81 character range
 let &colorcolumn=join(range(81,999),",")
@@ -76,7 +77,7 @@ hi SignColumn ctermfg=bg ctermbg=NONE
 hi SignColumn guifg=red guibg=NONE
 
 " Set Fold Column Width
-set foldcolumn=0
+set foldcolumn=2
 
 " Highlight Fold Column
 hi FoldColumn ctermfg=darkblue ctermbg=black
@@ -132,35 +133,60 @@ highlight ExtraWhitespace ctermbg=red guibg=#C80000
 " Set leader key
 let mapleader=","
 
+" Quickly source .vimrc
+nnoremap <leader>r :source $MYVIMRC<CR>
+
+" Quickly open .vimrc in new tab
+nnoremap <leader>v :tabedit ~/.vimrc<CR>
+
+" Quickly open .vimrc.bundles in new tab
+nnoremap <leader>b :tabedit ~/.vimrc.bundles<CR>
+
+" Quickly quit editting without save
+nnoremap <leader>q :q!<CR>
+
+" Quickly open .tmux.conf in new tab
+nnoremap <leader>mx :tabedit ~/.tmux.conf<CR>
+
+" Start tracking Vim session
+nnoremap <leader>o :Obsession<CR>
+
+" Quickly put double quotes around a word
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+
+" Saves the file (handling the permission-denied error)
+cnoremap w!! w !sudo tee % >/dev/null
+
+" Delete current line n insert mode
+inoremap <c-d> <esc>ddi
+
+" Uppercase current word
+inoremap <c-u> <esc>viw~A
+
+" Map JK to ESC
+inoremap jk <esc>
+
+" Disable Esp Key
+inoremap <esc> <nop>
+
 " Use HJKL instead of arrow keys
 nnoremap <Left>  :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up>    :echoe "Use k"<CR>
 nnoremap <Down>  :echoe "Use j"<CR>
 
-" Quickly source .vimrc
-map <leader>r :source $MYVIMRC<CR>
+" Make j and k move to the next row, not file line
+nnoremap j gj
+nnoremap k gk
 
-" Quickly open .vimrc in new tab
-map <leader>v :tabedit ~/.vimrc<CR>
+" Select all text
+nnoremap vA ggVG
 
-" Quickly open .vimrc.bundles in new tab
-map <leader>b :tabedit ~/.vimrc.bundles<CR>
-
-" Quickly quit editting without save
-map <leader>q :q!<CR>
-
-" Quickly open .tmux.conf in new tab
-map <leader>mx :tabedit ~/.tmux.conf<CR>
+" Home & End should be placed next to each other
+nnoremap - $
 
 " Quick Save
 nnoremap <S-s> :w<CR>
-
-" Saves the file (handling the permission-denied error)
-cmap w!! w !sudo tee % >/dev/null
-
-" Select all text
-noremap vA ggVG
 
 " Toggle Relative Number
 nnoremap <silent> <leader>nb :set relativenumber!<CR>
@@ -174,43 +200,51 @@ nnoremap <silent> <leader>p :set paste!<CR>
 " CTags
 nnoremap <F5> :!ctags -R<CR>
 
-" Start tracking Vim session
-map <leader>o :Obsession<CR>
+" Operator-Pending Mappings
 
-" move to beginning/end of line
-nnoremap B ^
-nnoremap E $
-" $/^ doesn't do anything
-nnoremap $ <nop>
-nnoremap ^ <nop>
+" Inside next paranthesis
+onoremap in( :<c-u>normal! f(vi(<cr>
+
+" Inside prev paranthesis
+onoremap il( :<c-u>normal! F)vi(<cr>
+
 " }}}
 
 " Tab Navigation {{{
-map <Leader>tn :tabnew<CR>          " Easily create a new tab.
-map <Leader>tc :tabclose<CR>        " Easily close a tab.
-noremap <Leader>tm :tabmove<CR>     " Easily move a tab.
-noremap <Leader>tn :tabnext<CR>     " Easily go to next tab.
-noremap <Leader>tp :tabprevious<CR> " Easily go to previous tab.
+" Easily create a new tab.
+noremap <Leader>tn :tabnew<CR>
+
+" Easily close a tab.
+noremap <Leader>tc :tabclose<CR>
+
+" Easily move a tab.
+noremap <Leader>tm :tabmove<CR>
+
+" Easily go to next tab.
+noremap <Leader>tn :tabnext<CR>
+
+" Easily go to previous tab.
+noremap <Leader>tp :tabprevious<CR>
 
 " Switch between tabs
-nmap <leader>1 1gt
-nmap <leader>2 2gt
-nmap <leader>3 3gt
-nmap <leader>4 4gt
-nmap <leader>5 5gt
-nmap <leader>6 6gt
-nmap <leader>7 7gt
-nmap <leader>8 8gt
-nmap <leader>9 9gt
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
+nnoremap <leader>3 3gt
+nnoremap <leader>4 4gt
+nnoremap <leader>5 5gt
+nnoremap <leader>6 6gt
+nnoremap <leader>7 7gt
+nnoremap <leader>8 8gt
+nnoremap <leader>9 9gt
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+nnoremap <Leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+noremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 " }}}
 
@@ -254,20 +288,20 @@ set grepprg=ack\ --nogroup\ --column\ $* " Make grep use ack instead
 set grepformat=%f:%l:%c:%m
 
 " Keep search results at the center of screen
-nmap n nzz
-nmap N Nzz
-nmap * *zz
-nmap # #zz
-nmap g* g*zz
-nmap g# g#zz
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
 
 " Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
+noremap <silent> <leader><cr> :noh<cr>
 " }}}
 
 " Foldings {{{
 set foldenable        " Enable folding.
-set foldmethod=syntax " Syntax dictates folding.
+set foldmethod=manual " Manually create folds.
 set foldnestmax=10    " Do not nest more than 5 folds.
 set foldlevelstart=10 " Open most folds by default
 set viewoptions=folds " Remember folds
@@ -278,7 +312,7 @@ set viewoptions=folds " Remember folds
 set complete+=kspell
 
 " Pressing ,ss will toggle spell checking
-map <leader>ss :setlocal spell!<cr>
+noremap <leader>ss :setlocal spell!<cr>
 
 " Mouse Settings
 if has('mouse')
@@ -300,15 +334,16 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 " }}}
 
 " Autocommand {{{
-if has("autocmd")
-  " Run NeoMake on read and write operations
-  " au BufReadPost * Neomake
-  " au BufWritePost * Neomake
+augroup general
+  autocmd!
+
+  " Show cursorline only in active windows & not in inser mode
+  au InsertLeave,WinEnter * set cursorline
+  au InsertEnter,WinLeave * set nocursorline
 
   " Enable file type detection
 	au BufWinLeave * silent! mkview
 	au BufWinEnter * silent! loadview
-
 
 	" Resize splits when the window is resized.
 	au VimResized * exe "normal! \<c-w>="
@@ -320,13 +355,30 @@ if has("autocmd")
   au BufNewFile,BufRead *.json setfiletype json syntax=javascript
   au BufNewFile,BufRead *.js setfiletype javascript syntax=javascript
 
-" Autoload craft.snippets when editing *.twig files
+augroup END
+
+augroup ft
+  autocmd!
+
+  " Use Emmet on HTML & CSS only
+  au FileType html,css EmmetInstall
+
+  " Autoload craft.snippets when editing *.twig files
   au FileType twig UltiSnipsAddFiletypes craft
 
-  " Mardown Settings
-  " ============================================================================
-  " Set filetype as Github Markdown instead of normal markdown
+  autocmd FileType vim setlocal foldmethod=marker
+  autocmd FileType vim setlocal foldlevelstart=0
+  autocmd FileType vim setlocal foldlevel=0
+augroup END
+
+augroup md
+  autocmd!
+
+  " Set filetype as markdown
   au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
+
+  " Parse content between the ---s as comment. Make YML files look better
+  au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
 
   au FileType markdown setlocal spell        " Spellchecking for Markdown
   au FileType markdown setlocal wrap         " Enable text to fit within windows width
@@ -334,28 +386,7 @@ if has("autocmd")
   au FileType markdown setlocal nolist       " Make sure linebreak work as expected
   au FileType markdown setlocal showbreak=↳\ " Know where we're
   au FileType markdown setlocal textwidth=0  " Remove text width limit
-
-  " Parse content between the ---s as comment. Make YML files look better
-  au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
-
-  " Remember last position in file
-  " au BufReadPost *
-  "   \ if line("'\"") > 0 && line("'\"") <= line("$") |
-  "   \   exe "normal g`\"" |
-  "   \ endif
-
-  " Allow stylesheets to autocomplete hyphenated words
-  " au FileType css,scss,sass setlocal iskeyword+=-
-
-  " Code Folding
-
-  " In order for SimpylFold to be properly loaded in certain cases
-  " au BufWinLeave *.py setlocal foldexpr< foldmethod<
-
-  " Use Emmet on HTML & CSS only
-  au FileType html,css EmmetInstall
-  "
-endif
+augroup END
 " }}}
 
 " Cursor configuration {{{
@@ -417,36 +448,36 @@ endif
 
 " Easy Motion {{{
 " Replace default Vim search with EasyMotion n-character search motion
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
+nmap  / <Plug>(easymotion-sn)
+onoremap / <Plug>(easymotion-tn)
 let g:EasyMotion_smartcase = 1        " This setting makes EasyMotion work similarly to Vim's smartcase option for global searches
 let g:EasyMotion_use_smartsign_us = 1 " With this option set, v will match both v and V, but V will match V only. Default: 0. Works with US layout
 
 " These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
 " Without these mappings, `n` & `N` works fine. (These mappings just provide
 " different highlight method and have some other features )
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
+nnoremap  n <Plug>(easymotion-next)
+nnoremap  N <Plug>(easymotion-prev)
 
 " 2-character search motion
-nmap <Leader><Leader>s <Plug>(easymotion-s2)
-nmap <Leader><Leader>t <Plug>(easymotion-t2)
+nnoremap <Leader><Leader>s <Plug>(easymotion-s2)
+nnoremap <Leader><Leader>t <Plug>(easymotion-t2)
 
 " Within line motion
 " Every motion also has variants that are restricted to just the current line
 " This can be helpful if you find the full search distracting or slows down vim.
-map <Leader>l <Plug>(easymotion-lineforward)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map <Leader>h <Plug>(easymotion-linebackward)
+nnoremap <Leader>l <Plug>(easymotion-lineforward)
+nnoremap <Leader>j <Plug>(easymotion-j)
+nnoremap <Leader>k <Plug>(easymotion-k)
+nnoremap <Leader>h <Plug>(easymotion-linebackward)
 " }}}
 
 " Easy Align {{{
- " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-vmap <Enter> <Plug>(EasyAlign)
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vnoremap <Enter> <Plug>(EasyAlign)
 
 "Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
+nnoremap ga <Plug>(EasyAlign)
 " }}}
 
 " Emmet Vim {{{
@@ -457,11 +488,11 @@ let g:user_emmet_leader_key='<Tab>' " Using Tab to expand
 
 " FZF Settings {{{
 " Fuzzy-find Files
-map  <C-p> :Files<cr>
-nmap <C-p> :Files<cr>
+noremap  <C-p> :Files<cr>
+nnoremap <C-p> :Files<cr>
 
 " Line matching
-imap <c-x><c-l> <plug>(fzf-complete-line)
+inoremap <c-x><c-l> <plug>(fzf-complete-line)
 
 " Setup  window using a Vim command
 let g:fzf_layout = { 'window': 'enew' }
@@ -555,46 +586,9 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'rogue']
 " }}}
 
-" NeoMake {{{
-" " Run each enabled maker one after the other.
-" let g:neomake_serialize = 1
-"
-" " Abort after the first error status is encountered
-" let g:neomake_serialize_abort_on_error = 1
-"
-" " Preseve cursor position when quickfix window is open
-" let g:neomake_open_list = 0
-"
-" " The height of quickfix list opened by Neomake
-" let g:neomake_list_height = 10
-"
-" " Shows warning and error counts in vim-airline
-" let g:airline#extensions#neomake#enabled = 1
-"
-" " HTML
-" let g:neomake_html_enabled_makers = ['htmlhint']
-"
-" " CSS & SCSS
-" let g:neomake_css_enabled_makers = ['stylelint']
-" let g:neomake_sass_enabled_makers = ['stylelint']
-" let g:neomake_scss_enabled_makers = ['stylelint']
-"
-" " Javascript
-" let g:neomake_javascript_enabled_makers = ['eslint']
-"
-" " Ruby
-" let g:neomake_ruby_enabled_makers = ['rubocop']
-"
-" " PHP
-" let g:neomake_php_enabled_makers = ['phpcs']
-"
-" " Markdown
-" let g:neomake_markdown_enabled_makers = ['mdl']
-" }}}
-
 " NERDTree {{{
 " Map Leader F to show file in NERDTree
-nmap <Leader>f :NERDTreeFind<CR>
+nnoremap <Leader>f :NERDTreeFind<CR>
 let g:NERDTreeWinSize=30
 let g:NERDTreeShowHidden=0
 let g:NERDTreeShowLineNumbers=0
@@ -607,7 +601,7 @@ let g:NERDTreeHighlightCursorline=1
 " NERDTree Tabs {{{
 
 " Map Leader t to toggle NERDTree
-nmap <Leader>t :NERDTreeTabsToggle<CR>
+nnoremap <Leader>t :NERDTreeTabsToggle<CR>
 
 " Run NERDTreeTabs on console vim startup
 let g:nerdtree_tabs_open_on_console_startup = 2
@@ -697,9 +691,8 @@ let g:rbpt_colorpairs = [
 " }}}
 
 " SplitJoin {{{
-"
-nmap <Leader>j :SplitjoinJoin<CR>
-nmap <Leader>s :SplitjoinSplit<CR>
+nnoremap <Leader>j :SplitjoinJoin<CR>
+nnoremap <Leader>s :SplitjoinSplit<CR>
 " }}}
 
 " Utilsnips {{{
@@ -802,16 +795,16 @@ let g:table_mode_corner="|"
 " }}}
 
 " Other Markdown Settings {{{
-vmap <D-j> gj
-vmap <D-k> gk
-vmap <D-4> g$
-vmap <D-6> g^
-vmap <D-0> g^
-nmap <D-j> gj
-nmap <D-k> gk
-nmap <D-4> g$
-nmap <D-6> g^
-nmap <D-0> g^
+vnoremap <D-j> gj
+vnoremap <D-k> gk
+vnoremap <D-4> g$
+vnoremap <D-6> g^
+vnoremap <D-0> g^
+nnoremap <D-j> gj
+nnoremap <D-k> gk
+nnoremap <D-4> g$
+nnoremap <D-6> g^
+nnoremap <D-0> g^
 " }}}
 "
 " Vim Peekaboo {{{
@@ -824,10 +817,10 @@ let g:peekaboo_compact = 0                        " Compact display; do not disp
 
 " Vim Move {{{
 let g:move_map_keys = 0
-nmap <S-k> <Plug>MoveLineUp
-nmap <S-j> <Plug>MoveLineDown
-vmap <S-k> <Plug>MoveBlockUp
-vmap <S-j> <Plug>MoveBlockDown
+nnoremap <S-k> <Plug>MoveLineUp
+nnoremap <S-j> <Plug>MoveLineDown
+vnoremap <S-k> <Plug>MoveBlockUp
+vnoremap <S-j> <Plug>MoveBlockDown
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0

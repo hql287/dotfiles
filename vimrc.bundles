@@ -73,7 +73,6 @@ Plug 'AndrewRadev/splitjoin.vim'                                  " A vim plugin
 Plug 'easymotion/vim-easymotion'                                  " Search Replacement
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Fuzzy Finder wittern in Go
 Plug 'junegunn/vim-easy-align'                                    " Quickly Align Code
-" Plug 'neomake/neomake'                                            " A plugin for asynchronous :make using Neovim's job-control functionality
 Plug 'ntpeters/vim-better-whitespace'                             " Better whitespace highlighting for Vim
 Plug 'terryma/vim-multiple-cursors'                               " Add multiple cursors functionality like Sublime
 Plug 'tpope/vim-repeat'                                           " Enable repeating supported plugin maps with .
@@ -89,4 +88,5 @@ Plug 'tpope/vim-obsession'         " Continuously updated session files
 " }}}
 
 call plug#end()
+
 " vim:foldmethod=marker:foldlevel=0
