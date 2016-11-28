@@ -20,45 +20,45 @@ if (has("nvim"))
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
-set history=500       " Keep 500 lines of command line history
-set ruler             " Show the cursor position all the time
+set autowrite         " Automatically :write before running commands
 set backspace=2       " Make the backspace work like in most other programs
-set clipboard=unnamed " Use the OS clipboard by default
-set timeoutlen=500    " Set keypress timeout
-set shiftround        " When at 3 spaces, hit >> to go to 4, not 5.
-set lazyredraw        " Don't redraw screen when running macros.
-set esckeys           " Allow cursor keys in insert mode
-set ttyfast           " Optimize for fast terminal connections
 set binary            " Don’t add empty newlines at the end of files
-set showmatch         " Show matching brackets.
+set clipboard=unnamed " Use the OS clipboard by default
+set diffopt+=vertical " Always use vertical diffs
+set esckeys           " Allow cursor keys in insert mode
+set history=500       " Keep 500 lines of command line history
+set lazyredraw        " Don't redraw screen when running macros.
+set nobackup          " Do not backup
+set noeol             " No end of line
 set noerrorbells      " Disable error bells
 set nostartofline     " Don’t reset cursor to start of line when moving around.
-set diffopt+=vertical " Always use vertical diffs
-set autowrite         " Automatically :write before running commands
-set scrolloff=10      " Keep at least 10 lines below cursor
-set shortmess=atI     " Don’t show the intro message when starting Vim
-set showmode          " Show the current mode
-set noeol             " No end of line
-set title             " Show the filename in the window titlebar
-set showcmd           " Show command in bottom bar
 set noswapfile        " Stop vim from creating automatic backup ..
 set novisualbell      " Do not show visual bell
-set nobackup          " Do not backup
 set nowb
+set ruler             " Show the cursor position all the time
+set scrolloff=10      " Keep at least 10 lines below cursor
+set shiftround        " When at 3 spaces, hit >> to go to 4, not 5.
+set shortmess=atI     " Don’t show the intro message when starting Vim
+set showcmd           " Show command in bottom bar
+set showmatch         " Show matching brackets.
+set showmode          " Show the current mode
+set timeoutlen=500    " Set keypress timeout
+set title             " Show the filename in the window titlebar
+set ttyfast           " Optimize for fast terminal connections
 " }}}
 
 " Presentation {{{
 set cursorline      " Highlight current line
+set laststatus=2    " Always display status line
+set linebreak       " Wrap lines at convenient points
 set number          " Show line number
 set numberwidth=5   " Number column width
 set relativenumber  " Set relative number by default
-set linebreak       " Wrap lines at convenient points
-set wrap            " Wrap text.
-set textwidth=81    " Maximum line width before wrapping.
-set laststatus=2    " Always display status line
-set smartindent     " Smart Indent
-set showbreak=a     " Set break character
 set scrolloff=10    " Keep at least 5 lines above & below cursor position
+set showbreak=a     " Set break character
+set smartindent     " Smart Indent
+set textwidth=81    " Maximum line width before wrapping.
+set wrap            " Wrap text.
 
 " Invisible Characters
 set list                                                 " Show invisible characters.
@@ -111,22 +111,22 @@ hi GitGutterAdd guifg=#6b9c6e guibg=NONE
 " }}}
 
 " Tabs, Spaces & Whitespace {{{
-set tabstop=2     " Set tab to equal 2 spaces.
-set expandtab     " Expand tabs into spaces.
-set smarttab      " Insert spaces in front of lines.
-set softtabstop=2 " Set soft tabs equal to 2 spaces.
-set modeline
-set modelines=1
 filetype indent on
 filetype plugin on
 set autoindent    " Auto indent
-set selection=old " Do not select the end of line.
-set shiftwidth=2  " Set auto indent spacing.
-set shiftround    " Shift to the next round tab stop.
+set expandtab     " Expand tabs into spaces.
+set modeline      " Enable modeline
+set modelines=1
 set nojoinspaces  " Use one space, not two, after punctuation.
+set selection=old " Do not select the end of line.
+set shiftround    " Shift to the next round tab stop.
+set shiftwidth=2  " Set auto indent spacing.
+set smarttab      " Insert spaces in front of lines.
+set softtabstop=2 " Set soft tabs equal to 2 spaces.
+set tabstop=2     " Set tab to equal 2 spaces.
 
 " Better Whitespace Settings
-highlight ExtraWhitespace ctermbg=red guibg=#C80000
+hi ExtraWhitespace ctermbg=red guibg=#C80000
 " }}}
 
 " Keymapping {{{
@@ -188,6 +188,18 @@ nnoremap - $
 " Quick Save
 nnoremap <S-s> :w<CR>
 
+" Don't lose selection when shifting sidewards
+xnoremap <  <gv
+xnoremap >  >gv
+
+" move to beginning/end of line
+nnoremap B ^
+nnoremap E $
+
+" $/^ doesn't do anything
+nnoremap $ <nop>
+nnoremap ^ <nop>
+
 " Toggle Relative Number
 nnoremap <silent> <leader>nb :set relativenumber!<CR>
 
@@ -207,6 +219,10 @@ onoremap in( :<c-u>normal! f(vi(<cr>
 
 " Inside prev paranthesis
 onoremap il( :<c-u>normal! F)vi(<cr>
+
+" Quickly add empty lines
+nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
+nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 
 " }}}
 
@@ -249,13 +265,8 @@ noremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " }}}
 
 " UI Layouts & Windows Management {{{
-" Windows Managements
-" Windows Split
-" set winwidth=60
-" set winheight=40
-" :silent! set winminheight=20
 "
-"" Creating splits with empty buffers in all directions
+" Creating splits with empty buffers in all directions
 nnoremap <Leader>hn :leftabove  vnew<CR>
 nnoremap <Leader>ln :rightbelow vnew<CR>
 nnoremap <Leader>kn :leftabove  new<CR>
@@ -331,6 +342,10 @@ set wildignore=*.o,*~,*.pyc
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 
+if has('nvim') || v:version >= 800
+  set completeopt+=noselect
+endif
+
 " }}}
 
 " Autocommand {{{
@@ -391,12 +406,23 @@ augroup END
 
 " Cursor configuration {{{
 " ====================================================================
-" Use a blinking upright bar cursor in Insert mode, a solid block in normal
-" and a blinking underline in replace mode
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-  let &t_SI = "\<Esc>[5 q"
-  let &t_SR = "\<Esc>[3 q"
-  let &t_EI = "\<Esc>[2 q"
+" Change cursor style dependent on mode
+if has('nvim')
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+elseif empty($TMUX)
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+  if v:version >= 800
+    let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+  endif
+else
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+  if v:version >= 800
+    let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+  endif
+endif
+
 " }}}
 
 " Plugin Settings

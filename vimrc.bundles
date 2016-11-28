@@ -61,6 +61,7 @@ Plug 'junegunn/limelight.vim'                  " Hyperfocus-writing in Vim.
 Plug 'junegunn/vim-peekaboo'                   " Show contents of the registers.
 Plug 'majutsushi/tagbar'                       " Vim plugin that displays tags in a window, ordered by scope
 Plug 'matze/vim-move'                          " Plugin to move lines and selections up and down
+Plug 'mhinz/vim-startify'                      " The fancy start screen for Vim.
 Plug 'rhysd/clever-f.vim'                      " Extended f, F, t and T key mappings for Vim.
 Plug 'scrooloose/nerdtree'                     " Files Explorer
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " Extra syntax and highlight for nerdtree files
