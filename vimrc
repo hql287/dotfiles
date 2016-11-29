@@ -1,4 +1,4 @@
- " Quoc Hung Le's .vimrc
+" Quoc Hung Le's .vimrc
 
 " General {{{
 " Load Plugins
@@ -11,8 +11,6 @@ set termguicolors                   " Using True Colors
 syntax enable                       " Set syntax on by default
 colorscheme onedark                 " A dark Vim color scheme inspired by Atom's One Dark syntax theme.
 let g:onedark_terminal_italics = 1  " Enable using italic character
-" Set the color of non text characters to be the same as the background color
-hi NonText guifg=bg
 
 " Enable using true color in Neovim
 " For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
@@ -48,85 +46,74 @@ set ttyfast           " Optimize for fast terminal connections
 " }}}
 
 " Presentation {{{
-set cursorline      " Highlight current line
-set laststatus=2    " Always display status line
-set linebreak       " Wrap lines at convenient points
-set number          " Show line number
-set numberwidth=5   " Number column width
-set relativenumber  " Set relative number by default
-set scrolloff=10    " Keep at least 5 lines above & below cursor position
-set showbreak=a     " Set break character
-set smartindent     " Smart Indent
-set textwidth=81    " Maximum line width before wrapping.
-set wrap            " Wrap text.
+filetype indent on " Turn on indent based on filetype
+filetype plugin on " Enable plugins based on filetype
+set autoindent     " Auto indent
+set cursorline     " Highlight current line
+set expandtab      " Expand tabs into spaces.
+set laststatus=2   " Always display status line
+set linebreak      " Wrap lines at convenient points
+set modeline       " Enable modeline
+set modelines=1
+set nojoinspaces   " Use one space, not two, after punctuation.
+set number         " Show line number
+set numberwidth=5  " Number column width
+set relativenumber " Set relative number by default
+set scrolloff=10   " Keep at least 5 lines above & below cursor position
+set selection=old  " Do not select the end of line.
+set shiftround     " Shift to the next round tab stop.
+set shiftwidth=2   " Set auto indent spacing.
+set showbreak=a    " Set break character
+set smartindent    " Smart Indent
+set smarttab       " Insert spaces in front of lines.
+set softtabstop=2  " Set soft tabs equal to 2 spaces.
+set tabstop=2      " Set tab to equal 2 spaces.
+set textwidth=81   " Maximum line width before wrapping.
+set wrap           " Wrap text.
+
+" Set Line Number Width
+set nuw=3
 
 " Invisible Characters
 set list                                                 " Show invisible characters.
 set listchars=tab:▸\ ,eol:↵,trail:⌴,extends:❯,precedes:❮ " List of characters to show instead of whitespace.
 
+" Better Whitespace Settings
+highlight ExtraWhitespace ctermbg=red guibg=#e74c3c
+
+" Set the color of non text characters to be the same as the background color
+highlight NonText guifg=bg
+
 "Invisible character colors
-hi NonText guifg=#4a4a59
-hi SpecialKey ctermfg=5
+highlight NonText guifg=#4a4a59
+highlight SpecialKey ctermfg=5
 
 " Highlight > 81 character range
 let &colorcolumn=join(range(81,999),",")
 let &colorcolumn="80,".join(range(120,999),",")
 
 " Highlight SignColum (Gutter)
-hi SignColumn ctermfg=bg ctermbg=NONE
-hi SignColumn guifg=red guibg=NONE
-
-" Set Fold Column Width
-set foldcolumn=2
-
-" Highlight Fold Column
-hi FoldColumn ctermfg=darkblue ctermbg=black
-hi FoldColumn guifg=#628db8 guibg=NONE
-
-" Folded Line
-hi Folded ctermbg=blue ctermfg=white
-hi Folded guibg=#628db8 guifg=white
+highlight SignColumn ctermfg=bg ctermbg=NONE
+highlight SignColumn guifg=red guibg=NONE
 
 " Highlight the status line
-hi StatusLine   ctermfg=darkblue ctermbg=black
-hi StatusLine   ctermfg=darkblue ctermbg=black
+highlight StatusLine ctermfg=darkblue ctermbg=black
+highlight StatusLine ctermfg=darkblue ctermbg=black
 
 " Highlight Wildmenu Selected Item
-hi WildMenu     ctermfg=white ctermbg=green
-hi WildMenu     guifg=white guibg=#6b9c6e
+highlight WildMenu ctermfg=white ctermbg=green
+highlight WildMenu guifg=white guibg=#27ae60
 
 " Hide tilde signs on blank lines
-hi! EndOfBuffer ctermbg=bg ctermfg=bg guibg=bg guifg=bg
+highlight! EndOfBuffer ctermbg=bg ctermfg=bg guibg=bg guifg=bg
 
 " Vertical Split
 set fillchars+=vert:│
-hi VertSplit guifg=#444444 guibg=NONE
-
-" Set Line Number Width
-set nuw=3
+highlight VertSplit guifg=#444444 guibg=NONE
 
 " Line highlights
-hi GitGutterAdd ctermfg=green ctermbg=NONE
-hi GitGutterAdd guifg=#6b9c6e guibg=NONE
-" }}}
-
-" Tabs, Spaces & Whitespace {{{
-filetype indent on
-filetype plugin on
-set autoindent    " Auto indent
-set expandtab     " Expand tabs into spaces.
-set modeline      " Enable modeline
-set modelines=1
-set nojoinspaces  " Use one space, not two, after punctuation.
-set selection=old " Do not select the end of line.
-set shiftround    " Shift to the next round tab stop.
-set shiftwidth=2  " Set auto indent spacing.
-set smarttab      " Insert spaces in front of lines.
-set softtabstop=2 " Set soft tabs equal to 2 spaces.
-set tabstop=2     " Set tab to equal 2 spaces.
-
-" Better Whitespace Settings
-hi ExtraWhitespace ctermbg=red guibg=#C80000
+highlight GitGutterAdd ctermfg=green ctermbg=NONE
+highlight GitGutterAdd guifg=#27ae60 guibg=NONE
 " }}}
 
 " Keymapping {{{
@@ -256,7 +243,7 @@ nnoremap <leader>9 9gt
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
 nnoremap <Leader>tl :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()
+autocmd TabLeave * let g:lasttab = tabpagenr()
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
@@ -311,11 +298,99 @@ noremap <silent> <leader><cr> :noh<cr>
 " }}}
 
 " Foldings {{{
+set foldcolumn=2      " Set Fold Column Width
 set foldenable        " Enable folding.
+set foldlevelstart=10 " Open most folds by default
 set foldmethod=manual " Manually create folds.
 set foldnestmax=10    " Do not nest more than 5 folds.
-set foldlevelstart=10 " Open most folds by default
 set viewoptions=folds " Remember folds
+
+" Highlight Fold Column
+highlight FoldColumn ctermfg=darkblue ctermbg=black
+highlight FoldColumn guifg=#2980b9 guibg=NONE
+
+" Highlight Folded Line
+highlight Folded ctermbg=blue ctermfg=white
+highlight Folded guibg=#2980b9 guifg=white
+
+" }}}
+
+" Autocommand {{{
+augroup general
+  autocmd!
+
+  " Show cursorline only in active windows & not in inser mode
+  autocmd InsertLeave,WinEnter * set cursorline
+  autocmd InsertEnter,WinLeave * set nocursorline
+
+  " Enable file type detection
+	autocmd BufWinLeave * silent! mkview
+	autocmd BufWinEnter * silent! loadview
+
+	" Resize splits when the window is resized.
+	autocmd VimResized * exe "normal! \<c-w>="
+
+" Strip trailing whitespace on save.
+	autocmd BufWritePre,FileWritePre,FileAppendPre,FilterWritePre * StripWhitespace
+
+  " Treat .json files as .js
+  autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+  autocmd BufNewFile,BufRead *.js setfiletype javascript syntax=javascript
+
+augroup END
+
+augroup file_type
+  autocmd!
+
+  autocmd FileType vim setlocal foldmethod=marker
+  autocmd FileType vim setlocal foldlevelstart=0
+  autocmd FileType vim setlocal foldlevel=0
+
+  " Use Emmet on HTML & CSS only
+  autocmd FileType html,css EmmetInstall
+
+  " Autoload craft.snippets when editing *.twig files
+  autocmd FileType twig UltiSnipsAddFiletypes craft
+
+augroup END
+
+augroup markdown
+  autocmd!
+
+  " Set filetype as markdown
+  autocmd BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
+
+  autocmd FileType markdown setlocal spell        " Spellchecking for Markdown
+  autocmd FileType markdown setlocal wrap         " Enable text to fit within windows width
+  autocmd FileType markdown setlocal linebreak    " Avoid wrap breaking words
+  autocmd FileType markdown setlocal nolist       " Make sure linebreak work as expected
+  autocmd FileType markdown setlocal showbreak=↳\ " Know where we're
+  autocmd FileType markdown setlocal textwidth=0  " Remove text width limit
+
+  " Parse content between the ---s as comment. Make YML files look better
+  autocmd BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
+augroup END
+" }}}
+
+" Cursor configuration {{{
+" ====================================================================
+" Change cursor style dependent on mode
+if has('nvim')
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+elseif empty($TMUX)
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+  if v:version >= 800
+    let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+  endif
+else
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+  if v:version >= 800
+    let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+  endif
+endif
+
 " }}}
 
 " Misc {{{
@@ -344,83 +419,6 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 
 if has('nvim') || v:version >= 800
   set completeopt+=noselect
-endif
-
-" }}}
-
-" Autocommand {{{
-augroup general
-  autocmd!
-
-  " Show cursorline only in active windows & not in inser mode
-  au InsertLeave,WinEnter * set cursorline
-  au InsertEnter,WinLeave * set nocursorline
-
-  " Enable file type detection
-	au BufWinLeave * silent! mkview
-	au BufWinEnter * silent! loadview
-
-	" Resize splits when the window is resized.
-	au VimResized * exe "normal! \<c-w>="
-
-" Strip trailing whitespace on save.
-	au BufWritePre,FileWritePre,FileAppendPre,FilterWritePre * StripWhitespace
-
-  " Treat .json files as .js
-  au BufNewFile,BufRead *.json setfiletype json syntax=javascript
-  au BufNewFile,BufRead *.js setfiletype javascript syntax=javascript
-
-augroup END
-
-augroup ft
-  autocmd!
-
-  " Use Emmet on HTML & CSS only
-  au FileType html,css EmmetInstall
-
-  " Autoload craft.snippets when editing *.twig files
-  au FileType twig UltiSnipsAddFiletypes craft
-
-  autocmd FileType vim setlocal foldmethod=marker
-  autocmd FileType vim setlocal foldlevelstart=0
-  autocmd FileType vim setlocal foldlevel=0
-augroup END
-
-augroup md
-  autocmd!
-
-  " Set filetype as markdown
-  au BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
-
-  " Parse content between the ---s as comment. Make YML files look better
-  au BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
-
-  au FileType markdown setlocal spell        " Spellchecking for Markdown
-  au FileType markdown setlocal wrap         " Enable text to fit within windows width
-  au FileType markdown setlocal linebreak    " Avoid wrap breaking words
-  au FileType markdown setlocal nolist       " Make sure linebreak work as expected
-  au FileType markdown setlocal showbreak=↳\ " Know where we're
-  au FileType markdown setlocal textwidth=0  " Remove text width limit
-augroup END
-" }}}
-
-" Cursor configuration {{{
-" ====================================================================
-" Change cursor style dependent on mode
-if has('nvim')
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-elseif empty($TMUX)
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-  if v:version >= 800
-    let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-  endif
-else
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-  if v:version >= 800
-    let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-  endif
 endif
 
 " }}}
@@ -473,37 +471,23 @@ endif
 " }}}
 
 " Easy Motion {{{
+" This setting makes EasyMotion work similarly to Vim's smartcase option for global searches
+let g:EasyMotion_smartcase = 1
+
+" With this option set, v will match both v and V, but V will match V only. Default: 0. Works with US layout
+let g:EasyMotion_use_smartsign_us = 1
+
 " Replace default Vim search with EasyMotion n-character search motion
 nmap  / <Plug>(easymotion-sn)
-onoremap / <Plug>(easymotion-tn)
-let g:EasyMotion_smartcase = 1        " This setting makes EasyMotion work similarly to Vim's smartcase option for global searches
-let g:EasyMotion_use_smartsign_us = 1 " With this option set, v will match both v and V, but V will match V only. Default: 0. Works with US layout
 
-" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
-" Without these mappings, `n` & `N` works fine. (These mappings just provide
-" different highlight method and have some other features )
-nnoremap  n <Plug>(easymotion-next)
-nnoremap  N <Plug>(easymotion-prev)
-
-" 2-character search motion
-nnoremap <Leader><Leader>s <Plug>(easymotion-s2)
-nnoremap <Leader><Leader>t <Plug>(easymotion-t2)
-
-" Within line motion
-" Every motion also has variants that are restricted to just the current line
-" This can be helpful if you find the full search distracting or slows down vim.
-nnoremap <Leader>l <Plug>(easymotion-lineforward)
-nnoremap <Leader>j <Plug>(easymotion-j)
-nnoremap <Leader>k <Plug>(easymotion-k)
-nnoremap <Leader>h <Plug>(easymotion-linebackward)
 " }}}
 
 " Easy Align {{{
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-vnoremap <Enter> <Plug>(EasyAlign)
+vmap <Enter> <Plug>(EasyAlign)
 
 "Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nnoremap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 " }}}
 
 " Emmet Vim {{{
@@ -633,7 +617,7 @@ nnoremap <Leader>t :NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 2
 "
 " Automatically find and select currently opened file in NERDTree.
-let g:nerdtree_tabs_autofind = 1
+let g:nerdtree_tabs_autofind = 0
 "
 " On startup, focus NERDTree if opening a directory, focus file if opening a file. (When set to 2, always focus file window after startup).
 let g:nerdtree_tabs_smart_startup_focus = 1
