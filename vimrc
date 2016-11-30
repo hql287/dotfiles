@@ -2,7 +2,7 @@
 
 " General {{{
 " Load Plugins
-if filereadable(expand("~/.vimrc.bundles"))
+if filereadable(expand('~/.vimrc.bundles'))
   source ~/.vimrc.bundles
 endif
 
@@ -14,7 +14,7 @@ let g:onedark_terminal_italics = 1  " Enable using italic character
 
 " Enable using true color in Neovim
 " For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-if (has("nvim"))
+if (has('nvim'))
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
@@ -27,12 +27,12 @@ set esckeys           " Allow cursor keys in insert mode
 set history=500       " Keep 500 lines of command line history
 set lazyredraw        " Don't redraw screen when running macros.
 set nobackup          " Do not backup
-set noeol             " No end of line
+set noendofline       " No end of line
 set noerrorbells      " Disable error bells
 set nostartofline     " Don’t reset cursor to start of line when moving around.
 set noswapfile        " Stop vim from creating automatic backup ..
 set novisualbell      " Do not show visual bell
-set nowb
+set nowritebackup
 set ruler             " Show the cursor position all the time
 set scrolloff=10      " Keep at least 10 lines below cursor
 set shiftround        " When at 3 spaces, hit >> to go to 4, not 5.
@@ -72,7 +72,7 @@ set textwidth=81   " Maximum line width before wrapping.
 set wrap           " Wrap text.
 
 " Set Line Number Width
-set nuw=3
+set numberwidth=3
 
 " Invisible Characters
 set list                                                 " Show invisible characters.
@@ -89,8 +89,8 @@ highlight NonText guifg=#4a4a59
 highlight SpecialKey ctermfg=5
 
 " Highlight > 81 character range
-let &colorcolumn=join(range(81,999),",")
-let &colorcolumn="80,".join(range(120,999),",")
+let &colorcolumn=join(range(81,999),',')
+let &colorcolumn='80,'.join(range(120,999),',')
 
 " Highlight SignColum (Gutter)
 highlight SignColumn ctermfg=bg ctermbg=NONE
@@ -118,7 +118,7 @@ highlight GitGutterAdd guifg=#27ae60 guibg=NONE
 
 " Keymapping {{{
 " Set leader key
-let mapleader=","
+let g:mapleader=','
 
 " Quickly source .vimrc
 nnoremap <leader>r :source $MYVIMRC<CR>
@@ -243,7 +243,6 @@ nnoremap <leader>9 9gt
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
 nnoremap <Leader>tl :exe "tabn ".g:lasttab<CR>
-autocmd TabLeave * let g:lasttab = tabpagenr()
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
@@ -315,6 +314,33 @@ highlight Folded guibg=#2980b9 guifg=white
 
 " }}}
 
+" Functions {{{
+" GoYo
+function! s:goyo_enter()
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  set nolist
+  set listchars=
+  silent !tmux set status off
+  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  NERDTreeTabsClose
+  Limelight
+endfunction
+
+function! s:goyo_leave()
+  set showmode
+  set showcmd
+  set scrolloff=5
+  set list
+  set listchars=tab:▸\ ,eol:↵,trail:⌴,extends:❯,precedes:❮
+  silent !tmux set status on
+  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  NERDTreeTabsOpen
+  Limelight!
+endfunction
+" }}}
+
 " Autocommand {{{
 augroup general
   autocmd!
@@ -336,6 +362,8 @@ augroup general
   " Treat .json files as .js
   autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
   autocmd BufNewFile,BufRead *.js setfiletype javascript syntax=javascript
+
+  autocmd TabLeave * let g:lasttab = tabpagenr()
 
 augroup END
 
@@ -371,6 +399,15 @@ augroup markdown
   " Parse content between the ---s as comment. Make YML files look better
   autocmd BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
 augroup END
+
+augroup goyo
+  autocmd!
+
+  " Automatically turn on Limglight when using Goyo
+  autocmd User GoyoEnter call <SID>goyo_enter()
+  autocmd User GoyoLeave call <SID>goyo_leave()
+augroup END
+
 " }}}
 
 " Cursor configuration {{{
@@ -555,36 +592,6 @@ let g:gitgutter_eager              = 0
 let g:gitgutter_max_signs          = 500
 " }}}
 
-" GoYo {{{
-" Automatically turn on Limglight when using Goyo
-autocmd! User GoyoEnter call <SID>goyo_enter()
-autocmd! User GoyoLeave call <SID>goyo_leave()
-
-function! s:goyo_enter()
-  set noshowmode
-  set noshowcmd
-  set scrolloff=999
-  set nolist
-  set listchars=
-  silent !tmux set status off
-  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-  NERDTreeTabsClose
-  Limelight
-endfunction
-
-function! s:goyo_leave()
-  set showmode
-  set showcmd
-  set scrolloff=5
-  set list
-  set listchars=tab:▸\ ,eol:↵,trail:⌴,extends:❯,precedes:❮
-  silent !tmux set status on
-  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-  NERDTreeTabsOpen
-  Limelight!
-endfunction
-" }}}
-
 " Limelight {{{
 " Number of preceding/following paragraphs to include (default: 0)
 let g:limelight_paragraph_span = 3
@@ -709,9 +716,9 @@ nnoremap <Leader>s :SplitjoinSplit<CR>
 
 " Utilsnips {{{
 " Trigger configuration.
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+let g:UltiSnipsExpandTrigger='<Tab>'
+let g:UltiSnipsJumpForwardTrigger='<Tab>'
+let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
 " }}}
 
 "Vim Airline {{{
@@ -747,7 +754,7 @@ let g:airline_section_c = 0
 
 "Integration with vim-obsession
 let g:airline#extensions#obsession#enabled = 1
-let g:airline#extensions#obsession#indicator_text = '@'
+let g:airline#extensions#obsession#indicator_text = '$'
 
 " Show ALE warning & error counter
 let g:airline_section_error = '%{ALEGetStatusLine()}'
@@ -796,16 +803,16 @@ augroup END
 let g:javascript_plugin_jsdoc = 1
 
 " Concealing characters
-let g:javascript_conceal_function       = "ƒ"
-let g:javascript_conceal_null           = "ø"
-let g:javascript_conceal_this           = "@"
-let g:javascript_conceal_return         = "⇚"
-let g:javascript_conceal_undefined      = "¿"
-let g:javascript_conceal_NaN            = "ℕ"
-let g:javascript_conceal_prototype      = "¶"
-let g:javascript_conceal_static         = "•"
-let g:javascript_conceal_super          = "Ω"
-let g:javascript_conceal_arrow_function = "⇒"
+let g:javascript_conceal_function       = 'ƒ'
+let g:javascript_conceal_null           = 'ø'
+let g:javascript_conceal_this           = '@'
+let g:javascript_conceal_return         = '⇚'
+let g:javascript_conceal_undefined      = '¿'
+let g:javascript_conceal_NaN            = 'ℕ'
+let g:javascript_conceal_prototype      = '¶'
+let g:javascript_conceal_static         = '•'
+let g:javascript_conceal_super          = 'Ω'
+let g:javascript_conceal_arrow_function = '⇒'
 " }}}
 
 " Vim Markdown {{{
@@ -831,11 +838,11 @@ let g:vim_markdown_fenced_languages = ['csharp=cs', 'ruby=rb', 'viml=vim', 'bash
 "}}}
 
 " Vim Markded App {{{
-let g:marked_app = "Marked"
+let g:marked_app = 'Marked'
 " }}}
 
 " Vim Table Mode {{{
-let g:table_mode_corner="|"
+let g:table_mode_corner='|'
 " }}}
 
 " Other Markdown Settings {{{
