@@ -265,16 +265,16 @@ set splitright
 
 " Move between splits faster without the prefix key
 " Use ctrl-[hjkl] to select the active split!
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nmap <C-J> <C-W><C-J>
+nmap <C-K> <C-W><C-K>
+nmap <C-L> <C-W><C-L>
+nmap <C-H> <C-W><C-H>
 " Make tmux navigator works in NeoVim
 " https://github.com/christoomey/vim-tmux-navigator#it-doesnt-work-in-neovim-specifically-c-h
 " A more complete and less-hacky solution would be to update the incorrect
 " terminfo entry that is part of the problem on OS X (and some Linux
 " distributions) as described in this comment: https://github.com/neovim/neovim/issues/2048#issuecomment-78045837
-nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
+nmap <silent> <BS> :TmuxNavigateLeft<cr>
 " }}}
 
 " Search {{{
@@ -342,6 +342,7 @@ augroup END
 augroup file_type
   autocmd!
 
+  " Vim settings
   autocmd FileType vim setlocal foldmethod=marker
   autocmd FileType vim setlocal foldlevelstart=0
   autocmd FileType vim setlocal foldlevel=0
@@ -446,6 +447,7 @@ let g:ale_linters = {
 
 " Display waring & erros in airline
 let g:airline#extensions#ale#enabled = 1
+let g:ale_statusline_format = ['E:%d', 'W:%d', '✓']
 
 " Custom Characters
 let g:ale_sign_error = '➤'
@@ -713,13 +715,45 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 " }}}
 
 "Vim Airline {{{
-let g:airline_theme='onedark'                     " Set airline theme
-let g:airline_powerline_fonts = 1                 " Enable using powerline font
-let g:airline#extensions#tabline#enabled = 1      " Enable Tab line
-let g:airline#extensions#tmuxline#enabled = 1     " Enable/disable tmuxline integration >
-let g:airline#extensions#tabline#fnamemod = ':t'  " Show just the filename
-let g:airline#extensions#tabline#show_buffers = 0 " Do not show buffer in tab bar
-let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v ']) "Integration with vim-obsession
+" Set airline theme
+let g:airline_theme='onedark'
+
+" Enable using powerline font
+let g:airline_powerline_fonts = 1
+
+" Enable Tab line
+let g:airline#extensions#tabline#enabled = 1
+
+" Enable tmuxline integration >
+let g:airline#extensions#tmuxline#enabled = 1
+
+" Show just the filename in tabline
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+" Disable syntastic integration
+let g:airline#extensions#syntastic#enabled = 0
+
+" Do not show buffer in tab bar
+let g:airline#extensions#tabline#show_buffers = 0
+
+" Disbale words counter by default
+let g:airline#extensions#wordcount#enabled = 0
+
+" Show splits and tab number in tab mode.
+let g:airline#extensions#tabline#tab_nr_type = 2
+
+" Diable section_c (already show tabline)
+let g:airline_section_c = 0
+
+"Integration with vim-obsession
+let g:airline#extensions#obsession#enabled = 1
+let g:airline#extensions#obsession#indicator_text = '@'
+
+" Show ALE warning & error counter
+let g:airline_section_error = '%{ALEGetStatusLine()}'
+
+" Disable warning section
+let g:airline_section_warning = 0
 " }}}
 
 " Vim Fugitive {{{
