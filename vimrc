@@ -662,6 +662,7 @@ let g:neomake_markdown_enabled_makers   = ['mdl']        " Markdown
 let g:neomake_php_enabled_makers        = ['phpcs']      " PHP
 let g:neomake_python_enabled_markers    = ['flake8']     " Python
 let g:neomake_ruby_enabled_makers       = ['rubocop']    " Ruby
+let g:neomake_swift_enabled_makers      = ['swiftlint']  " Swift
 let g:neomake_sass_enabled_makers       = ['stylelint']  " SASS
 let g:neomake_scss_enabled_makers       = ['stylelint']  " SCSS
 let g:neomake_viml_enabled_markers      = ['vint']       " Viml

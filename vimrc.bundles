@@ -1,25 +1,26 @@
 call plug#begin('~/.vim/bundle')
 
 " Languages {{{
-Plug 'PeterRincker/vim-argumentative'  " Argumentative aids with manipulating and moving between function arguments.
-Plug 'StanAngeloff/php.vim'            " Up-to-date PHP syntax file
-Plug 'cakebaker/scss-syntax.vim'       " Syntax file for scss
-Plug 'ekalinin/Dockerfile.vim'         " Vim syntax file & snippets for Docker's Dockerfile
-Plug 'elzr/vim-json'                   " A better JSON for Vim
-Plug 'helino/vim-json'                 " Filetype detection and syntax highlightnig for JSON in Vim
-Plug 'itspriddle/vim-marked'           " Open the current Markdown buffer in Marked.app
-Plug 'jelera/vim-javascript-syntax'    " Enhanced javascript syntax file for Vim
-Plug 'jtratner/vim-flavored-markdown'  " Extends the Tim Pope's markdown
-Plug 'moll/vim-node'                   " Tools and environment to make Vim superb for developing with Node.js
-Plug 'mxw/vim-jsx'                     " React JSX syntax highlighting and indenting for vim.
-Plug 'nelsyeung/twig.vim'              " Twig syntax
-Plug 'pangloss/vim-javascript'         " Vastly improved Javascript indentation and syntax support in Vim.
-Plug 'plasticboy/vim-markdown'         " Markdown Vim Mode
-Plug 'sheerun/vim-polyglot'            " A solid language pack for Vim.
-Plug 'tpope/vim-git'                   " Vim Git runtime files
-Plug 'tpope/vim-liquid'                " Vim Liquid runtime files with Jekyll enhancements
-Plug 'tpope/vim-rails'                 " Ruby on Rails power tools
-Plug 'vim-ruby/vim-ruby'               " Vim/Ruby Configuration Files
+Plug 'PeterRincker/vim-argumentative' " Argumentative aids with manipulating and moving between function arguments.
+Plug 'StanAngeloff/php.vim'           " Up-to-date PHP syntax file
+Plug 'cakebaker/scss-syntax.vim'      " Syntax file for scss
+Plug 'ekalinin/Dockerfile.vim'        " Vim syntax file & snippets for Docker's Dockerfile
+Plug 'elzr/vim-json'                  " A better JSON for Vim
+Plug 'helino/vim-json'                " Filetype detection and syntax highlightnig for JSON in Vim
+Plug 'itspriddle/vim-marked'          " Open the current Markdown buffer in Marked.app
+Plug 'jelera/vim-javascript-syntax'   " Enhanced javascript syntax file for Vim
+Plug 'jtratner/vim-flavored-markdown' " Extends the Tim Pope's markdown
+Plug 'keith/swift.vim'                " Vim runtime files for Swift
+Plug 'moll/vim-node'                  " Tools and environment to make Vim superb for developing with Node.js
+Plug 'mxw/vim-jsx'                    " React JSX syntax highlighting and indenting for vim.
+Plug 'nelsyeung/twig.vim'             " Twig syntax
+Plug 'pangloss/vim-javascript'        " Vastly improved Javascript indentation and syntax support in Vim.
+Plug 'plasticboy/vim-markdown'        " Markdown Vim Mode
+Plug 'sheerun/vim-polyglot'           " A solid language pack for Vim.
+Plug 'tpope/vim-git'                  " Vim Git runtime files
+Plug 'tpope/vim-liquid'               " Vim Liquid runtime files with Jekyll enhancements
+Plug 'tpope/vim-rails'                " Ruby on Rails power tools
+Plug 'vim-ruby/vim-ruby'              " Vim/Ruby Configuration Files
 " }}}
 
 " Completion {{{
