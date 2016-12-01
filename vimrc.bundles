@@ -48,9 +48,12 @@ Plug 'junegunn/vim-emoji'                 " Emoji in Vim
 Plug 'maksimr/vim-jsbeautify'             " Vim plugin which formated javascript files by js-beautify
 Plug 'mileszs/ack.vim'                    " Integrate Ack
 Plug 'scrooloose/nerdcommenter'           " Vim plugin for intensely orgasmic commenting
+Plug 'sjl/vitality.vim'                   " Make Vim play nicely with iTerm 2 and tmux
 Plug 'tmux-plugins/vim-tmux'              " Make editing tmux.conf easier
 Plug 'tmux-plugins/vim-tmux-focus-events' " Make terminal vim and tmux work better together.
 Plug 'tpope/vim-fugitive'                 " Control git in vim
+" Plug 'w0rp/ale'                           " Asynchronous Lint Engine
+Plug 'neomake/neomake'                    " Linting Engine
 " }}}
 "
 " Interface {{{
@@ -78,7 +81,6 @@ Plug 'ntpeters/vim-better-whitespace'                             " Better white
 Plug 'terryma/vim-multiple-cursors'                               " Add multiple cursors functionality like Sublime
 Plug 'tpope/vim-repeat'                                           " Enable repeating supported plugin maps with .
 Plug 'tpope/vim-surround'                                         " Change surrounding character with ease
-Plug 'w0rp/ale'                                                   " Asynchronous Lint Engine
 " }}}
 "
 " Others {{{

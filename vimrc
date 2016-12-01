@@ -24,6 +24,7 @@ set binary            " Don’t add empty newlines at the end of files
 set clipboard=unnamed " Use the OS clipboard by default
 set diffopt+=vertical " Always use vertical diffs
 set esckeys           " Allow cursor keys in insert mode
+set hidden            " Hide files with unwritten changes instead of closing them
 set history=500       " Keep 500 lines of command line history
 set lazyredraw        " Don't redraw screen when running macros.
 set nobackup          " Do not backup
@@ -32,7 +33,7 @@ set noerrorbells      " Disable error bells
 set nostartofline     " Don’t reset cursor to start of line when moving around.
 set noswapfile        " Stop vim from creating automatic backup ..
 set novisualbell      " Do not show visual bell
-set nowritebackup
+set nowritebackup     " Do not write backup
 set ruler             " Show the cursor position all the time
 set scrolloff=10      " Keep at least 10 lines below cursor
 set shiftround        " When at 3 spaces, hit >> to go to 4, not 5.
@@ -75,8 +76,12 @@ set wrap           " Wrap text.
 set numberwidth=3
 
 " Invisible Characters
-set list                                                 " Show invisible characters.
-set listchars=tab:▸\ ,eol:↵,trail:⌴,extends:❯,precedes:❮ " List of characters to show instead of whitespace.
+set list               " Show invisible characters.
+set listchars=tab:▸\   " Tab
+set listchars+=eol:¬   " End of line
+set listchars+=trail:· " Invisible space"
+set listchars+=extends:»
+set listchars+=precedes:«
 
 " Better Whitespace Settings
 highlight ExtraWhitespace ctermbg=red guibg=#e74c3c
@@ -99,10 +104,6 @@ highlight SignColumn guifg=red guibg=NONE
 " Highlight the status line
 highlight StatusLine ctermfg=darkblue ctermbg=black
 highlight StatusLine ctermfg=darkblue ctermbg=black
-
-" Highlight Wildmenu Selected Item
-highlight WildMenu ctermfg=white ctermbg=green
-highlight WildMenu guifg=white guibg=#27ae60
 
 " Hide tilde signs on blank lines
 highlight! EndOfBuffer ctermbg=bg ctermfg=bg guibg=bg guifg=bg
@@ -148,7 +149,7 @@ cnoremap w!! w !sudo tee % >/dev/null
 inoremap <c-d> <esc>ddi
 
 " Uppercase current word
-inoremap <c-u> <esc>viw~A
+inoremap <c-u> <esc>viwUA
 
 " Map JK to ESC
 inoremap jk <esc>
@@ -183,6 +184,12 @@ xnoremap >  >gv
 nnoremap B ^
 nnoremap E $
 
+" Yank to end of line
+nnoremap Y y$
+
+"Delete to the end of line
+nnoremap D d$
+
 " $/^ doesn't do anything
 nnoremap $ <nop>
 nnoremap ^ <nop>
@@ -211,6 +218,17 @@ onoremap il( :<c-u>normal! F)vi(<cr>
 nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
 nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 
+" Markdown Settings
+vnoremap <D-j> gj
+vnoremap <D-k> gk
+vnoremap <D-4> g$
+vnoremap <D-6> g^
+vnoremap <D-0> g^
+nnoremap <D-j> gj
+nnoremap <D-k> gk
+nnoremap <D-4> g$
+nnoremap <D-6> g^
+nnoremap <D-0> g^
 " }}}
 
 " Tab Navigation {{{
@@ -304,6 +322,10 @@ set foldmethod=manual " Manually create folds.
 set foldnestmax=10    " Do not nest more than 5 folds.
 set viewoptions=folds " Remember folds
 
+" Space to toggle folds.
+nnoremap <Space> za
+vnoremap <Space> za
+
 " Highlight Fold Column
 highlight FoldColumn ctermfg=darkblue ctermbg=black
 highlight FoldColumn guifg=#2980b9 guibg=NONE
@@ -344,6 +366,8 @@ endfunction
 " Autocommand {{{
 augroup general
   autocmd!
+  autocmd BufReadPost * Neomake
+  autocmd BufWritePost * Neomake
 
   " Show cursorline only in active windows & not in inser mode
   autocmd InsertLeave,WinEnter * set cursorline
@@ -359,31 +383,37 @@ augroup general
 " Strip trailing whitespace on save.
 	autocmd BufWritePre,FileWritePre,FileAppendPre,FilterWritePre * StripWhitespace
 
+  autocmd TabLeave * let g:lasttab = tabpagenr()
+augroup END
+
+augroup ft_json
+  autocmd!
+
   " Treat .json files as .js
   autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
   autocmd BufNewFile,BufRead *.js setfiletype javascript syntax=javascript
-
-  autocmd TabLeave * let g:lasttab = tabpagenr()
-
 augroup END
 
-augroup file_type
+augroup ft_vim
   autocmd!
 
   " Vim settings
   autocmd FileType vim setlocal foldmethod=marker
   autocmd FileType vim setlocal foldlevelstart=0
   autocmd FileType vim setlocal foldlevel=0
+augroup END
+
+augroup ft_html_css_craft
+  autocmd!
 
   " Use Emmet on HTML & CSS only
   autocmd FileType html,css EmmetInstall
 
   " Autoload craft.snippets when editing *.twig files
   autocmd FileType twig UltiSnipsAddFiletypes craft
-
 augroup END
 
-augroup markdown
+augroup ft_md
   autocmd!
 
   " Set filetype as markdown
@@ -407,7 +437,6 @@ augroup goyo
   autocmd User GoyoEnter call <SID>goyo_enter()
   autocmd User GoyoLeave call <SID>goyo_leave()
 augroup END
-
 " }}}
 
 " Cursor configuration {{{
@@ -431,6 +460,32 @@ endif
 
 " }}}
 
+" Wildmenu {{{
+set wildmenu         " Enhance command-line completion
+set wildignorecase   " Ignore casing
+set wildchar=<Tab>   " Enable completion on tab.
+
+" Ignore compiled files
+set wildignore=*/tmp/*,*.so,*.swp,*.zip
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Version control
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
+set wildignore+=*.spl                            " compiled spelling word lists
+set wildignore+=*.sw?                            " Vim swap files
+set wildignore+=*.DS_Store                       " OSX bullshit
+set wildignore+=migrations                       " Django migrations
+set wildignore+=*.pyc                            " Python byte code
+set wildignore+=*.orig                           " Merge resolution files
+
+" Highlight Wildmenu Selected Item
+highlight WildMenu ctermfg=white ctermbg=green
+highlight WildMenu guifg=white guibg=#27ae60
+
+if has('nvim') || v:version >= 800
+  set completeopt+=noselect
+endif
+" }}}
+
 " Misc {{{
 " Autocomplete with dictionary words when spell check is on
 set complete+=kspell
@@ -444,55 +499,38 @@ if has('mouse')
   set mousemodel=popup_setpos  " Show a pop-up for right-click.
   set mousehide " Hide mouse while typing.
 endif
-
-" Wildmenu Settings
-set wildmenu         " Enhance command-line completion
-set wildignorecase   " Ignore casing
-set wildchar=<Tab>   " Enable completion on tab.
-
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-
-if has('nvim') || v:version >= 800
-  set completeopt+=noselect
-endif
-
 " }}}
 
 " Plugin Settings
 
 " ALE  {{{
-
 " Setup linters
-let g:ale_linters = {
-  \ 'bash':       ['shellcheck'],
-  \ 'javascript': ['eslint'],
-  \ 'ruby':       ['rubocop'],
-  \ 'markdown':   ['mdl'],
-  \ 'php':        ['phpcs'],
-  \ 'css':        ['csslint'],
-  \ 'html':       ['htmlhint'],
-  \ 'json':       ['jsonlint'],
-  \ 'python':     ['flake8'],
-  \ 'sass':       ['sasslint'],
-  \ 'scss':       ['scsslint'],
-  \ 'viml':       ['vint'],
-  \ 'yml':        ['yamllint'],
-\ }
-
-" Display waring & erros in airline
-let g:airline#extensions#ale#enabled = 1
-let g:ale_statusline_format = ['E:%d', 'W:%d', '✓']
-
-" Custom Characters
-let g:ale_sign_error = '➤'
-let g:ale_sign_warning = '⚠'
-
-" Set Error Format
-let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
-
+" let g:ale_linters = {
+"   \ 'bash':       ['shellcheck'],
+"   \ 'javascript': ['eslint'],
+"   \ 'ruby':       ['rubocop'],
+"   \ 'markdown':   ['mdl'],
+"   \ 'php':        ['phpcs'],
+"   \ 'css':        ['csslint'],
+"   \ 'html':       ['htmlhint'],
+"   \ 'json':       ['jsonlint'],
+"   \ 'python':     ['flake8'],
+"   \ 'sass':       ['sasslint'],
+"   \ 'scss':       ['scsslint'],
+"   \ 'viml':       ['vint'],
+"   \ 'yml':        ['yamllint'],
+" \ }
+"
+" " Display waring & erros in airline
+" let g:airline#extensions#ale#enabled = 1
+" let g:ale_statusline_format = ['E:%d', 'W:%d', '✓']
+"
+" " Custom Characters
+" let g:ale_sign_error = '➤'
+" let g:ale_sign_warning = '⚠'
+"
+" " Set Error Format
+" let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
 " }}}
 
 " Deoplete {{{
@@ -605,6 +643,50 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'rogue']
 " }}}
 
+" Neomake {{{
+
+" let g:neomake_verbose                    = 3  " Debug
+let g:neomake_serialize                  = 1  " Run each enabled maker one after the other.
+let g:neomake_serialize_abort_on_error   = 1  " Abort after the first error status is encountered
+let g:neomake_open_list                  = 2  " Preseve cursor position when quickfix window is open
+let g:neomake_list_height                = 10 " The height of quickfix list opened by Neomake
+let g:airline#extensions#neomake#enabled = 1  " Shows warning and error counts in vim-airline
+
+" Define maker
+let g:neomake_bash_enabled_markers      = ['shellcheck'] " Shell
+let g:neomake_css_enabled_makers        = ['stylelint']  " CSS
+let g:neomake_html_enabled_makers       = ['htmlhint']   " HTML
+let g:neomake_javascript_enabled_makers = ['eslint']     " Javascript
+let g:neomake_json_enabled_markers      = ['jsonlint']   " Json
+let g:neomake_markdown_enabled_makers   = ['mdl']        " Markdown
+let g:neomake_php_enabled_makers        = ['phpcs']      " PHP
+let g:neomake_python_enabled_markers    = ['flake8']     " Python
+let g:neomake_ruby_enabled_makers       = ['rubocop']    " Ruby
+let g:neomake_sass_enabled_makers       = ['stylelint']  " SASS
+let g:neomake_scss_enabled_makers       = ['stylelint']  " SCSS
+let g:neomake_viml_enabled_markers      = ['vint']       " Viml
+let g:neomake_yml_enabled_markers       = ['yamllint']   " Yaml
+let g:neomake_zsh_enabled_markers       = ['shellcheck'] " Shell
+
+" Custom sign character
+let g:neomake_error_sign = {
+  \ 'text': '✗',
+  \ 'texthl': 'NeomakeErrorSign'
+  \ }
+let g:neomake_warning_sign = {
+  \ 'text': '⚠',
+  \ 'texthl': 'NeomakeWarningSign',
+  \ }
+let g:neomake_message_sign = {
+  \ 'text': '➤',
+  \ 'texthl': 'NeomakeMessageSign',
+  \ }
+let g:neomake_info_sign = {
+  \ 'text': 'ℹ',
+  \ 'texthl': 'NeomakeInfoSign'
+  \ }
+" }}}
+
 " NERDTree {{{
 " Map Leader F to show file in NERDTree
 nnoremap <Leader>f :NERDTreeFind<CR>
@@ -614,7 +696,7 @@ let g:NERDTreeShowLineNumbers=0
 let g:NERDTreeMinimalUI=1
 let g:NERDTreeCascadeSingleChildDir=0
 let g:NERDTreeHighlightCursorline=1
-
+" let g:NERDTreeChDirMode=0
 " }}}
 
 " NERDTree Tabs {{{
@@ -722,45 +804,24 @@ let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
 " }}}
 
 "Vim Airline {{{
-" Set airline theme
-let g:airline_theme='onedark'
 
-" Enable using powerline font
-let g:airline_powerline_fonts = 1
+let g:airline#extensions#syntastic#enabled        = 0         " Disable syntastic integration
+let g:airline#extensions#tabline#enabled          = 1         " Enable Tab line
+let g:airline#extensions#tabline#fnamemod         = ':t'      " Show just the filename in tabline
+let g:airline#extensions#tabline#show_buffers     = 0         " Do not show buffer in tab bar
+let g:airline#extensions#tabline#tab_nr_type      = 1         " Show splits and tab number in tab mode.
+let g:airline#extensions#tmuxline#enabled         = 1         " Enable tmuxline integration >
+let g:airline#extensions#wordcount#enabled        = 0         " Disbale words counter by default
+let g:airline_powerline_fonts                     = 1         " Enable using powerline font
+let g:airline_section_c                           = 0         " Diable section_c (already show tabline)
+let g:airline_theme                               = 'onedark' " Set airline theme
+" let g:airline_section_warning                     = 0         " Disable warning section
 
-" Enable Tab line
-let g:airline#extensions#tabline#enabled = 1
-
-" Enable tmuxline integration >
-let g:airline#extensions#tmuxline#enabled = 1
-
-" Show just the filename in tabline
-let g:airline#extensions#tabline#fnamemod = ':t'
-
-" Disable syntastic integration
-let g:airline#extensions#syntastic#enabled = 0
-
-" Do not show buffer in tab bar
-let g:airline#extensions#tabline#show_buffers = 0
-
-" Disbale words counter by default
-let g:airline#extensions#wordcount#enabled = 0
-
-" Show splits and tab number in tab mode.
-let g:airline#extensions#tabline#tab_nr_type = 2
-
-" Diable section_c (already show tabline)
-let g:airline_section_c = 0
-
-"Integration with vim-obsession
-let g:airline#extensions#obsession#enabled = 1
-let g:airline#extensions#obsession#indicator_text = '$'
-
-" Show ALE warning & error counter
-let g:airline_section_error = '%{ALEGetStatusLine()}'
-
-" Disable warning section
-let g:airline_section_warning = 0
+" Integration with vim-obsession
+let g:airline#extensions#obsession#enabled        = 1
+let g:airline#extensions#obsession#indicator_text = '@'
+" Integrate with ALE
+" let g:airline_section_error = '%{ALEGetStatusLine()}'
 " }}}
 
 " Vim Fugitive {{{
@@ -845,19 +906,6 @@ let g:marked_app = 'Marked'
 let g:table_mode_corner='|'
 " }}}
 
-" Other Markdown Settings {{{
-vnoremap <D-j> gj
-vnoremap <D-k> gk
-vnoremap <D-4> g$
-vnoremap <D-6> g^
-vnoremap <D-0> g^
-nnoremap <D-j> gj
-nnoremap <D-k> gk
-nnoremap <D-4> g$
-nnoremap <D-6> g^
-nnoremap <D-0> g^
-" }}}
-"
 " Vim Peekaboo {{{
 let g:peekaboo_window = 'vertical botright 60new' " Default peekaboo window
 let g:peekaboo_compact = 0                        " Compact display; do not display the names of the register groups
