@@ -1,3 +1,5 @@
+" Quoc Hung Le's Vim bundles
+
 call plug#begin('~/.vim/bundle')
 
 " Languages {{{
@@ -33,7 +35,7 @@ Plug 'hungle88/vim-craft-snippets'                            " Craft CMS snippe
 Plug 'jiangmiao/auto-pairs'                                   " Provides insert mode auto-completion for quotes, parens, brackets, etc
 Plug 'mattn/emmet-vim'                                        " Emmet for Vim
 " }}}
-"
+
 " Code Display {{{
 Plug 'ap/vim-css-color'                " Preview colours in source code while editing
 Plug 'joshdick/onedark.vim'            " A dark Vim color scheme inspired by Atom's One Dark syntax theme.<Paste>
@@ -59,7 +61,7 @@ Plug 'tpope/vim-fugitive'                 " Control git in vim
 Plug 'neomake/neomake'                    " Linting Engine
 Plug 'jpalardy/vim-slime'                 " A vim plugin to give you some slime
 " }}}
-"
+
 " Interface {{{
 Plug 'airblade/vim-gitgutter'                  " Add git changes symbols to gutter
 Plug 'jistr/vim-nerdtree-tabs'                 " NERDTree and tabs together in Vim, painlessly
@@ -75,7 +77,7 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " Extra syntax and highlight for 
 Plug 'vim-airline/vim-airline'                 " Lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline-themes'          " A collection of Airline theme
 " }}}
-"
+
 " Commands {{{
 Plug 'AndrewRadev/splitjoin.vim'                                  " A vim plugin that simplifies the transition between multiline and single-line code
 Plug 'easymotion/vim-easymotion'                                  " Search Replacement
@@ -86,7 +88,7 @@ Plug 'terryma/vim-multiple-cursors'                               " Add multiple
 Plug 'tpope/vim-repeat'                                           " Enable repeating supported plugin maps with .
 Plug 'tpope/vim-surround'                                         " Change surrounding character with ease
 " }}}
-"
+
 " Others {{{
 Plug 'guns/xterm-color-table.vim'  " All 256 xterm colors with their RGB equivalents, right in Vim!
 Plug 'terryma/vim-expand-region'   " Visually select increasingly larger regions of text using the same key combination

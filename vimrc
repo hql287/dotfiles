@@ -177,8 +177,8 @@ nnoremap - $
 nnoremap <S-s> :w<CR>
 
 " Don't lose selection when shifting sidewards
-xnoremap <  <gv
-xnoremap >  >gv
+" xnoremap <  <gv
+" xnoremap >  >gv
 
 " move to beginning/end of line
 nnoremap B ^
@@ -282,10 +282,10 @@ set splitright
 
 " Move between splits faster without the prefix key
 " Use ctrl-[hjkl] to select the active split!
-nmap <C-J> <C-W><C-J>
-nmap <C-K> <C-W><C-K>
-nmap <C-L> <C-W><C-L>
-nmap <C-H> <C-W><C-H>
+nmap <C-j> <C-W><C-j>
+nmap <C-k> <C-W><C-k>
+nmap <C-l> <C-W><C-l>
+nmap <C-h> <C-W><C-h>
 " Make tmux navigator works in NeoVim
 " https://github.com/christoomey/vim-tmux-navigator#it-doesnt-work-in-neovim-specifically-c-h
 " A more complete and less-hacky solution would be to update the incorrect
@@ -648,7 +648,7 @@ let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'rogue']
 " let g:neomake_verbose                    = 3  " Debug
 let g:neomake_serialize                  = 1  " Run each enabled maker one after the other.
 let g:neomake_serialize_abort_on_error   = 1  " Abort after the first error status is encountered
-let g:neomake_open_list                  = 2  " Preseve cursor position when quickfix window is open
+let g:neomake_open_list                  = 0  " Preseve cursor position when quickfix window is open
 let g:neomake_list_height                = 10 " The height of quickfix list opened by Neomake
 let g:airline#extensions#neomake#enabled = 1  " Shows warning and error counts in vim-airline
 
