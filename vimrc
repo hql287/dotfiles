@@ -814,7 +814,7 @@ let g:airline#extensions#tabline#tab_nr_type      = 1         " Show splits and 
 let g:airline#extensions#tmuxline#enabled         = 1         " Enable tmuxline integration >
 let g:airline#extensions#wordcount#enabled        = 0         " Disbale words counter by default
 let g:airline_powerline_fonts                     = 1         " Enable using powerline font
-let g:airline_section_c                           = 0         " Diable section_c (already show tabline)
+" let g:airline_section_c                           = 0         " Diable section_c (already show tabline)
 let g:airline_theme                               = 'onedark' " Set airline theme
 " let g:airline_section_warning                     = 0         " Disable warning section
 
@@ -901,6 +901,11 @@ let g:vim_markdown_fenced_languages = ['csharp=cs', 'ruby=rb', 'viml=vim', 'bash
 
 " Vim Markded App {{{
 let g:marked_app = 'Marked'
+" }}}
+
+" Vim Mocha {{{
+let g:mocha_js_command = "!mocha --recursive {spec}"
+nnoremap <Leader>ma :call RunAllSpecs()<CR>
 " }}}
 
 " Vim Table Mode {{{
