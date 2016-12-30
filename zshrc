@@ -35,6 +35,7 @@ path=(
 [[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc # Phpbrew
 eval "$(hub alias -s)"                                 # Hub
 eval "$(pyenv init -)"                                 # Pyenv
+eval "$(rbenv init -)"                                 # Rbenv
 eval "$(thefuck --alias)"                              # Thefuck
 eval "$(thefuck --alias FUCK)"
 # }}}
@@ -61,7 +62,7 @@ zplug "shannonmoeller/up", use:up.sh     # Quickly navigate to a parent director
 zplug "supercrabtree/k"                  # K is the new l, yo!
 zplug "urbainvaes/fzf-marks"             # Bookmark
 zplug "voronkovich/gitignore.plugin.zsh" # Creating .gitignore files.
-# zplug "zplug/zplug"                      # Manage zplug in the same way as any other packages<Paste>
+zplug "zplug/zplug"                      # Manage zplug in the same way as any other packages<Paste>
 
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
