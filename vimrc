@@ -18,13 +18,44 @@ if (has('nvim'))
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
-" Render HTML arguments such as class, id, data ... as italic
-highlight htmlArg gui=italic
-highlight htmlArg cterm=italic
-
-" Render comments in italic
+" Render all comments in italic
 highlight Comment gui=italic
-highlight Comment cterm=italic
+
+" Special highlighting for HTML
+" HTML arguments such as id, class, attribute
+highlight htmlArg gui=italic
+highlight xmlAttrib gui=italic
+
+" HTML title
+highlight htmlTitle gui=italic
+" HTML anchor
+highlight htmlLink gui=italic
+
+" XML highlight
+" highlight xmlEndTag gui=italic
+" highlight xmlTag gui=italic
+" highlight xmlTagName gui=italic
+" highlight xmlString gui=italic
+
+" Special highlighting for Javascript
+" Identifier
+highlight javaScriptIdentifier gui=italic
+" This keyword
+highlight jsThis gui=italic
+" Undefined keyword
+highlight jsUndefined gui=italic
+" Reserved words
+highlight javaScriptReserved gui=italic
+" Null
+highlight javaScriptNull gui=italic
+" Numbers
+highlight javaScriptNumber gui=italic
+" Function Arguments
+highlight javaScriptFuncArg gui=italic
+" Function Keyword
+highlight javaScriptFuncKeyword gui=italic
+" hi jsxKeywords gui=italic
+
 
 set autowrite         " Automatically :write before running commands
 set backspace=2       " Make the backspace work like in most other programs
