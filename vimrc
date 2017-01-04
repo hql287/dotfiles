@@ -696,15 +696,16 @@ let g:airline#extensions#neomake#enabled = 1  " Shows warning and error counts i
 let g:neomake_bash_enabled_markers      = ['shellcheck'] " Shell
 let g:neomake_css_enabled_makers        = ['stylelint']  " CSS
 let g:neomake_html_enabled_makers       = ['htmlhint']   " HTML
-let g:neomake_javascript_enabled_makers = ['xo']         " Javascript
+let g:neomake_javascript_enabled_makers = ['eslint']     " Javascript
 let g:neomake_json_enabled_markers      = ['jsonlint']   " Json
+let g:neomake_jsx_enabled_makers        = ['eslint']     " Jsx
 let g:neomake_markdown_enabled_makers   = ['mdl']        " Markdown
 let g:neomake_php_enabled_makers        = ['phpcs']      " PHP
 let g:neomake_python_enabled_markers    = ['flake8']     " Python
 let g:neomake_ruby_enabled_makers       = ['rubocop']    " Ruby
-let g:neomake_swift_enabled_makers      = ['swiftlint']  " Swift
 let g:neomake_sass_enabled_makers       = ['stylelint']  " SASS
 let g:neomake_scss_enabled_makers       = ['stylelint']  " SCSS
+let g:neomake_swift_enabled_makers      = ['swiftlint']  " Swift
 let g:neomake_viml_enabled_markers      = ['vint']       " Viml
 let g:neomake_yml_enabled_markers       = ['yamllint']   " Yaml
 let g:neomake_zsh_enabled_markers       = ['shellcheck'] " Shell
@@ -917,10 +918,15 @@ augroup END
 " }}}
 
 " Vim Javascript {{{
+
 " Setup used libraries
-let g:used_javascript_libs = 'react, jquery'
+let g:used_javascript_libs = 'react, jquery, chai, underscore, lo-dash'
+
 " Enables syntax highlighting for JSDocs.
 let g:javascript_plugin_jsdoc = 1
+
+" Allow JSX in normal JS files
+let g:jsx_ext_required = 0
 
 " Concealing characters
 " let g:javascript_conceal_function       = 'ƒ'
