@@ -52,6 +52,7 @@ Plug 'bolasblack/csslint.vim'             " Vim plugin based on csslint of nodej
 Plug 'christoomey/vim-tmux-navigator'     " Seamless navigation between tmux panes and vim splits
 Plug 'dhruvasagar/vim-table-mode'         " VIM Table Mode for instant table creation.
 Plug 'geekjuice/vim-mocha'                " Run mocha specs from vim
+Plug 'janko-m/vim-test'                   " Run your tests at the speed of thought
 Plug 'junegunn/fzf.vim'                   " Fzf Wrapper for Vim
 Plug 'junegunn/vim-emoji'                 " Emoji in Vim
 Plug 'maksimr/vim-jsbeautify'             " Vim plugin which formated javascript files by js-beautify
@@ -62,7 +63,6 @@ Plug 'sjl/vitality.vim'                   " Make Vim play nicely with iTerm 2 an
 Plug 'tmux-plugins/vim-tmux'              " Make editing tmux.conf easier
 Plug 'tmux-plugins/vim-tmux-focus-events' " Make terminal vim and tmux work better together.
 Plug 'tpope/vim-fugitive'                 " Control git in vim
-" Plug 'w0rp/ale'                           " Asynchronous Lint Engine
 " }}}
 
 " Interface {{{
