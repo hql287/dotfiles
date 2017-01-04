@@ -458,12 +458,13 @@ augroup ft_md
   " Set filetype as markdown
   autocmd BufNewFile,BufReadPost *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
 
-  autocmd FileType markdown setlocal spell        " Spellchecking for Markdown
-  autocmd FileType markdown setlocal wrap         " Enable text to fit within windows width
-  autocmd FileType markdown setlocal linebreak    " Avoid wrap breaking words
-  autocmd FileType markdown setlocal nolist       " Make sure linebreak work as expected
-  autocmd FileType markdown setlocal showbreak=↳\ " Know where we're
-  autocmd FileType markdown setlocal textwidth=0  " Remove text width limit
+  autocmd FileType markdown setlocal spell             " Spellchecking for Markdown
+  autocmd FileType markdown setlocal wrap              " Enable text to fit within windows width
+  autocmd FileType markdown setlocal linebreak         " Avoid wrap breaking words
+  autocmd FileType markdown setlocal nolist            " Make sure linebreak work as expected
+  autocmd FileType markdown setlocal showbreak=↳\      " Know where we're
+  autocmd FileType markdown setlocal textwidth=0       " Remove text width limit
+  autocmd FileType markdown setlocal foldmethod=manual " Manually fold
 
   " Parse content between the ---s as comment. Make YML files look better
   autocmd BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
@@ -835,6 +836,22 @@ let g:rbpt_colorpairs = [
 nnoremap <Leader>j :SplitjoinJoin<CR>
 nnoremap <Leader>s :SplitjoinSplit<CR>
 " }}}
+
+" Vim Test"{{{
+let test#strategy = "neovim"
+let g:test#preserve_screen = 1
+let g:test#runner_commands = ['Mocha']
+let test#javascript#mocha#executable = 'npm run test'
+let test#javascript#mocha#file_pattern = '_spec\.js'
+
+" Run the whole test file
+nmap <silent> <leader>T :TestFile<CR>
+" Run the Test Suite
+nmap <silent> <leader>a :TestSuite<CR>
+
+" nmap <silent> <leader>t :TestNearest<CR>
+" nmap <silent> <leader>l :TestLast<CR>
+" nmap <silent> <leader>g :TestVisit<CR>"}}}
 
 " Utilsnips {{{
 " Trigger configuration.
