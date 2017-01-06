@@ -56,7 +56,7 @@ highlight javaScriptFuncArg gui=italic
 highlight javaScriptFuncKeyword gui=italic
 " hi jsxKeywords gui=italic
 
-
+set autochdir         " Allows change pwd to the directory containing the file which was opened	or selected.
 set autowrite         " Automatically :write before running commands
 set backspace=2       " Make the backspace work like in most other programs
 set binary            " Don’t add empty newlines at the end of files
@@ -843,16 +843,18 @@ let test#strategy = "neovim"
 let g:test#preserve_screen = 1
 let g:test#runner_commands = ['Mocha']
 let test#javascript#mocha#executable = 'npm run test'
-let test#javascript#mocha#file_pattern = '_spec\.js'
+let test#javascript#mocha#file_pattern = 'spec\.js'
 
 " Run the whole test file
-nmap <silent> <leader>T :TestFile<CR>
+nnoremap <silent> <leader>tf :TestFile<CR>
 " Run the Test Suite
-nmap <silent> <leader>a :TestSuite<CR>
+nnoremap <silent> <leader>ts :TestSuite<CR>
 
-" nmap <silent> <leader>t :TestNearest<CR>
-" nmap <silent> <leader>l :TestLast<CR>
-" nmap <silent> <leader>g :TestVisit<CR>"}}}
+nnoremap <silent> <leader>tn :TestNearest<CR>
+nnoremap <silent> <leader>tl :TestLast<CR>
+nnoremap <silent> <leader>tvg :TestVisit<CR>
+
+"}}}
 
 " Utilsnips {{{
 " Trigger configuration.
