@@ -56,7 +56,7 @@ highlight javaScriptFuncArg gui=italic
 highlight javaScriptFuncKeyword gui=italic
 " hi jsxKeywords gui=italic
 
-set autochdir         " Allows change pwd to the directory containing the file which was opened	or selected.
+" set autochdir         " Allows change pwd to the directory containing the file which was opened	or selected.
 set autowrite         " Automatically :write before running commands
 set backspace=2       " Make the backspace work like in most other programs
 set binary            " Don’t add empty newlines at the end of files
