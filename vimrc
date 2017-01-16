@@ -31,12 +31,6 @@ highlight htmlTitle gui=italic
 " HTML anchor
 highlight htmlLink gui=italic
 
-" XML highlight
-" highlight xmlEndTag gui=italic
-" highlight xmlTag gui=italic
-" highlight xmlTagName gui=italic
-" highlight xmlString gui=italic
-
 " Special highlighting for Javascript
 " Identifier
 highlight javaScriptIdentifier gui=italic
@@ -54,9 +48,7 @@ highlight javaScriptNumber gui=italic
 highlight javaScriptFuncArg gui=italic
 " Function Keyword
 highlight javaScriptFuncKeyword gui=italic
-" hi jsxKeywords gui=italic
 
-" set autochdir         " Allows change pwd to the directory containing the file which was opened	or selected.
 set autowrite         " Automatically :write before running commands
 set backspace=2       " Make the backspace work like in most other programs
 set binary            " Don’t add empty newlines at the end of files
@@ -180,6 +172,9 @@ nnoremap <leader>o :Obsession<CR>
 
 " Quickly put double quotes around a word
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+
+" Quickly replace all tabs with spaces
+nnoremap <leader><Space> :%s/<Tab>/  /g<CR>
 
 " Saves the file (handling the permission-denied error)
 cnoremap w!! w !sudo tee % >/dev/null

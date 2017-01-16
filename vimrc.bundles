@@ -10,7 +10,6 @@ Plug 'digitaltoad/vim-pug'                    " Vim Pug (formerly Jade) template
 Plug 'ekalinin/Dockerfile.vim'                " Vim syntax file & snippets for Docker's Dockerfile
 Plug 'elzr/vim-json'                          " A better JSON for Vim
 Plug 'heavenshell/vim-jsdoc'                  " Generate JSDoc to your JavaScript code.
-Plug 'helino/vim-json'                        " Filetype detection and syntax highlightnig for JSON in Vim
 Plug 'itspriddle/vim-marked'                  " Open the current Markdown buffer in Marked.app
 Plug 'jelera/vim-javascript-syntax'           " Enhanced javascript syntax file for Vim
 Plug 'jtratner/vim-flavored-markdown'         " Extends the Tim Pope's markdown
@@ -91,6 +90,8 @@ Plug 'ntpeters/vim-better-whitespace'                             " Better white
 Plug 'terryma/vim-multiple-cursors'                               " Add multiple cursors functionality like Sublime
 Plug 'tpope/vim-repeat'                                           " Enable repeating supported plugin maps with .
 Plug 'tpope/vim-surround'                                         " Change surrounding character with ease
+Plug 'wellle/targets.vim'                                         " Vim plugin that provides additional text objects
+
 " }}}
 
 " Others {{{
