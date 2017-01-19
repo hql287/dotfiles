@@ -314,6 +314,10 @@ nnoremap <Leader>jn :rightbelow new<CR>
 set splitbelow
 set splitright
 
+" Quickly resize windows
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 4/3)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 3/4)<CR>
+
 " Move between splits faster without the prefix key
 " Use ctrl-[hjkl] to select the active split!
 nmap <C-j> <C-W><C-j>
