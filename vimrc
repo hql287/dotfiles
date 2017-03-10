@@ -840,19 +840,24 @@ nnoremap <Leader>s :SplitjoinSplit<CR>
 " Vim Test"{{{
 let test#strategy = "neovim"
 let g:test#preserve_screen = 1
-let g:test#runner_commands = ['Mocha']
+let g:test#runner_commands = ['RSpec', 'Mocha']
+
+" Javascript
 let test#javascript#mocha#executable = 'npm run test'
 let test#javascript#mocha#file_pattern = 'spec\.js'
+
+" Ruby
+let test#ruby#rspec#executable = 'bundle exec rspec'
+let test#ruby#rspec#file_pattern = '_spec\.rb'
 
 " Run the whole test file
 nnoremap <silent> <leader>tf :TestFile<CR>
 " Run the Test Suite
 nnoremap <silent> <leader>ts :TestSuite<CR>
-
+" Run the nearest test
 nnoremap <silent> <leader>tn :TestNearest<CR>
+" Run the last test
 nnoremap <silent> <leader>tl :TestLast<CR>
-nnoremap <silent> <leader>tvg :TestVisit<CR>
-
 "}}}
 
 " Utilsnips {{{
