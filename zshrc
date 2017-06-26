@@ -32,25 +32,13 @@ path=(
   ~/.composer/vendor/bin
   $path
 )
-
 # }}}
 
 # Custom Programs {{{
-# Fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# Phpbrew
-[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
-# Pyenv
-eval "$(pyenv init -)"
-# Rbenv
-eval "$(rbenv init -)"
-# Hub
-# eval "$(hub alias -s)"
-# Desk
-# [ -n "$DESK_ENV" ] && source "$DESK_ENV" || true
-# Thefuck
-# eval "$(thefuck --alias)"
-# eval "$(thefuck --alias FUCK)"
+eval "$(pyenv init -)"                                 # Pyenv
+eval "$(rbenv init -)"                                 # Rbenv
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh                 # Fzf
+[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc # Phpbrew
 # }}}
 
 # Zplug Configuration {{{
@@ -67,16 +55,8 @@ zplug "Valiev/almostontop"               # Almost On Top
 zplug "b4b4r07/enhancd", use:init.sh     # Enhanced CD
 zplug "djui/alias-tips"                  # Aliases tips
 zplug "hungle88/aka"                     # Custom aliases
-zplug "k4rthik/git-cal", as:command      # Github contirbution calendar
 zplug "lukechilds/zsh-nvm"               # Node versions manager
 zplug "plugins/extract", from:oh-my-zsh  # Extracting utility
-# zplug "zsh-users/zsh-history-substring-search"
-# zplug "tmuxinator/tmuxinator", use: "completion/tmuxinator.zsh"
-# zplug "voronkovich/gitignore.plugin.zsh" # Creating .gitignore files.
-# zplug "rupa/z", use:z.sh                 # z jump
-# zplug "shannonmoeller/up", use:up.sh     # Quickly navigate to a parent directory via tab-completion.
-# zplug "supercrabtree/k"                  # K is the new l, yo!
-# zplug "urbainvaes/fzf-marks"             # Bookmark
 zplug "zplug/zplug"                      # Manage zplug in the same way as any other packages<Paste>
 
 # Install packages that have not been installed yet
@@ -94,4 +74,3 @@ zplug load
 # }}}
 
 # vim:foldmethod=marker:foldlevel=0
-# export PATH="$HOME/.yarn/bin:$PATH"
