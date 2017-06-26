@@ -54,7 +54,7 @@ set backspace=2       " Make the backspace work like in most other programs
 set binary            " Don’t add empty newlines at the end of files
 set clipboard=unnamed " Use the OS clipboard by default
 set diffopt+=vertical " Always use vertical diffs
-set esckeys           " Allow cursor keys in insert mode
+" set esckeys           " Allow cursor keys in insert mode
 set hidden            " Hide files with unwritten changes instead of closing them
 set history=500       " Keep 500 lines of command line history
 set lazyredraw        " Don't redraw screen when running macros.
@@ -404,8 +404,8 @@ endfunction
 " Autocommand {{{
 augroup general
   autocmd!
-  autocmd BufReadPost * Neomake
-  autocmd BufWritePost * Neomake
+  " autocmd BufReadPost * Neomake
+  " autocmd BufWritePost * Neomake
 
   " Show cursorline only in active windows & not in inser mode
   autocmd InsertLeave,WinEnter * set cursorline
@@ -544,32 +544,39 @@ endif
 
 " ALE  {{{
 " Setup linters
-" let g:ale_linters = {
-"   \ 'bash':       ['shellcheck'],
-"   \ 'javascript': ['eslint'],
-"   \ 'ruby':       ['rubocop'],
-"   \ 'markdown':   ['mdl'],
-"   \ 'php':        ['phpcs'],
-"   \ 'css':        ['csslint'],
-"   \ 'html':       ['htmlhint'],
-"   \ 'json':       ['jsonlint'],
-"   \ 'python':     ['flake8'],
-"   \ 'sass':       ['sasslint'],
-"   \ 'scss':       ['scsslint'],
-"   \ 'viml':       ['vint'],
-"   \ 'yml':        ['yamllint'],
-" \ }
-"
+let g:ale_linters = {
+  \ 'bash':       ['shellcheck'],
+  \ 'javascript': ['eslint'],
+  \ 'ruby':       ['rubocop'],
+  \ 'markdown':   ['mdl'],
+  \ 'php':        ['phpcs'],
+  \ 'css':        ['csslint'],
+  \ 'html':       ['htmlhint'],
+  \ 'json':       ['jsonlint'],
+  \ 'python':     ['flake8'],
+  \ 'sass':       ['sasslint'],
+  \ 'scss':       ['scsslint'],
+  \ 'viml':       ['vint'],
+  \ 'yml':        ['yamllint'],
+\ }
+
+" Keep the sign gutter open at all times
+let g:ale_sign_column_always = 1
+
 " " Display waring & erros in airline
-" let g:airline#extensions#ale#enabled = 1
-" let g:ale_statusline_format = ['E:%d', 'W:%d', '✓']
-"
+let g:airline#extensions#ale#enabled = 1
+let g:ale_statusline_format = ['E:%d', 'W:%d', '✓']
+
 " " Custom Characters
-" let g:ale_sign_error = '➤'
-" let g:ale_sign_warning = '⚠'
-"
-" " Set Error Format
-" let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '⚠'
+
+"Use the quickfix list instead of the loclist
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+
+" Disable lint while typing to save battery life
+let g:ale_lint_on_text_changed = 'normal'
 " }}}
 
 " Deoplete {{{
@@ -681,53 +688,53 @@ let g:indent_guides_default_mapping = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'rogue']
 " }}}
-
-" Neomake {{{
-
+"
+" " Neomake {{{
+"
 " let g:neomake_verbose                    = 3  " Debug
-let g:neomake_serialize                  = 1  " Run each enabled maker one after the other.
-let g:neomake_serialize_abort_on_error   = 1  " Abort after the first error status is encountered
-let g:neomake_open_list                  = 0  " Preseve cursor position when quickfix window is open
-let g:neomake_list_height                = 10 " The height of quickfix list opened by Neomake
-let g:airline#extensions#neomake#enabled = 1  " Shows warning and error counts in vim-airline
-
-" Define maker
-let g:neomake_bash_enabled_markers      = ['shellcheck'] " Shell
-let g:neomake_css_enabled_makers        = ['stylelint']  " CSS
-let g:neomake_html_enabled_makers       = ['htmlhint']   " HTML
-let g:neomake_javascript_enabled_makers = ['eslint']     " Javascript
-let g:neomake_json_enabled_markers      = ['jsonlint']   " Json
-let g:neomake_jsx_enabled_makers        = ['eslint']     " Jsx
-let g:neomake_markdown_enabled_makers   = ['mdl']        " Markdown
-let g:neomake_php_enabled_makers        = ['phpcs']      " PHP
-let g:neomake_python_enabled_markers    = ['flake8']     " Python
-let g:neomake_ruby_enabled_makers       = ['rubocop']    " Ruby
-let g:neomake_sass_enabled_makers       = ['stylelint']  " SASS
-let g:neomake_scss_enabled_makers       = ['stylelint']  " SCSS
-let g:neomake_swift_enabled_makers      = ['swiftlint']  " Swift
-let g:neomake_viml_enabled_markers      = ['vint']       " Viml
-let g:neomake_yml_enabled_markers       = ['yamllint']   " Yaml
-let g:neomake_zsh_enabled_markers       = ['shellcheck'] " Shell
-
-" Custom sign character
-let g:neomake_error_sign = {
-  \ 'text': '✗',
-  \ 'texthl': 'NeomakeErrorSign'
-  \ }
-let g:neomake_warning_sign = {
-  \ 'text': '⚠',
-  \ 'texthl': 'NeomakeWarningSign',
-  \ }
-let g:neomake_message_sign = {
-  \ 'text': '➤',
-  \ 'texthl': 'NeomakeMessageSign',
-  \ }
-let g:neomake_info_sign = {
-  \ 'text': 'ℹ',
-  \ 'texthl': 'NeomakeInfoSign'
-  \ }
-" }}}
-
+" let g:neomake_serialize                  = 1  " Run each enabled maker one after the other.
+" let g:neomake_serialize_abort_on_error   = 1  " Abort after the first error status is encountered
+" let g:neomake_open_list                  = 0  " Preseve cursor position when quickfix window is open
+" let g:neomake_list_height                = 10 " The height of quickfix list opened by Neomake
+" let g:airline#extensions#neomake#enabled = 1  " Shows warning and error counts in vim-airline
+"
+" " Define maker
+" let g:neomake_bash_enabled_markers      = ['shellcheck'] " Shell
+" let g:neomake_css_enabled_makers        = ['stylelint']  " CSS
+" let g:neomake_html_enabled_makers       = ['htmlhint']   " HTML
+" let g:neomake_javascript_enabled_makers = ['eslint']     " Javascript
+" let g:neomake_json_enabled_markers      = ['jsonlint']   " Json
+" let g:neomake_jsx_enabled_makers        = ['eslint']     " Jsx
+" let g:neomake_markdown_enabled_makers   = ['mdl']        " Markdown
+" let g:neomake_php_enabled_makers        = ['phpcs']      " PHP
+" let g:neomake_python_enabled_markers    = ['flake8']     " Python
+" let g:neomake_ruby_enabled_makers       = ['rubocop']    " Ruby
+" let g:neomake_sass_enabled_makers       = ['stylelint']  " SASS
+" let g:neomake_scss_enabled_makers       = ['stylelint']  " SCSS
+" let g:neomake_swift_enabled_makers      = ['swiftlint']  " Swift
+" let g:neomake_viml_enabled_markers      = ['vint']       " Viml
+" let g:neomake_yml_enabled_markers       = ['yamllint']   " Yaml
+" let g:neomake_zsh_enabled_markers       = ['shellcheck'] " Shell
+"
+" " Custom sign character
+" let g:neomake_error_sign = {
+"   \ 'text': '✗',
+"   \ 'texthl': 'NeomakeErrorSign'
+"   \ }
+" let g:neomake_warning_sign = {
+"   \ 'text': '⚠',
+"   \ 'texthl': 'NeomakeWarningSign',
+"   \ }
+" let g:neomake_message_sign = {
+"   \ 'text': '➤',
+"   \ 'texthl': 'NeomakeMessageSign',
+"   \ }
+" let g:neomake_info_sign = {
+"   \ 'text': 'ℹ',
+"   \ 'texthl': 'NeomakeInfoSign'
+"   \ }
+" " }}}
+"
 " NERDTree {{{
 " Map Leader F to show file in NERDTree
 nnoremap <Leader>f :NERDTreeFind<CR>

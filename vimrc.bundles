@@ -32,6 +32,7 @@ Plug 'vim-ruby/vim-ruby'                      " Vim/Ruby Configuration Files
 " Completion {{{
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Dark powered asynchronous completion framework for neovim
 Plug 'SirVer/ultisnips'                                       " Snippet Engine
+Plug 'letientai299/vim-react-snippets', { 'branch': 'es6' }
 Plug 'honza/vim-snippets'                                     " Snippets Source
 Plug 'hungle88/vim-craft-snippets'                            " Craft CMS snippets
 Plug 'isRuslan/vim-es6'                                       " List of JavaScript ES6 snippets and syntax highlighting for vim
@@ -58,7 +59,8 @@ Plug 'junegunn/fzf.vim'                   " Fzf Wrapper for Vim
 Plug 'junegunn/vim-emoji'                 " Emoji in Vim
 Plug 'maksimr/vim-jsbeautify'             " Vim plugin which formated javascript files by js-beautify
 Plug 'mileszs/ack.vim'                    " Integrate Ack
-Plug 'neomake/neomake'                    " Linting Engine
+" Plug 'neomake/neomake'                    " Linting Engine
+Plug 'w0rp/ale'                           "Linting Engine
 Plug 'scrooloose/nerdcommenter'           " Vim plugin for intensely orgasmic commenting
 Plug 'sjl/vitality.vim'                   " Make Vim play nicely with iTerm 2 and tmux
 Plug 'tmux-plugins/vim-tmux'              " Make editing tmux.conf easier
