@@ -41,10 +41,12 @@ Plug 'mattn/emmet-vim'                                        " Emmet for Vim
 " }}}
 
 " Code Display {{{
-Plug 'ap/vim-css-color'                " Preview colours in source code while editing
-Plug 'joshdick/onedark.vim'            " A dark Vim color scheme inspired by Atom's One Dark syntax theme.<Paste>
-Plug 'kien/rainbow_parentheses.vim'    " Mark a serie of parentheses with different colors
-Plug 'nathanaelkane/vim-indent-guides' " A Vim plugin for visually displaying indent levels in code
+Plug 'ap/vim-css-color'                 " Preview colours in source code while editing
+Plug 'altercation/vim-colors-solarized' " precision colorscheme for the vim text editor
+Plug 'joshdick/onedark.vim'             " A dark Vim color scheme inspired by Atom's One Dark syntax theme.<Paste>
+Plug 'kien/rainbow_parentheses.vim'     " Mark a serie of parentheses with different colors
+Plug 'nathanaelkane/vim-indent-guides'  " A Vim plugin for visually displaying indent levels in code
+Plug 'morhetz/gruvbox'
 " }}}
 
 " Integrations {{{
@@ -59,13 +61,14 @@ Plug 'junegunn/fzf.vim'                   " Fzf Wrapper for Vim
 Plug 'junegunn/vim-emoji'                 " Emoji in Vim
 Plug 'maksimr/vim-jsbeautify'             " Vim plugin which formated javascript files by js-beautify
 Plug 'mileszs/ack.vim'                    " Integrate Ack
-" Plug 'neomake/neomake'                    " Linting Engine
 Plug 'w0rp/ale'                           "Linting Engine
 Plug 'scrooloose/nerdcommenter'           " Vim plugin for intensely orgasmic commenting
 Plug 'sjl/vitality.vim'                   " Make Vim play nicely with iTerm 2 and tmux
 Plug 'tmux-plugins/vim-tmux'              " Make editing tmux.conf easier
 Plug 'tmux-plugins/vim-tmux-focus-events' " Make terminal vim and tmux work better together.s
 Plug 'tpope/vim-fugitive'                 " Control git in vim
+Plug 'ruanyl/vim-fixmyjs'
+Plug 'mitermayer/vim-prettier'
 " }}}
 
 " Interface {{{
@@ -82,11 +85,14 @@ Plug 'scrooloose/nerdtree'                     " Files Explorer
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " Extra syntax and highlight for nerdtree files
 Plug 'vim-airline/vim-airline'                 " Lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline-themes'          " A collection of Airline theme
+Plug 'chrisbra/NrrwRgn'                        " A Narrow Region Plugin for vim (like Emacs Narrow Region)
+Plug 'wesQ3/vim-windowswap'
 " }}}
 
 " Commands {{{
 Plug 'AndrewRadev/splitjoin.vim'                                  " A vim plugin that simplifies the transition between multiline and single-line code
 Plug 'easymotion/vim-easymotion'                                  " Search Replacement
+Plug 'justinmk/vim-sneak'                                         " The missing motion for Vim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Fuzzy Finder wittern in Go
 Plug 'junegunn/vim-easy-align'                                    " Quickly Align Code
 Plug 'ntpeters/vim-better-whitespace'                             " Better whitespace highlighting for Vim
@@ -94,6 +100,7 @@ Plug 'terryma/vim-multiple-cursors'                               " Add multiple
 Plug 'tpope/vim-repeat'                                           " Enable repeating supported plugin maps with .
 Plug 'tpope/vim-surround'                                         " Change surrounding character with ease
 Plug 'wellle/targets.vim'                                         " Vim plugin that provides additional text objects
+Plug 'kshenoy/vim-signature'                                      " Plugin to toggle, display and navigate marks
 
 " }}}
 

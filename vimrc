@@ -6,11 +6,27 @@ if filereadable(expand('~/.vimrc.bundles'))
   source ~/.vimrc.bundles
 endif
 
-set background=dark                 " Using dark background while writing code
-set termguicolors                   " Using True Colors
-syntax enable                       " Set syntax on by default
-colorscheme onedark                 " A dark Vim color scheme inspired by Atom's One Dark syntax theme.
-let g:onedark_terminal_italics = 1  " Enable using italic character
+syntax enable       " Set syntax on by default
+set termguicolors   " Using True Colors
+
+" Set Background depends on time
+let iterm_profile=$DAYMODE
+if iterm_profile == 'true'
+  set background=light
+else
+  set background=dark
+endif
+
+colorscheme gruvbox " A dark Vim color scheme inspired by Atom's One Dark syntax theme.
+
+" Gruvbox Settings
+let g:gruvbox_bold=1
+let g:gruvbox_italic=1
+let g:gruvbox_underline=1
+let g:gruvbox_undercurl=1
+let g:gruvbox_termcolors=256
+let g:gruvbox_contrast_dark='soft'
+let g:gruvbox_contrast_light='hard'
 
 " Enable using true color in Neovim
 " For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
@@ -366,11 +382,11 @@ vnoremap <Space> za
 
 " Highlight Fold Column
 highlight FoldColumn ctermfg=darkblue ctermbg=black
-highlight FoldColumn guifg=#2980b9 guibg=NONE
+highlight FoldColumn guifg=#689d6a guibg=NONE
 
 " Highlight Folded Line
 highlight Folded ctermbg=blue ctermfg=white
-highlight Folded guibg=#2980b9 guifg=white
+highlight Folded guibg=#689d6a guifg=white
 
 " }}}
 
@@ -399,13 +415,16 @@ function! s:goyo_leave()
   NERDTreeTabsOpen
   Limelight!
 endfunction
+
+
+  function StripUnwantedCharacters()
+    execute "%s///g"
+  endfunction
 " }}}
 
 " Autocommand {{{
 augroup general
   autocmd!
-  " autocmd BufReadPost * Neomake
-  " autocmd BufWritePost * Neomake
 
   " Show cursorline only in active windows & not in inser mode
   autocmd InsertLeave,WinEnter * set cursorline
@@ -420,6 +439,7 @@ augroup general
 
 " Strip trailing whitespace on save.
 	autocmd BufWritePre,FileWritePre,FileAppendPre,FilterWritePre * StripWhitespace
+	" autocmd BufWritePre,FileWritePre,FileAppendPre,FilterWritePre * StripUnwantedCharacters
 
   autocmd TabLeave * let g:lasttab = tabpagenr()
 augroup END
@@ -542,7 +562,73 @@ endif
 
 " Plugin Settings
 
+" FixMyJS{{{
+let g:fixmyjs_engine = 'eslint'
+let g:fixmyjs_rc_filename = ['.eslintrc', '.eslintrc.json']"}}}
+
+" Prettier{{{
+" Disable auto formatting of files that have "@format" tag
+let g:prettier#autoformat = 0
+
+" The command `:Prettier` by default is synchronous but can also be forced async
+let g:prettier#exec_cmd_async = 1
+
+" max line lengh that prettier will wrap on
+let g:prettier#config#print_width = 80
+
+" number of spaces per indentation level
+let g:prettier#config#tab_width = 2
+
+" use tabs over spaces
+let g:prettier#config#use_tabs = 'false'
+
+" print semicolons
+let g:prettier#config#semi = 'true'
+
+" single quotes over double quotes
+let g:prettier#config#single_quote = 'true'
+
+" print spaces between brackets
+let g:prettier#config#bracket_spacing = 'false'
+
+" put > on the last line instead of new line
+let g:prettier#config#jsx_bracket_same_line = 'true'
+
+" none|es5|all
+let g:prettier#config#trailing_comma = 'all'
+
+" flow|babylon|typescript|postcss|json|graphql
+let g:prettier#config#parser = 'flow'"}}}
+
 " ALE  {{{
+" Global Variables
+" ======================================
+" Keep the sign gutter open at all times
+let g:ale_sign_column_always = 1
+
+" Display waring & erros in airline
+let g:airline#extensions#ale#enabled = 1
+let g:ale_statusline_format = ['E:%d', 'W:%d', '✓']
+
+" Error Message Format
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+" Custom Characters
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '⚠'
+let g:ale_sign_warning = '--'
+let g:ale_warn_about_trailing_whitespace = 1
+
+" Use the quickfix list instead of the loclist
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+
+" Disable lint while typing to save battery life
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_delay = 200
+
+" Linter Variables
+" ======================================
 " Setup linters
 let g:ale_linters = {
   \ 'bash':       ['shellcheck'],
@@ -560,23 +646,6 @@ let g:ale_linters = {
   \ 'yml':        ['yamllint'],
 \ }
 
-" Keep the sign gutter open at all times
-let g:ale_sign_column_always = 1
-
-" " Display waring & erros in airline
-let g:airline#extensions#ale#enabled = 1
-let g:ale_statusline_format = ['E:%d', 'W:%d', '✓']
-
-" " Custom Characters
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '⚠'
-
-"Use the quickfix list instead of the loclist
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
-
-" Disable lint while typing to save battery life
-let g:ale_lint_on_text_changed = 'normal'
 " }}}
 
 " Deoplete {{{
@@ -688,53 +757,7 @@ let g:indent_guides_default_mapping = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'rogue']
 " }}}
-"
-" " Neomake {{{
-"
-" let g:neomake_verbose                    = 3  " Debug
-" let g:neomake_serialize                  = 1  " Run each enabled maker one after the other.
-" let g:neomake_serialize_abort_on_error   = 1  " Abort after the first error status is encountered
-" let g:neomake_open_list                  = 0  " Preseve cursor position when quickfix window is open
-" let g:neomake_list_height                = 10 " The height of quickfix list opened by Neomake
-" let g:airline#extensions#neomake#enabled = 1  " Shows warning and error counts in vim-airline
-"
-" " Define maker
-" let g:neomake_bash_enabled_markers      = ['shellcheck'] " Shell
-" let g:neomake_css_enabled_makers        = ['stylelint']  " CSS
-" let g:neomake_html_enabled_makers       = ['htmlhint']   " HTML
-" let g:neomake_javascript_enabled_makers = ['eslint']     " Javascript
-" let g:neomake_json_enabled_markers      = ['jsonlint']   " Json
-" let g:neomake_jsx_enabled_makers        = ['eslint']     " Jsx
-" let g:neomake_markdown_enabled_makers   = ['mdl']        " Markdown
-" let g:neomake_php_enabled_makers        = ['phpcs']      " PHP
-" let g:neomake_python_enabled_markers    = ['flake8']     " Python
-" let g:neomake_ruby_enabled_makers       = ['rubocop']    " Ruby
-" let g:neomake_sass_enabled_makers       = ['stylelint']  " SASS
-" let g:neomake_scss_enabled_makers       = ['stylelint']  " SCSS
-" let g:neomake_swift_enabled_makers      = ['swiftlint']  " Swift
-" let g:neomake_viml_enabled_markers      = ['vint']       " Viml
-" let g:neomake_yml_enabled_markers       = ['yamllint']   " Yaml
-" let g:neomake_zsh_enabled_markers       = ['shellcheck'] " Shell
-"
-" " Custom sign character
-" let g:neomake_error_sign = {
-"   \ 'text': '✗',
-"   \ 'texthl': 'NeomakeErrorSign'
-"   \ }
-" let g:neomake_warning_sign = {
-"   \ 'text': '⚠',
-"   \ 'texthl': 'NeomakeWarningSign',
-"   \ }
-" let g:neomake_message_sign = {
-"   \ 'text': '➤',
-"   \ 'texthl': 'NeomakeMessageSign',
-"   \ }
-" let g:neomake_info_sign = {
-"   \ 'text': 'ℹ',
-"   \ 'texthl': 'NeomakeInfoSign'
-"   \ }
-" " }}}
-"
+
 " NERDTree {{{
 " Map Leader F to show file in NERDTree
 nnoremap <Leader>f :NERDTreeFind<CR>
@@ -875,7 +898,6 @@ let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
 " }}}
 
 "Vim Airline {{{
-
 let g:airline#extensions#syntastic#enabled        = 0         " Disable syntastic integration
 let g:airline#extensions#tabline#enabled          = 1         " Enable Tab line
 let g:airline#extensions#tabline#fnamemod         = ':t'      " Show just the filename in tabline
@@ -884,15 +906,12 @@ let g:airline#extensions#tabline#tab_nr_type      = 1         " Show splits and 
 let g:airline#extensions#tmuxline#enabled         = 1         " Enable tmuxline integration >
 let g:airline#extensions#wordcount#enabled        = 0         " Disbale words counter by default
 let g:airline_powerline_fonts                     = 1         " Enable using powerline font
-" let g:airline_section_c                           = 0         " Diable section_c (already show tabline)
-let g:airline_theme                               = 'onedark' " Set airline theme
-" let g:airline_section_warning                     = 0         " Disable warning section
+let g:airline_theme                               = 'gruvbox' " Set airline theme
+let g:airline_section_warning                     = 1         " Disable warning section
 
 " Integration with vim-obsession
 let g:airline#extensions#obsession#enabled        = 1
 let g:airline#extensions#obsession#indicator_text = '@'
-" Integrate with ALE
-" let g:airline_section_error = '%{ALEGetStatusLine()}'
 " }}}
 
 " Vim Fugitive {{{
