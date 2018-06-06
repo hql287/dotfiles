@@ -21,6 +21,7 @@ export PAGER='less'
 # LANG
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+export GH_TOKEN=0e0fa519f439210a61bfb60d6fe47ef032815732
 
 # EnhanCD Hook
 export ENHANCD_HOOK_AFTER_CD="ls -al"
@@ -59,7 +60,7 @@ updateWorkMode () {
       export DAYMODE='false'
       ;;
     *)
-      if [[ $now -ge 7 && $now -le 15 ]]; then
+      if [[ $now -ge 7 && $now -le 16 ]]; then
         # Set iTerm Profile to DayMode
         echo -e "\033]50;SetProfile=DayMode\a"
         # Update DAYMODE var for Vim to Use
@@ -112,3 +113,5 @@ zplug load
 # }}}
 
 # vim:foldmethod=marker:foldlevel=0
+# added by travis gem
+[ -f /Users/quochungle/.travis/travis.sh ] && source /Users/quochungle/.travis/travis.sh

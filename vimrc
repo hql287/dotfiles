@@ -83,7 +83,6 @@ set novisualbell      " Do not show visual bell
 set nowritebackup     " Do not write backup
 set ruler             " Show the cursor position all the time
 set scrolloff=10      " Keep at least 10 lines below cursor
-set shiftround        " When at 3 spaces, hit >> to go to 4, not 5.
 set shortmess=atI     " Don’t show the intro message when starting Vim
 set showcmd           " Show command in bottom bar
 set showmatch         " Show matching brackets.
@@ -109,7 +108,7 @@ set numberwidth=5  " Number column width
 set relativenumber " Set relative number by default
 set scrolloff=10   " Keep at least 5 lines above & below cursor position
 set selection=old  " Do not select the end of line.
-set shiftround     " Shift to the next round tab stop.
+set shiftround     " Shift to the next round tab stop. Aka When at 3 spaces, hit >> to go to 4, not 5.
 set shiftwidth=2   " Set auto indent spacing.
 set showbreak=a    " Set break character
 set smartindent    " Smart Indent
@@ -283,7 +282,7 @@ nnoremap <D-0> g^
 
 " Tab Navigation {{{
 " Easily create a new tab.
-noremap <Leader>tn :tabnew<CR>
+noremap <Leader>tN :tabnew<CR>
 
 " Easily close a tab.
 noremap <Leader>tc :tabclose<CR>
@@ -632,7 +631,8 @@ let g:ale_lint_delay = 200
 " Setup linters
 let g:ale_linters = {
   \ 'bash':       ['shellcheck'],
-  \ 'javascript': ['eslint'],
+  \ 'javascript': ['eslint', 'flow'],
+  \ 'typescript': ['eslint'],
   \ 'ruby':       ['rubocop'],
   \ 'markdown':   ['mdl'],
   \ 'php':        ['phpcs'],
@@ -736,10 +736,10 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " }}}
 
 " Gitgutter {{{
+set signcolumn=yes
 let g:gitgutter_enabled            = 1
 let g:gitgutter_signs              = 1
 let g:gitgutter_highlight_lines    = 0
-let g:gitgutter_sign_column_always = 1
 let g:gitgutter_realtime           = 1
 let g:gitgutter_eager              = 0
 let g:gitgutter_max_signs          = 500
@@ -759,6 +759,7 @@ let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'rogue']
 " }}}
 
 " NERDTree {{{
+nnoremap <Leader>n :NERDTreeToggle<CR>
 " Map Leader F to show file in NERDTree
 nnoremap <Leader>f :NERDTreeFind<CR>
 let g:NERDTreeWinSize=30
