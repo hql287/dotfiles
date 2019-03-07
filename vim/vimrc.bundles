@@ -3,17 +3,15 @@
 call plug#begin('~/.vim/bundle')
 
 " Languages {{{
-" Plug 'PeterRincker/vim-argumentative'         " Argumentative aids with manipulating and moving between function arguments.
-Plug 'StanAngeloff/php.vim', { 'for': 'php' }       " Up-to-date PHP syntax file
-Plug 'cakebaker/scss-syntax.vim'                    " Syntax file for scss
-Plug 'digitaltoad/vim-pug', { 'for': 'pug' }        " Vim Pug (formerly Jade) template engine syntax highlighting and indention
-Plug 'ekalinin/Dockerfile.vim'                      " Vim syntax file & snippets for Docker's Dockerfile
-Plug 'elzr/vim-json'                                " A better JSON for Vim
-Plug 'heavenshell/vim-jsdoc'                        " Generate JSDoc to your JavaScript code.
-Plug 'itspriddle/vim-marked', { 'for': 'markdown' } " Open the current Markdown buffer in Marked.app
-Plug 'jelera/vim-javascript-syntax'                 " Enhanced javascript syntax file for Vim
-Plug 'jtratner/vim-flavored-markdown'               " Extends the Tim Pope's markdown
-" Plug 'keith/swift.vim'                        " Vim runtime files for Swift
+Plug 'StanAngeloff/php.vim', { 'for': 'php' }              " Up-to-date PHP syntax file
+Plug 'cakebaker/scss-syntax.vim'                           " Syntax file for scss
+Plug 'digitaltoad/vim-pug', { 'for': 'pug' }               " Vim Pug (formerly Jade) template engine syntax highlighting and indention
+Plug 'ekalinin/Dockerfile.vim'                             " Vim syntax file & snippets for Docker's Dockerfile
+Plug 'elzr/vim-json'                                       " A better JSON for Vim
+Plug 'heavenshell/vim-jsdoc'                               " Generate JSDoc to your JavaScript code.
+Plug 'itspriddle/vim-marked', { 'for': 'markdown' }        " Open the current Markdown buffer in Marked.app
+Plug 'jelera/vim-javascript-syntax'                        " Enhanced javascript syntax file for Vim
+Plug 'jtratner/vim-flavored-markdown'                      " Extends the Tim Pope's markdown
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' } " Typescript syntax files for Vim
 Plug 'moll/vim-node'                                       " Tools and environment to make Vim superb for developing with Node.js
 Plug 'mustache/vim-mustache-handlebars'                    " Mustache and handlebars mode for vim
@@ -27,7 +25,8 @@ Plug 'sheerun/vim-polyglot'                                " A solid language pa
 Plug 'tpope/vim-git'                                       " Vim Git runtime files
 Plug 'tpope/vim-liquid', { 'for': 'liquid' }               " Vim Liquid runtime files with Jekyll enhancements
 Plug 'tpope/vim-rails', { 'for': 'ruby' }                  " Ruby on Rails power tools
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }                 " Vim/Ruby Configuration Files
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }                " Vim/Ruby Configuration Files
+Plug 'elmcast/elm-vim'                                     " Elm plugin for Vim
 " }}}
 
 " Completion {{{
@@ -36,11 +35,11 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Dark powered asy
 Plug 'SirVer/ultisnips'                                       " Snippet Engine
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }                " A completion plugin for Haskell, using ghc-mod
 Plug 'honza/vim-snippets'                                     " Snippets Source
-" Plug 'hungle88/vim-craft-snippets', { 'for': 'php' }          " Craft CMS snippets
 Plug 'isRuslan/vim-es6'                                       " List of JavaScript ES6 snippets and syntax highlighting for vim
 Plug 'jiangmiao/auto-pairs'                                   " Provides insert mode auto-completion for quotes, parens, brackets, etc
 Plug 'letientai299/vim-react-snippets', { 'branch': 'es6' }
 Plug 'mattn/emmet-vim'                                        " Emmet for Vim
+Plug 'mhartington/vim-angular2-snippets'                        "Angular 2 Snippets
 " }}}
 
 " Code Display {{{
@@ -49,48 +48,44 @@ Plug 'ap/vim-css-color'                 " Preview colours in source code while e
 Plug 'joshdick/onedark.vim'             " A dark Vim color scheme inspired by Atom's One Dark syntax theme.<Paste>
 Plug 'kien/rainbow_parentheses.vim'     " Mark a serie of parentheses with different colors
 Plug 'morhetz/gruvbox'                  "Gruvbox theme for Vim
-" Plug 'nathanaelkane/vim-indent-guides'  " A Vim plugin for visually displaying indent levels in code
+Plug 'Yggdroot/indentLine'              "A vim plugin to display the indention levels with thin vertical lines
 " }}}
 
 " Integrations {{{
-Plug 'Xuyuanp/nerdtree-git-plugin'                 " Showing changes in Nerdtree
-Plug 'bolasblack/csslint.vim'                      " Vim plugin based on csslint of nodejs http://plafer.info/
-Plug 'christoomey/vim-rfactory', { 'for': 'ruby' } " Vim plugin for rapid navigation to FactoryGirl factory definition
-Plug 'christoomey/vim-tmux-navigator'              " Seamless navigation between tmux panes and vim splits
-Plug 'dhruvasagar/vim-table-mode'                  " VIM Table Mode for instant table creation.
-Plug 'geekjuice/vim-mocha'                         " Run mocha specs from vim
-Plug 'janko-m/vim-test'                            " Run your tests at the speed of thought
-Plug 'junegunn/fzf.vim'                            " Fzf Wrapper for Vim
-Plug 'junegunn/vim-emoji'                          " Emoji in Vim
-Plug 'maksimr/vim-jsbeautify'                      " Vim plugin which formated javascript files by js-beautify
-Plug 'mileszs/ack.vim'                             " Integrate Ack
-Plug 'mitermayer/vim-prettier'                     " A Vim plugin for Prettier
-Plug 'scrooloose/nerdcommenter'                    " Vim plugin for intensely orgasmic commenting
-Plug 'sjl/vitality.vim'                            " Make Vim play nicely with iTerm 2 and tmux
-Plug 'tmux-plugins/vim-tmux'                       " Make editing tmux.conf easier
-Plug 'tmux-plugins/vim-tmux-focus-events'          " Make terminal vim and tmux work better together.s
-" Plug 'tpope/vim-fugitive'                        " Control git in vim
-Plug 'w0rp/ale'                                    " Linting Engine
+Plug 'Xuyuanp/nerdtree-git-plugin'                     " Showing changes in Nerdtree
+Plug 'bolasblack/csslint.vim'                          " Vim plugin based on csslint of nodejs http://plafer.info/
+Plug 'christoomey/vim-rfactory', { 'for': 'ruby' }     " Vim plugin for rapid navigation to FactoryGirl factory definition
+Plug 'christoomey/vim-tmux-navigator'                  " Seamless navigation between tmux panes and vim splits
+Plug 'dhruvasagar/vim-table-mode'                      " VIM Table Mode for instant table creation.
+Plug 'geekjuice/vim-mocha'                             " Run mocha specs from vim
+Plug 'janko-m/vim-test'                                " Run your tests at the speed of thought
+Plug 'junegunn/fzf.vim'                                " Fzf Wrapper for Vim
+Plug 'junegunn/vim-emoji'                              " Emoji in Vim
+Plug 'maksimr/vim-jsbeautify'                          " Vim plugin which formated javascript files by js-beautify
+Plug 'mileszs/ack.vim'                                 " Integrate Ack
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' } " A Vim plugin for Prettier
+Plug 'scrooloose/nerdcommenter'                        " Vim plugin for intensely orgasmic commenting
+Plug 'sjl/vitality.vim'                                " Make Vim play nicely with iTerm 2 and tmux
+Plug 'tmux-plugins/vim-tmux'                           " Make editing tmux.conf easier
+Plug 'tmux-plugins/vim-tmux-focus-events'              " Make terminal vim and tmux work better together.s
+Plug 'tpope/vim-fugitive'                              " Control git in vim
+Plug 'w0rp/ale'                                        " Linting Engine
+Plug 'kristijanhusak/vim-carbon-now-sh'                " Create screenshot of selected text
 " }}}
 
 " Interface {{{
-Plug 'airblade/vim-gitgutter'                              " Add git changes symbols to gutter
-" Plug 'chrisbra/NrrwRgn'                                  " A Narrow Region Plugin for vim (like Emacs Narrow Region)
-Plug 'jistr/vim-nerdtree-tabs'                             " NERDTree and tabs together in Vim, painlessly
-Plug 'junegunn/goyo.vim', { 'for': 'markdown' }            " Distraction-free writing in Vim
-Plug 'junegunn/limelight.vim', { 'for': 'markdown' }       " Hyperfocus-writing in Vim.
-Plug 'machakann/vim-highlightedyank'                       " Make the yanked region apparent!
-" Plug 'junegunn/vim-peekaboo'                             " Show contents of the registers.
-" Plug 'majutsushi/tagbar'                                 " Vim plugin that displays tags in a window, ordered by scope
-" Plug 'matze/vim-move'                                    " Plugin to move lines and selections up and down
-" Plug 'mhinz/vim-startify'                                " The fancy start screen for Vim.
-Plug 'rhysd/clever-f.vim'                                  " Extended f, F, t and T key mappings for Vim.
-Plug 'scrooloose/nerdtree'                                 " Files Explorer
+Plug 'airblade/vim-gitgutter'                        " Add git changes symbols to gutter
+Plug 'jistr/vim-nerdtree-tabs'                       " NERDTree and tabs together in Vim, painlessly
+Plug 'junegunn/goyo.vim', { 'for': 'markdown' }      " Distraction-free writing in Vim
+Plug 'junegunn/limelight.vim', { 'for': 'markdown' } " Hyperfocus-writing in Vim.
+Plug 'machakann/vim-highlightedyank'                 " Make the yanked region apparent!
+Plug 'rhysd/clever-f.vim'                            " Extended f, F, t and T key mappings for Vim.
+Plug 'scrooloose/nerdtree'                           " Files Explorer
 Plug 'simeji/winresizer'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " Extra syntax and highlight for nerdtree files
-Plug 'vim-airline/vim-airline'                 " Lean & mean status/tabline for vim that's light as air
-Plug 'vim-airline/vim-airline-themes'          " A collection of Airline theme
-Plug 'wesQ3/vim-windowswap'                    " Swap your windows without ruining your layout
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'       " Extra syntax and highlight for nerdtree files
+Plug 'vim-airline/vim-airline'                       " Lean & mean status/tabline for vim that's light as air
+Plug 'vim-airline/vim-airline-themes'                " A collection of Airline theme
+Plug 'wesQ3/vim-windowswap'                          " Swap your windows without ruining your layout
 " }}}
 
 " Commands {{{
@@ -99,17 +94,14 @@ Plug 'easymotion/vim-easymotion'                                  " Search Repla
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Fuzzy Finder wittern in Go
 Plug 'junegunn/vim-easy-align'                                    " Quickly Align Code
 Plug 'justinmk/vim-sneak'                                         " The missing motion for Vim
-" Plug 'kshenoy/vim-signature'                                      " Plugin to toggle, display and navigate marks
 Plug 'ntpeters/vim-better-whitespace'                             " Better whitespace highlighting for Vim
 Plug 'terryma/vim-multiple-cursors'                               " Add multiple cursors functionality like Sublime
 Plug 'tpope/vim-repeat'                                           " Enable repeating supported plugin maps with .
 Plug 'tpope/vim-surround'                                         " Change surrounding character with ease
 Plug 'wellle/targets.vim'                                         " Vim plugin that provides additional text objects
-
 " }}}
 
 " Others {{{
-" Plug 'guns/xterm-color-table.vim'  " All 256 xterm colors with their RGB equivalents, right in Vim!
 Plug 'terryma/vim-expand-region'   " Visually select increasingly larger regions of text using the same key combination
 Plug 'tpope/vim-endwise'           " Automatically add ending word
 Plug 'tpope/vim-obsession'         " Continuously updated session files

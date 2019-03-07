@@ -370,10 +370,12 @@ noremap <silent> <leader><cr> :noh<cr>
 " Foldings {{{
 set foldcolumn=2      " Set Fold Column Width
 set foldenable        " Enable folding.
-set foldlevelstart=10 " Open most folds by default
-set foldmethod=manual " Manually create folds.
+set foldlevelstart=99 " Open most folds by default
+set foldmethod=manual " Create folds based on syntax
 set foldnestmax=10    " Do not nest more than 5 folds.
 set viewoptions=folds " Remember folds
+
+let javaScript_fold = 1
 
 " Space to toggle folds.
 nnoremap <Space> za
@@ -544,6 +546,20 @@ if has('nvim') || v:version >= 800
 endif
 " }}}
 
+" Elm {{{
+" Auto save elm
+let g:elm_format_autosave = 1
+let g:elm_jump_to_error = 0
+let g:elm_make_output_file = "elm.js"
+let g:elm_make_show_warnings = 0
+let g:elm_syntastic_show_warnings = 0
+let g:elm_browser_command = ""
+let g:elm_detailed_complete = 0
+let g:elm_format_autosave = 1
+let g:elm_format_fail_silently = 0
+let g:elm_setup_keybindings = 1
+" }}}
+
 " Misc {{{
 " Autocomplete with dictionary words when spell check is on
 set complete+=kspell
@@ -566,6 +582,7 @@ let g:fixmyjs_engine = 'eslint'
 let g:fixmyjs_rc_filename = ['.eslintrc', '.eslintrc.json']"}}}
 
 " Prettier{{{
+
 " Disable auto formatting of files that have "@format" tag
 let g:prettier#autoformat = 0
 
@@ -597,7 +614,15 @@ let g:prettier#config#jsx_bracket_same_line = 'true'
 let g:prettier#config#trailing_comma = 'all'
 
 " flow|babylon|typescript|postcss|json|graphql
-let g:prettier#config#parser = 'flow'"}}}
+" let g:prettier#config#parser = 'flow'
+
+" Parsing errors will open the quickfix
+let g:prettier#quickfix_enabled = 1
+
+" Auto focus on the quickfix
+let g:prettier#quickfix_auto_focus = 0
+
+"}}}
 
 " ALE  {{{
 " Global Variables
@@ -631,8 +656,8 @@ let g:ale_lint_delay = 200
 " Setup linters
 let g:ale_linters = {
   \ 'bash':       ['shellcheck'],
-  \ 'javascript': ['eslint', 'flow'],
-  \ 'typescript': ['eslint'],
+  \ 'javascript': ['prettier', 'eslint', 'flow'],
+  \ 'typescript': ['prettier', 'eslint', 'tslint'],
   \ 'ruby':       ['rubocop'],
   \ 'markdown':   ['mdl'],
   \ 'php':        ['phpcs'],
@@ -645,6 +670,11 @@ let g:ale_linters = {
   \ 'viml':       ['vint'],
   \ 'yml':        ['yamllint'],
 \ }
+
+let g:ale_fixers = {
+\ 'javascript': ['eslint', 'flow'],
+\ 'typescript': ['eslint', 'tslint'],
+\}
 
 " }}}
 
