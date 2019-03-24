@@ -13,6 +13,7 @@ Plug 'itspriddle/vim-marked', { 'for': 'markdown' }        " Open the current Ma
 Plug 'jelera/vim-javascript-syntax'                        " Enhanced javascript syntax file for Vim
 Plug 'jtratner/vim-flavored-markdown'                      " Extends the Tim Pope's markdown
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' } " Typescript syntax files for Vim
+Plug 'HerringtonDarkholme/yats.vim'                        " Typescript syntax files for Vim
 Plug 'moll/vim-node'                                       " Tools and environment to make Vim superb for developing with Node.js
 Plug 'mustache/vim-mustache-handlebars'                    " Mustache and handlebars mode for vim
 Plug 'mxw/vim-jsx'                                         " React JSX syntax highlighting and indenting for vim.
@@ -73,6 +74,7 @@ Plug 'tmux-plugins/vim-tmux-focus-events'              " Make terminal vim and t
 Plug 'tpope/vim-fugitive'                              " Control git in vim
 Plug 'w0rp/ale'                                        " Linting Engine
 Plug 'kristijanhusak/vim-carbon-now-sh'                " Create screenshot of selected text
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'} " Typescript tooling for Neovim
 " }}}
 
 " Interface {{{
@@ -88,7 +90,8 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'       " Extra syntax and highligh
 Plug 'vim-airline/vim-airline'                       " Lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline-themes'                " A collection of Airline theme
 Plug 'wesQ3/vim-windowswap'                          " Swap your windows without ruining your layout
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}           "Interactive command execution in Vim.
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}           " Interactive command execution in Vim.
+Plug 'Shougo/denite.nvim'                            " Dark powered asynchronous unite all interfaces for Neovim/Vim8
 " }}}
 
 " Commands {{{
