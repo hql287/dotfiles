@@ -30,7 +30,9 @@ Plug 'elmcast/elm-vim'                                     " Elm plugin for Vim
 " }}}
 
 " Completion {{{
-Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }              " A Vim plugin for TypeScript
+Plug 'Quramy/tsuquyomi', { 'for': 'typescript' } " A Vim plugin for TypeScript
+Plug 'Quramy/vim-js-pretty-template'             " Highlights JavaScript's Template Strings in other FileType syntax rule
+
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Dark powered asynchronous completion framework for neovim
 Plug 'SirVer/ultisnips'                                       " Snippet Engine
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }                " A completion plugin for Haskell, using ghc-mod
@@ -86,6 +88,7 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'       " Extra syntax and highligh
 Plug 'vim-airline/vim-airline'                       " Lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline-themes'                " A collection of Airline theme
 Plug 'wesQ3/vim-windowswap'                          " Swap your windows without ruining your layout
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}           "Interactive command execution in Vim.
 " }}}
 
 " Commands {{{
