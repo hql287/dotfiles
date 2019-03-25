@@ -21,7 +21,7 @@ export PAGER='less'
 # LANG
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export GH_TOKEN=0e0fa519f439210a61bfb60d6fe47ef032815732
+export LC_CTYPE=en_US.UTF-8
 
 # EnhanCD Hook
 export ENHANCD_HOOK_AFTER_CD="ls -al"
