@@ -40,6 +40,4 @@ set -g status-keys vi
 setw -g mode-keys vi
 
 # Command/Message
-set -g message-fg colour252
-set -g message-bg colour39
-set -g message-attr bright
+set -g message-style bg=colour39,fg=colour252,bright

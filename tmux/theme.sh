@@ -31,9 +31,7 @@ RGT_SEG_2_TXT=$WHITE
 RGT_SEG_2_COLOR="colour243"
 
 # White text on black background
-set -g status-fg $FG_DEFAULT
-set -g status-bg $BG_DEFAULT
-set -g status-attr bright
+set -g status-style bg=$BG_DEFAULT,fg=$FG_DEFAULT,bright
 
 # Status bar left side
 set -g status-left-length 52

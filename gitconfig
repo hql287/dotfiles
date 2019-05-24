@@ -127,11 +127,11 @@
 [include]
   path = .gitconfig.user
 [user]
-	name = Quốc Hưng Lê
+	name = Quốc Hưng Lê
 	email = lequochung@me.com
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 [mergetool "sourcetree"]
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
@@ -139,3 +139,5 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
+[commit]
+	template = /Users/hung/.stCommitMsg
