@@ -42,44 +42,6 @@ eval "$(rbenv init -)"                                 # Rbenv
 [[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc # Phpbrew
 # }}}
 
-# Custom Scripts {{{
-# Set iTerm Profile based on Time
-updateWorkMode () {
-  now=$(date +"%H")
-  case $1 in
-    day)
-      # Set iTerm Profile to DayMode
-      echo -e "\033]50;SetProfile=DayMode\a"
-      # Update DAYMODE var for Vim to Use
-      export DAYMODE='true'
-      ;;
-    night)
-      # Set iTerm Profile to NightMode
-      echo -e "\033]50;SetProfile=NightMode\a"
-      # Update DAYMODE var for Vim to Use
-      export DAYMODE='false'
-      ;;
-    *)
-      if [[ $now -ge 7 && $now -le 16 ]]; then
-        # Set iTerm Profile to DayMode
-        echo -e "\033]50;SetProfile=DayMode\a"
-        # Update DAYMODE var for Vim to Use
-        export DAYMODE='true'
-      else
-        # Set iTerm Profile to NightMode
-        echo -e "\033]50;SetProfile=NightMode\a"
-        # Update DAYMODE var for Vim to Use
-        export DAYMODE='false'
-      fi
-      ;;
-  esac
-}
-
-# Update Working Mode On Startup
-updateWorkMode
-
-# }}}
-
 # Zplug Configuration {{{
 # Check if zplug is installed
 if [[ ! -d ~/.zplug ]]; then
