@@ -8,18 +8,10 @@ endif
 
 syntax enable       " Set syntax on by default
 set termguicolors   " Using True Colors
-
-" Set Background depends on time
-let iterm_profile=$DAYMODE
-if iterm_profile == 'true'
-  set background=light
-else
-  set background=dark
-endif
-
-colorscheme gruvbox " A dark Vim color scheme inspired by Atom's One Dark syntax theme.
+set background=dark " Set Background depends on time
 
 " Gruvbox Settings
+colorscheme gruvbox " A dark Vim color scheme inspired by Atom's One Dark syntax theme.
 let g:gruvbox_bold=1
 let g:gruvbox_italic=1
 let g:gruvbox_underline=1
@@ -90,6 +82,7 @@ set showmode          " Show the current mode
 set timeoutlen=500    " Set keypress timeout
 set title             " Show the filename in the window titlebar
 set ttyfast           " Optimize for fast terminal connections
+set updatetime=300    " You will have bad experience for diagnostic messages when it's default 4000.
 " }}}
 
 " Presentation {{{
@@ -117,6 +110,9 @@ set softtabstop=2  " Set soft tabs equal to 2 spaces.
 set tabstop=2      " Set tab to equal 2 spaces.
 set textwidth=81   " Maximum line width before wrapping.
 set wrap           " Wrap text.
+set cmdheight=2    " Better display for messages
+set shortmess+=c      " don't give |ins-completion-menu| messages.
+set signcolumn=yes    " always show signcolumns
 
 " Set Line Number Width
 set numberwidth=3
@@ -161,6 +157,12 @@ highlight VertSplit guifg=#444444 guibg=NONE
 " Line highlights
 highlight GitGutterAdd ctermfg=green ctermbg=NONE
 highlight GitGutterAdd guifg=#27ae60 guibg=NONE
+" }}}
+
+" Autocompletion {{{
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 " }}}
 
 " Keymapping {{{
@@ -392,32 +394,6 @@ highlight Folded guibg=#689d6a guifg=white
 " }}}
 
 " Functions {{{
-" GoYo
-function! s:goyo_enter()
-  set noshowmode
-  set noshowcmd
-  set scrolloff=999
-  set nolist
-  set listchars=
-  silent !tmux set status off
-  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-  NERDTreeTabsClose
-  Limelight
-endfunction
-
-function! s:goyo_leave()
-  set showmode
-  set showcmd
-  set scrolloff=5
-  set list
-  set listchars=tab:▸\ ,eol:↵,trail:⌴,extends:❯,precedes:❮
-  silent !tmux set status on
-  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-  NERDTreeTabsOpen
-  Limelight!
-endfunction
-
-
   function StripUnwantedCharacters()
     execute "%s///g"
   endfunction
@@ -432,15 +408,15 @@ augroup general
   autocmd InsertEnter,WinLeave * set nocursorline
 
   " Enable file type detection
-	autocmd BufWinLeave * silent! mkview
-	autocmd BufWinEnter * silent! loadview
+  autocmd BufWinLeave * silent! mkview
+  autocmd BufWinEnter * silent! loadview
 
-	" Resize splits when the window is resized.
-	autocmd VimResized * exe "normal! \<c-w>="
+  " Resize splits when the window is resized.
+  autocmd VimResized * exe "normal! \<c-w>="
 
 " Strip trailing whitespace on save.
-	autocmd BufWritePre,FileWritePre,FileAppendPre,FilterWritePre * StripWhitespace
-	" autocmd BufWritePre,FileWritePre,FileAppendPre,FilterWritePre * StripUnwantedCharacters
+  autocmd BufWritePre,FileWritePre,FileAppendPre,FilterWritePre * StripWhitespace
+  " autocmd BufWritePre,FileWritePre,FileAppendPre,FilterWritePre * StripUnwantedCharacters
 
   autocmd TabLeave * let g:lasttab = tabpagenr()
 augroup END
@@ -464,12 +440,8 @@ augroup END
 
 augroup ft_html_css_craft
   autocmd!
-
   " Use Emmet on HTML & CSS only
   autocmd FileType html,css EmmetInstall
-
-  " Autoload craft.snippets when editing *.twig files
-  autocmd FileType twig UltiSnipsAddFiletypes craft
 augroup END
 
 augroup ft_md
@@ -488,14 +460,6 @@ augroup ft_md
 
   " Parse content between the ---s as comment. Make YML files look better
   autocmd BufNewFile,BufReadPost,BufWrite *.{md,mdown,mkd,mkdn,markdown,mdwn} syntax match Comment /\%^---\_.\{-}---$/
-augroup END
-
-augroup goyo
-  autocmd!
-
-  " Automatically turn on Limglight when using Goyo
-  autocmd User GoyoEnter call <SID>goyo_enter()
-  autocmd User GoyoLeave call <SID>goyo_leave()
 augroup END
 " }}}
 
@@ -546,21 +510,11 @@ if has('nvim') || v:version >= 800
 endif
 " }}}
 
-" Elm {{{
-" Auto save elm
-let g:elm_format_autosave = 1
-let g:elm_jump_to_error = 0
-let g:elm_make_output_file = "elm.js"
-let g:elm_make_show_warnings = 0
-let g:elm_syntastic_show_warnings = 0
-let g:elm_browser_command = ""
-let g:elm_detailed_complete = 0
-let g:elm_format_autosave = 1
-let g:elm_format_fail_silently = 0
-let g:elm_setup_keybindings = 1
-" }}}
-
 " Misc {{{
+"
+"Turn off Vim's spell as it highlights the same words.
+set nospell
+
 " Autocomplete with dictionary words when spell check is on
 set complete+=kspell
 
@@ -576,10 +530,6 @@ endif
 " }}}
 
 " Plugin Settings
-
-" FixMyJS{{{
-let g:fixmyjs_engine = 'eslint'
-let g:fixmyjs_rc_filename = ['.eslintrc', '.eslintrc.json']"}}}
 
 " Prettier{{{
 
@@ -605,16 +555,13 @@ let g:prettier#config#semi = 'true'
 let g:prettier#config#single_quote = 'true'
 
 " print spaces between brackets
-let g:prettier#config#bracket_spacing = 'false'
+let g:prettier#config#bracket_spacing = 'true'
 
 " put > on the last line instead of new line
 let g:prettier#config#jsx_bracket_same_line = 'true'
 
 " none|es5|all
 let g:prettier#config#trailing_comma = 'all'
-
-" flow|babylon|typescript|postcss|json|graphql
-" let g:prettier#config#parser = 'flow'
 
 " Parsing errors will open the quickfix
 let g:prettier#quickfix_enabled = 1
@@ -678,18 +625,43 @@ let g:ale_fixers = {
 
 " }}}
 
-" Deoplete {{{
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#file#enable_buffer_path = 1
-let g:deoplete#auto_completion_start_length = 1
-let g:deoplete#sources = {}
-let g:deoplete#sources._=['buffer', 'ultisnips', 'file']
+" Coc.nvim {{{
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? coc#_select_confirm() :
+  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
 
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
+let g:coc_snippet_next = '<tab>'
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-k>'
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-j>'
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
 " }}}
 
 " Easy Motion {{{
@@ -773,11 +745,6 @@ let g:gitgutter_highlight_lines    = 0
 let g:gitgutter_realtime           = 1
 let g:gitgutter_eager              = 0
 let g:gitgutter_max_signs          = 500
-" }}}
-
-" Limelight {{{
-" Number of preceding/following paragraphs to include (default: 0)
-let g:limelight_paragraph_span = 3
 " }}}
 
 " Indent Guide {{{
@@ -898,36 +865,6 @@ nnoremap <Leader>j :SplitjoinJoin<CR>
 nnoremap <Leader>s :SplitjoinSplit<CR>
 " }}}
 
-" Vim Test"{{{
-let test#strategy = "neovim"
-let g:test#preserve_screen = 1
-let g:test#runner_commands = ['RSpec', 'Mocha']
-
-" Javascript
-let test#javascript#mocha#executable = 'npm run test'
-let test#javascript#mocha#file_pattern = 'spec\.js'
-
-" Ruby
-let test#ruby#rspec#executable = 'bundle exec rspec'
-let test#ruby#rspec#file_pattern = '_spec\.rb'
-
-" Run the whole test file
-nnoremap <silent> <leader>tf :TestFile<CR>
-" Run the Test Suite
-nnoremap <silent> <leader>ts :TestSuite<CR>
-" Run the nearest test
-nnoremap <silent> <leader>tn :TestNearest<CR>
-" Run the last test
-nnoremap <silent> <leader>tl :TestLast<CR>
-"}}}
-
-" Utilsnips {{{
-" Trigger configuration.
-let g:UltiSnipsExpandTrigger='<Tab>'
-let g:UltiSnipsJumpForwardTrigger='<Tab>'
-let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
-" }}}
-
 "Vim Airline {{{
 let g:airline#extensions#syntastic#enabled        = 0         " Disable syntastic integration
 let g:airline#extensions#tabline#enabled          = 1         " Enable Tab line
@@ -1002,49 +939,6 @@ let g:jsx_ext_required = 0
 " let g:javascript_conceal_static         = '•'
 " let g:javascript_conceal_super          = 'Ω'
 " let g:javascript_conceal_arrow_function = '⇒'
-" }}}
-
-" Vim Markdown {{{
-
-" Set header folding level
-let g:vim_markdown_folding_level = 1
-
-" Set the number of spaces of indent
-let g:vim_markdown_new_list_item_indent = 2
-"
-" Enable TOC window auto-fit
-let g:vim_markdown_toc_autofit = 1
-
-" Do not conceal [link text](link url) as just link text
-let g:vim_markdown_conceal = 0
-
-" Highlight YAML front matter as used by Jekyll or Hugo.
-let g:vim_markdown_frontmatter = 1
-
-" Syntax highlighting for fenced code block
-let g:vim_markdown_fenced_languages = ['csharp=cs', 'ruby=rb', 'viml=vim', 'bash=sh']
-
-"}}}
-
-" Vim Markded App {{{
-let g:marked_app = 'Marked'
-" }}}
-
-" Vim Mocha {{{
-let g:mocha_js_command = "!mocha --recursive {spec}"
-nnoremap <Leader>ma :call RunAllSpecs()<CR>
-" }}}
-
-" Vim Table Mode {{{
-let g:table_mode_corner='|'
-" }}}
-
-" Vim Peekaboo {{{
-let g:peekaboo_window = 'vertical botright 60new' " Default peekaboo window
-let g:peekaboo_compact = 0                        " Compact display; do not display the names of the register groups
-" let g:peekaboo_delay = 0                          " Delay opening of peekaboo window (in ms. default: 0)
-" let g:peekaboo_prefix = '<leader>'                " Prefix for the peekaboo key mapping (default: '')
-" let g:peekaboo_ins_prefix = '<c-x>'               " Prefix for CTRL-R insert key mapping (default: '')
 " }}}
 
 " Vim Move {{{
