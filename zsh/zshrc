@@ -30,16 +30,14 @@ export ENHANCD_HOOK_AFTER_CD="ls -al"
 path=(
   /usr/local/bin
   /usr/local/sbin
-  ~/.composer/vendor/bin
   $path
 )
 # }}}
 
 # Custom Programs {{{
-eval "$(pyenv init -)"                                 # Pyenv
+eval "$(pyenv init --path)"                            # Pyenv
 eval "$(rbenv init -)"                                 # Rbenv
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh                 # Fzf
-[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc # Phpbrew
 # }}}
 
 # Zplug Configuration {{{
@@ -55,7 +53,7 @@ source ~/.zplug/init.zsh
 zplug "Valiev/almostontop"               # Almost On Top
 zplug "b4b4r07/enhancd", use:init.sh     # Enhanced CD
 zplug "djui/alias-tips"                  # Aliases tips
-zplug "hungle88/aka"                     # Custom aliases
+zplug "hql287/aka"                     # Custom aliases
 zplug "lukechilds/zsh-nvm"               # Node versions manager
 zplug "plugins/extract", from:oh-my-zsh  # Extracting utility
 zplug "zplug/zplug"                      # Manage zplug in the same way as any other packages<Paste>
@@ -75,5 +73,3 @@ zplug load
 # }}}
 
 # vim:foldmethod=marker:foldlevel=0
-# added by travis gem
-[ -f /Users/quochungle/.travis/travis.sh ] && source /Users/quochungle/.travis/travis.sh

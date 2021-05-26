@@ -76,7 +76,7 @@ Plug 'wellle/targets.vim'                                         " Vim plugin t
 Plug 'tpope/vim-endwise'                 " Automatically add ending word
 Plug 'ludovicchabant/vim-gutentags'      " A Vim plugin that manages your tag files
 Plug 'kristijanhusak/vim-js-file-import' " Import/require files in javascript with single button!
-Plug 'kamykn/spelunker.vim'              " Improved vim spelling plugin (with camel case support)!
+" Plug 'kamykn/spelunker.vim'              " Improved vim spelling plugin (with camel case support)!
 "}}}
 
 call plug#end()

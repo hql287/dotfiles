@@ -8,7 +8,7 @@ bind c new-window -c "#{pane_current_path}"
 bind - split-window -v -c "#{pane_current_path}"
 
 # Create vertical splits
-bind \ split-window -h -c "#{pane_current_path}"
+bind | split-window -h -c "#{pane_current_path}"
 
 # Break pane into a single windows
 bind b break-pane -d
