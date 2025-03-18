@@ -31,9 +31,6 @@ ln -s ~/.dotfiles/.zshrc ~/.zshrc
 ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
 ln -s ~/.dotfiles/tmux/tmux.conf ~/.tmux.conf
 
-echo "🔄 Reloading ~/.zshrc..."
-source "$HOME/.zshrc"
-
 # 4️⃣  Configure Zsh
 echo "🛠 Configuring Zsh & Plugins..."
 # Ensure Zsh is the default shell
