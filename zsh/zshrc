@@ -1,15 +1,13 @@
-# Quoc Hung Le's .zshrc
+# Hung Le's .zshrc
 
-# Source ZIM {{{
-if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
-  source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
+# ✅ Ensure Homebrew is available (avoids errors if Homebrew is missing)
+if ! command -v brew &>/dev/null; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
-# }}}
 
-# Environment Variables Settings {{{
-# If Neovim is installed
-if type nvim > /dev/null 2>&1;
-then
+# 🌍 **Environment Variables Settings**
+# Set default editor based on availability
+if type nvim >/dev/null 2>&1; then
   export EDITOR='nvim'
   export VISUAL='nvim'
 else
@@ -18,58 +16,68 @@ else
 fi
 export PAGER='less'
 
-# LANG
+# Locale settings
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
-# EnhanCD Hook
-export ENHANCD_HOOK_AFTER_CD="ls -al"
-
-# PATH
+# PATH Configuration
 path=(
   /usr/local/bin
   /usr/local/sbin
+  $HOME/.local/bin
+  $(brew --prefix)/bin
+  $(brew --prefix)/sbin
   $path
 )
-# }}}
+export PATH
 
-# Custom Programs {{{
-eval "$(pyenv init --path)"                            # Pyenv
-eval "$(rbenv init -)"                                 # Rbenv
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh                 # Fzf
-# }}}
-
-# Zplug Configuration {{{
-# Check if zplug is installed
-if [[ ! -d ~/.zplug ]]; then
-  git clone https://github.com/zplug/zplug ~/.zplug
-  source ~/.zplug/init.zsh && zplug update --self
+# 🔹 **fzf Key Bindings & Completion** (Only if fzf is installed)
+if command -v fzf &>/dev/null; then
+  [ -f "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh" ] && source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
+  [ -f "$(brew --prefix)/opt/fzf/shell/completion.zsh" ] && source "$(brew --prefix)/opt/fzf/shell/completion.zsh"
+  export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --info=inline"
 fi
 
-# Load Zplug Init file
-source ~/.zplug/init.zsh
+# 🔹 **NVM Configuration**
+export NVM_DIR="$HOME/.nvm"
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+  source "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
+fi
 
-zplug "Valiev/almostontop"               # Almost On Top
-zplug "b4b4r07/enhancd", use:init.sh     # Enhanced CD
-zplug "djui/alias-tips"                  # Aliases tips
-zplug "hql287/aka"                     # Custom aliases
-zplug "lukechilds/zsh-nvm"               # Node versions manager
-zplug "plugins/extract", from:oh-my-zsh  # Extracting utility
-zplug "zplug/zplug"                      # Manage zplug in the same way as any other packages<Paste>
+# ✅ Load zplug from Homebrew
+if command -v zplug &>/dev/null; then
+  source $(brew --prefix)/opt/zplug/init.zsh
 
-# Install packages that have not been installed yet
-if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-  else
-    echo
+  # ✅ Define zplug plugins
+  zplug "Valiev/almostontop"               # Almost On Top
+  zplug "b4b4r07/enhancd", use:init.sh     # Enhanced CD
+  zplug "djui/alias-tips"                  # Aliases tips
+  zplug "hql287/aka"                       # Custom aliases
+  zplug "lukechilds/zsh-nvm"               # Node versions manager
+  zplug "plugins/extract", from:oh-my-zsh  # Extracting utility
+  zplug "zplug/zplug"                      # Manage zplug itself
+
+  # ✅ Install missing plugins (only runs when needed)
+  if ! zplug check --verbose; then
+    echo "🔄 Installing missing zplug plugins..."
+    zplug install
   fi
+
+  # ✅ Load plugins
+  zplug load
+else
+  echo "⚠️ zplug not found! Run: brew install zplug && source $(brew --prefix)/opt/zplug/init.zsh"
 fi
 
-# Source plugins & add commands to $PATH
-zplug load
-# }}}
+# 🔹 **Zsh Autosuggestions & Syntax Highlighting**
+if command -v brew &>/dev/null; then
+  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
-# vim:foldmethod=marker:foldlevel=0
+# 🔹 **Starship Prompt (Fast & Customizable)**
+if command -v starship &>/dev/null; then
+  eval "$(starship init zsh)"
+fi

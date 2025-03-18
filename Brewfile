@@ -1,6 +1,4 @@
-# Brew File
-
-# Sources {{{
+# Sources
 tap "caskroom/cask"
 tap "homebrew/bundle"
 tap "homebrew/core"
@@ -9,66 +7,83 @@ tap "homebrew/php"
 tap "homebrew/services"
 tap "homebrew/versions"
 tap "neovim/neovim"
-# }}}
+tap "homebrew/cask-fonts"
 
-# Application {{{
-brew "tmux"
-brew "vim"
+# CLI Tools
+brew "curl"
+brew "fzf"
+brew "htop"
+brew "hub"
+brew "jq"
 brew "neovim"
-# }}}
+brew "reattach-to-user-namespace"
+brew "ripgrep"
+brew "shellcheck"
+brew "starship"
+brew "the_silver_searcher"
+brew "tmux"
+brew "tree"
+brew "wget"
+brew "zplug"
+brew "zsh"
+brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
 
-# Environemnt Manager {{{
-brew "nvm"        # Node Versions Manager
-brew "pyenv"      # Python versions manager
-brew "rbenv"      # Ruby versions manager
-brew "ruby-build" # Compile and install Ruby
-brew "phpbrew"    # PHP versions manager
-# }}}
 
-# Networking {{{
-brew "stormssh" # SSH Manager
+# Environments
+brew "deno"
+brew "go"
+brew "node"
+brew "php"
+brew "python"
+brew "ruby"
+brew "rust"
+
+# Dev Tools
+brew "git"
+brew "git-extras" # GIT utilities
+brew "yarn"       # Dependency management
+
+# Networking
 brew "httpie"   # HTTP CLI Client
 brew "sshrc"    # Bring SSH config
-# }}}
+brew "stormssh" # SSH Manager
 
-# CLI Utilities {{{
-brew "thefuck"             # Wtf?
-brew "the_silver_searcher" # Ag
-brew "desk"                # Workspace manager
-brew "shellcheck"          # A static analysis tool for shell scripts
-brew "ripgrep"             # Rest in peace, Grep
-brew "git-extras"          # GIT utilities
-brew "hub"                 # Integrate with GitHub
-brew "yarn"                # Dependency management
-brew "reattach-to-user-namespace"
-# }}}
-
-# Default libs {{{
-brew "automake"
+# Default libs
 brew "autoconf"
-brew "curl"
-brew "pcre"
+brew "automake"
 brew "bison"
-brew "re2c"
-brew "mhash"
-brew "libtool"
-brew "icu4c"
+brew "curl"
 brew "gettext"
+brew "gmp"
+brew "icu4c"
+brew "imagemagick"
 brew "jpeg"
-brew "openssl"
+brew "libevent"
+brew "libtool"
 brew "libxml2"
 brew "mcrypt"
-brew "gmp"
-brew "libevent"
-brew "imagemagick"
+brew "mhash"
+brew "openssl"
+brew "pcre"
+brew "re2c"
 brew "zlib"
-# }}}
 
-# Zsh {{{
-# }}}
-
-# Cask {{{
+# GUI Apps
+cask "bitwarden"
+cask "docker"
+cask "google-chrome"
 cask "iterm2"
-# }}}
+cask "maccy"
+cask "obsidian"
+cask "postman"
+cask "raycast"
+cask "rectangle"
+cask "slack"
+cask "spotify"
+cask "visual-studio-code"
+cask "whatsapp"
+cask "zoom"
 
-# vim:foldmethod=marker:foldlevel=0
+# Fonts
+cask "font-hack-nerd-font"
