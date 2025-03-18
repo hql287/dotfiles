@@ -1,13 +1,8 @@
 # Sources
-tap "caskroom/cask"
+tap "homebrew/cask"
 tap "homebrew/bundle"
-tap "homebrew/core"
-tap "homebrew/dupes"
-tap "homebrew/php"
 tap "homebrew/services"
-tap "homebrew/versions"
 tap "neovim/neovim"
-tap "homebrew/cask-fonts"
 
 # CLI Tools
 brew "curl"
