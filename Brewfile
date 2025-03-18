@@ -1,5 +1,4 @@
 # Sources
-tap "homebrew/cask"
 tap "homebrew/bundle"
 tap "homebrew/services"
 tap "neovim/neovim"
@@ -36,8 +35,8 @@ brew "rust"
 
 # Dev Tools
 brew "git"
-brew "git-extras" # GIT utilities
-brew "yarn"       # Dependency management
+brew "git-extras"
+brew "yarn"
 
 # Default libs
 brew "autoconf"
@@ -73,6 +72,3 @@ cask "spotify"
 cask "visual-studio-code"
 cask "whatsapp"
 cask "zoom"
-
-# Fonts
-cask "font-hack-nerd-font"

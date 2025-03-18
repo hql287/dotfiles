@@ -46,29 +46,33 @@ if [ -s "$NVM_DIR/nvm.sh" ]; then
   [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
 fi
 
-# ✅ Load zplug from Homebrew
-if command -v zplug &>/dev/null; then
-  source $(brew --prefix)/opt/zplug/init.zsh
+# Load zplug from Homebrew
+if [ -d "$(brew --prefix)/opt/zplug" ]; then
+  export ZPLUG_HOME="$(brew --prefix)/opt/zplug"
+  source "$ZPLUG_HOME/init.zsh"
 
-  # ✅ Define zplug plugins
+  # Define plugins
   zplug "Valiev/almostontop"               # Almost On Top
   zplug "b4b4r07/enhancd", use:init.sh     # Enhanced CD
   zplug "djui/alias-tips"                  # Aliases tips
   zplug "hql287/aka"                       # Custom aliases
+  zplug "lukechilds/zsh-nvm"               # NVM auto-switching
   zplug "lukechilds/zsh-nvm"               # Node versions manager
   zplug "plugins/extract", from:oh-my-zsh  # Extracting utility
   zplug "zplug/zplug"                      # Manage zplug itself
+  zplug "zsh-users/zsh-autosuggestions"    # Autosuggestions
+  zplug "zsh-users/zsh-syntax-highlighting" # Syntax highlighting
 
-  # ✅ Install missing plugins (only runs when needed)
+  # Install missing plugins
   if ! zplug check --verbose; then
     echo "🔄 Installing missing zplug plugins..."
     zplug install
   fi
 
-  # ✅ Load plugins
+  # Load plugins
   zplug load
 else
-  echo "⚠️ zplug not found! Run: brew install zplug && source $(brew --prefix)/opt/zplug/init.zsh"
+  echo "❌ zplug not found! Run: brew install zplug"
 fi
 
 # 🔹 **Zsh Autosuggestions & Syntax Highlighting**

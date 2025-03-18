@@ -18,25 +18,27 @@ else
   echo "❌ Brewfile not found! Skipping package installation."
 fi
 
-# 3️⃣  Symlink dotfiles
+# 3️⃣ Symlink dotfiles
 echo "🔗 Creating symlinks..."
 
-declare -A dotfiles
+# Define the source and target paths
 dotfiles=(
-  ["$HOME/.zshrc"]="$HOME/.dotfiles/zsh/zshrc"
-  ["$HOME/.gitconfig"]="$HOME/.dotfiles/gitconfig"
-  ["$HOME/.tmux.conf"]="$HOME/.dotfiles/tmux/tmux.conf"
+  "$HOME/.dotfiles/zsh/zshrc:$HOME/.zshrc"
+  "$HOME/.dotfiles/gitconfig:$HOME/.gitconfig"
+  "$HOME/.dotfiles/tmux/tmux.conf:$HOME/.tmux.conf"
 )
 
-for link in "${!dotfiles[@]}"; do
-  target="${dotfiles[$link]}"
+# Loop through each file and create symlink
+for entry in "${dotfiles[@]}"; do
+  source_path="${entry%%:*}"
+  target_path="${entry##*:}"
 
-  if [ -L "$link" ] && [ "$(readlink "$link")" == "$target" ]; then
-    echo "✅ Symlink for $(basename "$link") already correct"
+  if [ -L "$target_path" ] && [ "$(readlink "$target_path")" == "$source_path" ]; then
+    echo "✅ Symlink for $(basename "$target_path") already correct"
   else
-    echo "🔄 Updating symlink for $(basename "$link")..."
-    rm -f "$link"
-    ln -s "$target" "$link"
+    echo "🔄 Updating symlink for $(basename "$target_path")..."
+    rm -f "$target_path"
+    ln -s "$source_path" "$target_path"
   fi
 done
 

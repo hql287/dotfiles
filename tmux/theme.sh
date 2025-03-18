@@ -46,6 +46,10 @@ set-window-option -g clock-mode-colour colour109 #blue
 # Bell
 set-window-option -g window-status-bell-style bg=colour167,fg=colour235 # bg=red, fg=bg
 
+#### NOTE
+# Make sure option to Use Built-in Powerline glyphs is enabled in iTerm2
+# In iTerm2, go to Preferences > Profiles > Text > Use Built-in Powerline glyphs
+
 set-option -g status-left "\
 #[fg=colour7, bg=colour241]#{?client_prefix,#[bg=colour167],} ❐ #S \
 #[fg=colour241, bg=colour237]#{?client_prefix,#[fg=colour167],}#{?window_zoomed_flag, 🔍,}"
