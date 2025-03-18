@@ -39,16 +39,10 @@ brew "git"
 brew "git-extras" # GIT utilities
 brew "yarn"       # Dependency management
 
-# Networking
-brew "httpie"   # HTTP CLI Client
-brew "sshrc"    # Bring SSH config
-brew "stormssh" # SSH Manager
-
 # Default libs
 brew "autoconf"
 brew "automake"
 brew "bison"
-brew "curl"
 brew "gettext"
 brew "gmp"
 brew "icu4c"
@@ -57,7 +51,6 @@ brew "jpeg"
 brew "libevent"
 brew "libtool"
 brew "libxml2"
-brew "mcrypt"
 brew "mhash"
 brew "openssl"
 brew "pcre"
@@ -68,6 +61,7 @@ brew "zlib"
 cask "bitwarden"
 cask "docker"
 cask "google-chrome"
+cask "firefox"
 cask "iterm2"
 cask "maccy"
 cask "obsidian"
