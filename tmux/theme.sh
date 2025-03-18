@@ -1,47 +1,69 @@
-# Always show status bar
-set -g status on
+# ~/.tmux.conf - Cleaned and Optimized
 
-# Set update frequencey (default 15 seconds)
-set -g status-interval 5
+# 🛠 GENERAL SETTINGS
+set -g status on                                # Always show status bar
+set -g status-interval 5                        # Update status every 5s
+set -g history-limit 10000                      # Keep more scrollback history
+set -sg escape-time 10                          # Improve escape key delay
+set -g mouse on                                 # Enable mouse support
+set -g base-index 1                             # Start windows at 1
+set -g pane-base-index 0                        # Start panes at 0
+set -g default-terminal "tmux-256color"         # Enable 256 colors
+set -as terminal-overrides ",xterm-256color:Tc" # Ensure true color support
+setw -g history-limit 50000000                  # Set the history limit so we get lots of scrollback.
 
-# BASIC COLORS
-WHITE="colour255"
-BLACK="colour232"
-GREY="colour249"
+# Default statusbar color
+set-option -g status-style bg=colour237,fg=colour223 # bg=bg1, fg=fg1
 
-# DEFAULT COLORS
-FG_DEFAULT="colour252"
-BG_DEFAULT="colour240"
+# Default window title colors
+set-window-option -g window-status-style bg=colour214,fg=colour237 # bg=yellow, fg=bg1
 
-# WINDOWS LIST COLORS
-NORMAL_WIN_TXT=$WHITE
-NORMAL_WIN_COLOR="colour244"
-ACTIVE_WIN_TXT=$WHITE
-ACTIVE_WIN_COLOR="colour6"
+# Default window with an activity alert
+set-window-option -g window-status-activity-style bg=colour237,fg=colour248 # bg=bg1, fg=fg3
 
-#LEFT SEGMENT
-LFT_SEG_1_TXT=$WHITE
-LFT_SEG_1_COLOR="colour243"
+# Active window title colors
+set-window-option -g window-status-current-style bg=red,fg=colour237 # fg=bg1
 
-# RIGHT SEGMENTS FROM RIGHT TO LEFT
-RGT_SEG_1_TXT=$WHITE
-RGT_SEG_1_COLOR="colour238"
+# Set active pane border color
+set-option -g pane-active-border-style fg=colour214
 
-RGT_SEG_2_TXT=$WHITE
-RGT_SEG_2_COLOR="colour243"
+# Set inactive pane border color
+set-option -g pane-border-style fg=colour239
 
-# White text on black background
-set -g status-style bg=$BG_DEFAULT,fg=$FG_DEFAULT,bright
+# Message info
+set-option -g message-style bg=colour239,fg=colour223 # bg=bg2, fg=fg1
 
-# Status bar left side
-set -g status-left-length 52
-set -g status-left "#{prefix_highlight}#[fg=$LFT_SEG_1_TXT,bg=$LFT_SEG_1_COLOR,bold] ❐ #S #{online_status} #[fg=$LFT_SEG_1_COLOR,bg=$BG_DEFAULT,nobold]⮀"
+# Writing commands inactive
+set-option -g message-command-style bg=colour239,fg=colour223 # bg=fg3, fg=bg1
 
-# Windows list customizations
-set -g window-status-format "#[fg=$BG_DEFAULT,bg=$NORMAL_WIN_COLOR]⮀#[fg=$NORMAL_WIN_TXT,bg=$NORMAL_WIN_COLOR,nobold] #I:#W #[fg=$NORMAL_WIN_COLOR,bg=$BG_DEFAULT,nobold]⮀"
-set -g window-status-current-format "#[fg=$BG_DEFAULT,bg=$ACTIVE_WIN_COLOR]⮀#[fg=$ACTIVE_WIN_TXT,bg=$ACTIVE_WIN_COLOR,noreverse,nobold] #I:#W #[fg=$ACTIVE_WIN_COLOR,bg=$BG_DEFAULT,nobold]⮀"
+# Pane number display
+set-option -g display-panes-active-colour colour1 #fg2
+set-option -g display-panes-colour colour237      #bg1
 
+# Clock
+set-window-option -g clock-mode-colour colour109 #blue
 
-# Status bar right side
-set -g status-right-length 451
-set -g status-right "#[fg=$RGT_SEG_2_COLOR, bg=$BG_DEFAULT,nobold]⮂#[fg=$RGT_SEG_2_TXT,bg=$RGT_SEG_2_COLOR,nobold] %a %h.%d.%Y %H:%M #[fg=$RGT_SEG_1_COLOR, bg=$RGT_SEG_2_COLOR]⮂#[fg=$RGT_SEG_1_TXT,bg=$RGT_SEG_1_COLOR,nobold] ⌘ #h "
+# Bell
+set-window-option -g window-status-bell-style bg=colour167,fg=colour235 # bg=red, fg=bg
+
+set-option -g status-left "\
+#[fg=colour7, bg=colour241]#{?client_prefix,#[bg=colour167],} ❐ #S \
+#[fg=colour241, bg=colour237]#{?client_prefix,#[fg=colour167],}#{?window_zoomed_flag, 🔍,}"
+
+set-option -g status-right "\
+#[fg=colour246, bg=colour237]  %b %d '%y \
+#[fg=colour214, bg=colour237]\
+#[fg=colour237, bg=colour214] #(whoami)@#H \
+#[fg=colour237, bg=colour214]"
+
+set-window-option -g window-status-current-format "\
+#[fg=colour237, bg=colour214]\
+#[fg=colour239, bg=colour214] #I*\
+#[fg=colour239, bg=colour214, bold] #W \
+#[fg=colour214, bg=colour237]"
+
+set-window-option -g window-status-format "\
+#[fg=colour237,bg=colour239,noitalics]\
+#[fg=colour223,bg=colour239] #I\
+#[fg=colour223, bg=colour239] #W \
+#[fg=colour239, bg=colour237]"

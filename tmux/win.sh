@@ -26,7 +26,16 @@ bind , previous-window
 bind . next-window
 
 # Resizing
-bind -n S-Left  resize-pane -L 2
+bind -n S-Left resize-pane -L 2
 bind -n S-Right resize-pane -R 2
-bind -n S-Up    resize-pane -U 1
-bind -n S-Down  resize-pane -D 1
+bind -n S-Up resize-pane -U 1
+bind -n S-Down resize-pane -D 1
+
+# Move windows
+# Ctrl-Shift-Left moves the current window one position to the left
+bind -n C-S-Left { swap-window -t -1
+previous-window }
+# Ctrl-Shift-Right moves the current window one position to the right
+bind -n C-S-Right { swap-window -t +1
+next-window }
+
