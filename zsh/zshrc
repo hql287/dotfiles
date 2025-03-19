@@ -56,11 +56,12 @@ if [ -d "$(brew --prefix)/opt/zplug" ]; then
   zplug "b4b4r07/enhancd", use:init.sh     # Enhanced CD
   zplug "djui/alias-tips"                  # Aliases tips
   zplug "hql287/aka"                       # Custom aliases
-  zplug "lukechilds/zsh-nvm"               # NVM auto-switching
   zplug "lukechilds/zsh-nvm"               # Node versions manager
+  zplug "ohmyzsh/ohmyzsh", as:plugin, from:github, use:plugins/git
   zplug "plugins/extract", from:oh-my-zsh  # Extracting utility
   zplug "zplug/zplug"                      # Manage zplug itself
   zplug "zsh-users/zsh-autosuggestions"    # Autosuggestions
+  zplug "zsh-users/zsh-completions"        # Additional completion definitions for Zsh
   zplug "zsh-users/zsh-syntax-highlighting" # Syntax highlighting
 
   # Install missing plugins
