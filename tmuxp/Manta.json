@@ -1,0 +1,34 @@
+{
+  "session_name": "Label",
+  "start_directory": "~/Desktop/Manta2/",
+  "windows": [
+    {
+      "window_name": "editor",
+      "panes": [
+        {
+          "shell_command": ["nvim"]
+        }
+      ]
+    },
+    {
+      "window_name": "server",
+      "layout": "even-vertical",
+      "panes": [
+        {
+          "shell_command": ["yarn run dev"]
+        },
+        {
+          "shell_command": ["clear"]
+        }
+      ]
+    },
+    {
+      "window_name": "prisma",
+      "panes": [
+        {
+          "shell_command": ["npx prisma studio"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "session_name": "Label App",
+  "start_directory": "~/Desktop/LabelApp/",
+  "windows": [
+    {
+      "window_name": "editor",
+      "panes": [
+        {
+          "shell_command": ["nvim"]
+        }
+      ]
+    },
+    {
+      "window_name": "shell",
+      "panes": [
+        {
+          "shell_command": ["clear"]
+        }
+      ]
+    },
+    {
+      "window_name": "services",
+      "layout": "even-vertical",
+      "panes": [
+        {
+          "shell_command": ["docker-compose up"]
+        },
+        {
+          "shell_command": ["cloudflared tunnel run"]
+        }
+      ]
+    }
+  ]
+}
