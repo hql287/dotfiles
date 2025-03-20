@@ -33,9 +33,15 @@ bind -n S-Down resize-pane -D 1
 
 # Move windows
 # Ctrl-Shift-Left moves the current window one position to the left
+# Works only in iTerm2
 bind -n C-S-Left { swap-window -t -1
 previous-window }
 # Ctrl-Shift-Right moves the current window one position to the right
 bind -n C-S-Right { swap-window -t +1
 next-window }
 
+# Move windows with Ctrl-Shift-Left and Ctrl-Shift-Right in Kitty
+bind -n Escape[1
+6D swap-window -t -1 \; previous-window
+bind -n Escape[1
+6C swap-window -t +1 \; next-window
