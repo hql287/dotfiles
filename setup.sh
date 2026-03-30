@@ -27,7 +27,30 @@ dotfiles=(
   "$HOME/.dotfiles/zsh/functions/:$HOME/.zsh/functions"
   "$HOME/.dotfiles/gitconfig:$HOME/.gitconfig"
   "$HOME/.dotfiles/tmux/tmux.conf:$HOME/.tmux.conf"
+  "$HOME/.dotfiles/nvim:$HOME/.config/nvim"
 )
+
+link_path() {
+  local source_path="$1"
+  local target_path="$2"
+  local backup_path=""
+
+  mkdir -p "$(dirname "$target_path")"
+
+  if [ -L "$target_path" ] && [ "$(readlink "$target_path")" = "$source_path" ]; then
+    echo "✅ Symlink for $(basename "$target_path") already correct"
+    return
+  fi
+
+  if [ -e "$target_path" ] || [ -L "$target_path" ]; then
+    backup_path="${target_path}.bak.$(date +%Y%m%d%H%M%S)"
+    echo "📦 Backing up existing $(basename "$target_path") to $backup_path"
+    mv "$target_path" "$backup_path"
+  fi
+
+  echo "🔄 Linking $(basename "$target_path")..."
+  ln -s "$source_path" "$target_path"
+}
 
 # Link custom functions
 mkdir -p "$HOME/.zsh/functions"
@@ -39,14 +62,7 @@ done
 for entry in "${dotfiles[@]}"; do
   source_path="${entry%%:*}"
   target_path="${entry##*:}"
-
-  if [ -L "$target_path" ] && [ "$(readlink "$target_path")" == "$source_path" ]; then
-    echo "✅ Symlink for $(basename "$target_path") already correct"
-  else
-    echo "🔄 Updating symlink for $(basename "$target_path")..."
-    rm -f "$target_path"
-    ln -s "$source_path" "$target_path"
-  fi
+  link_path "$source_path" "$target_path"
 done
 
 # 4️⃣  Configure Zsh

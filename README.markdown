@@ -19,6 +19,7 @@ This script will:
 
 - Install Homebrew dependencies via Brewfile
 - Symlink dotfiles (e.g., .zshrc, .gitconfig)
+- Symlink the Neovim config to `~/.config/nvim`
 - Install & configure Zsh, Starship, and plugins
 - Install & configure NVM
 - Set macOS system preferences
