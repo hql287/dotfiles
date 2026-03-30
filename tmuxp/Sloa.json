@@ -1,0 +1,46 @@
+{
+  "session_name": "Sloa",
+  "start_directory": "~/Desktop/Sloa/",
+  "windows": [
+    {
+      "window_name": "editor",
+      "panes": [
+        {
+          "shell_command": ["nvim"]
+        }
+      ]
+    },
+    {
+      "window_name": "shell",
+      "layout": "even-vertical",
+      "panes": [
+        {
+          "shell_command": ["cd ./apps/ui"]
+        },
+        {
+          "shell_command": ["cd ./app/backend"]
+        }
+      ]
+    },
+    {
+      "window_name": "server",
+      "layout": "even-vertical",
+      "panes": [
+        {
+          "shell_command": ["pnpm run dev"]
+        },
+        {
+          "shell_command": ["clear"]
+        }
+      ]
+    },
+    {
+      "window_name": "git",
+      "panes": [
+        {
+          "shell_command": ["lazygit"]
+        }
+      ]
+    }
+  ]
+}

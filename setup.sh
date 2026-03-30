@@ -24,9 +24,16 @@ echo "🔗 Creating symlinks..."
 # Define the source and target paths
 dotfiles=(
   "$HOME/.dotfiles/zsh/zshrc:$HOME/.zshrc"
+  "$HOME/.dotfiles/zsh/functions/:$HOME/.zsh/functions"
   "$HOME/.dotfiles/gitconfig:$HOME/.gitconfig"
   "$HOME/.dotfiles/tmux/tmux.conf:$HOME/.tmux.conf"
 )
+
+# Link custom functions
+mkdir -p "$HOME/.zsh/functions"
+for f in "$HOME/.dotfiles/zsh/functions/"*.zsh; do
+  ln -sf "$f" "$HOME/.zsh/functions/$(basename "$f")"
+done
 
 # Loop through each file and create symlink
 for entry in "${dotfiles[@]}"; do

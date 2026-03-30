@@ -1,2 +1,4 @@
 tags.lock
 .DS_Store
+.gitconfig.user
+npmrc.local

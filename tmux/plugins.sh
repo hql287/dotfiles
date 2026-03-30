@@ -18,9 +18,10 @@ set -g @prefix_highlight_show_copy_mode 'on'
 set -g @prefix_highlight_copy_mode_attr 'fg=black,bg=yellow,bold' # default is 'fg=default,bg=yellow'
 
 # Automatic Restore Tmux Environment
-set -g @continuum-restore 'off'
-set -g @resurrect-strategy-vim 'session'
+set -g @continuum-restore 'on'
+set -g @continuum-save-interval '15' # Optional: auto-save every 15 minutes
 set -g @resurrect-strategy-nvim 'session'
+set -g @resurrect-strategy-vim 'session'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'

@@ -112,7 +112,7 @@
 [core]
   autocrlf = false
   editor = vim
-	excludesfile = /Users/hung/.gitignore_global
+	excludesfile = ~/.gitignore_global
 [advice]
   statusHints = false
 [diff]
@@ -126,12 +126,9 @@
   enabled = true
 [include]
   path = .gitconfig.user
-[user]
-	name = Hung Q. Le
-	email = lequochung@me.com
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
+	path = 
 [mergetool "sourcetree"]
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
@@ -140,4 +137,8 @@
 	smudge = git-lfs smudge %f
 	required = true
 [commit]
-	template = /Users/hung/.stCommitMsg
+	template = ~/.stCommitMsg
+[gpg]
+	format = ssh
+[init]
+	defaultBranch = main

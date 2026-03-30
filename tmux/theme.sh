@@ -50,24 +50,27 @@ set-window-option -g window-status-bell-style bg=colour167,fg=colour235 # bg=red
 # Make sure option to Use Built-in Powerline glyphs is enabled in iTerm2
 # In iTerm2, go to Preferences > Profiles > Text > Use Built-in Powerline glyphs
 
+set-option -g status-left-length 40
+
 set-option -g status-left "\
-#[fg=colour7, bg=colour241]#{?client_prefix,#[bg=colour167],} ❐ #S \
-#[fg=colour241, bg=colour237]#{?client_prefix,#[fg=colour167],}#{?window_zoomed_flag, 🔍,}"
+#[fg=colour7, bg=colour241]#{?client_prefix,#[bg=colour167],} λ #S\
+#[fg=colour241, bg=colour237]\
+#[fg=colour241, bg=colour237]#{?client_prefix,#[fg=colour167],}#{?window_zoomed_flag, 🔍,}"
 
 set-option -g status-right "\
 #[fg=colour246, bg=colour237]  %b %d '%y \
 #[fg=colour214, bg=colour237]\
-#[fg=colour237, bg=colour214] #(whoami)@#H \
+#[fg=colour237, bg=colour214] #(whoami)@#H ⌘ \
 #[fg=colour237, bg=colour214]"
 
 set-window-option -g window-status-current-format "\
 #[fg=colour237, bg=colour214]\
 #[fg=colour239, bg=colour214] #I*\
-#[fg=colour239, bg=colour214, bold] #W \
+#[fg=colour239, bg=colour214, bold] #W\
 #[fg=colour214, bg=colour237]"
 
 set-window-option -g window-status-format "\
 #[fg=colour237,bg=colour239,noitalics]\
 #[fg=colour223,bg=colour239] #I\
-#[fg=colour223, bg=colour239] #W \
+#[fg=colour223, bg=colour239] #W\
 #[fg=colour239, bg=colour237]"

@@ -12,9 +12,21 @@
     },
     {
       "window_name": "shell",
+      "layout": "even-vertical",
       "panes": [
         {
           "shell_command": ["clear"]
+        },
+        {
+          "shell_command": ["clear"]
+        }
+      ]
+    },
+    {
+      "window_name": "git",
+      "panes": [
+        {
+          "shell_command": ["lazygit"]
         }
       ]
     },

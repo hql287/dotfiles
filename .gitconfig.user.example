@@ -1,0 +1,7 @@
+[user]
+  name = Your Name
+  email = you@example.com
+  signingkey = ~/.ssh/id_ed25519.pub
+
+[commit]
+  gpgsign = true

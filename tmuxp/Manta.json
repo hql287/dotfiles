@@ -1,5 +1,5 @@
 {
-  "session_name": "Label",
+  "session_name": "Manta",
   "start_directory": "~/Desktop/Manta2/",
   "windows": [
     {
@@ -19,6 +19,14 @@
         },
         {
           "shell_command": ["clear"]
+        }
+      ]
+    },
+    {
+      "window_name": "git",
+      "panes": [
+        {
+          "shell_command": ["lazygit"]
         }
       ]
     },

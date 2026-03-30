@@ -89,3 +89,17 @@ fi
 if command -v starship &>/dev/null; then
   eval "$(starship init zsh)"
 fi
+
+
+# ✨ Custom Functions Loader (auto-load everything from ~/.zsh/functions)
+ZSH_CUSTOM_FUNCTIONS="$HOME/.zsh/functions"
+if [[ -d "$ZSH_CUSTOM_FUNCTIONS" ]]; then
+  for file in "$ZSH_CUSTOM_FUNCTIONS"/*.zsh; do
+    source "$file"
+  done
+fi
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=($HOME/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions

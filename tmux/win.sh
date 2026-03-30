@@ -41,7 +41,5 @@ bind -n C-S-Right { swap-window -t +1
 next-window }
 
 # Move windows with Ctrl-Shift-Left and Ctrl-Shift-Right in Kitty
-bind -n Escape[1
-6D swap-window -t -1 \; previous-window
-bind -n Escape[1
-6C swap-window -t +1 \; next-window
+bind -n 'Escape[1;6D' swap-window -t -1 \; previous-window
+bind -n 'Escape[1;6C' swap-window -t +1 \; next-window

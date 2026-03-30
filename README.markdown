@@ -24,6 +24,21 @@ This script will:
 - Set macOS system preferences
 - Enable fzf key bindings
 
+### Private local config
+Keep personal Git identity in `~/.gitconfig.user` so it does not need to be committed:
+
+```gitconfig
+[user]
+  name = Your Name
+  email = you@example.com
+  signingkey = ~/.ssh/id_ed25519.pub
+
+[commit]
+  gpgsign = true
+```
+
+For npm authentication, export `NPM_TOKEN` in your shell or source it from a local secrets file before using npm publish/install flows that require auth.
+
 
 # Update
 Simply running a `git pull` inside the cloned folder
