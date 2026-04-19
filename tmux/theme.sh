@@ -8,8 +8,7 @@ set -sg escape-time 10                          # Improve escape key delay
 set -g mouse on                                 # Enable mouse support
 set -g base-index 1                             # Start windows at 1
 set -g pane-base-index 0                        # Start panes at 0
-set -g default-terminal "tmux-256color"         # Enable 256 colors
-set -as terminal-overrides ",xterm-256color:Tc" # Ensure true color support
+set -as terminal-overrides ",screen-256color:Tc,xterm-256color:Tc" # Keep true color without requiring remote tmux terminfo
 setw -g history-limit 50000000                  # Set the history limit so we get lots of scrollback.
 
 # Default statusbar color
