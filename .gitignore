@@ -3,3 +3,6 @@ tags.lock
 .gitconfig.user
 npmrc.local
 .claude
+.gitnexus
+AGENTS.md
+CLAUDE.md

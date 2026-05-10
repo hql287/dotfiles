@@ -16,16 +16,16 @@ set -g bell-action any
 # Renumber windows sequentially after closing any of them
 set -g renumber-windows on
 
-# Using True Color
-# set -ga terminal-overrides ",xterm-256color-italic:Tc"
-# set -g default-terminal xterm-256color-italic
-set -g default-terminal "screen-256color"
+# Use tmux's own terminfo entry and advertise Kitty features to tmux.
+set -g default-terminal "tmux-256color"
+set -g terminal-features[3] "xterm-kitty:RGB:clipboard:extkeys"
 
 # Cursor shape change in tmux
 set -ga terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
 
-# Enable extended key sequences (required for C-S-Left/Right in tmux 3.2+)
-set -g extended-keys off
+# Enable extended key sequences so Kitty/Neovim/tmux agree on CSI-u keys.
+set -g extended-keys on
+set -g extended-keys-format csi-u
 
 # Shorten command delay
 set -sg escape-time 1

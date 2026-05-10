@@ -33,7 +33,7 @@ opt.foldmethod = "marker" -- Use 'marker' folding
 opt.hlsearch = true -- Keep search matches highlighted
 opt.lazyredraw = true -- Don't redraw screen when running macros
 opt.numberwidth = 5 -- Set Line Number Width
-opt.ttimeoutlen = 0 -- Set keypress timeout for terminal
+opt.ttimeoutlen = 50 -- Give terminal escape sequences time to arrive over SSH/tmux
 opt.autoindent = true -- Auto indent
 opt.breakindent = true -- Wrap on indentation levels
 opt.showbreak = "↳" -- Set break character
@@ -96,7 +96,7 @@ end
 
 vim.opt.clipboard = "unnamedplus"
 
-if vim.env.SSH_TTY then
+if vim.env.SSH_TTY or vim.env.SSH_CONNECTION then
   -- Built-in OSC52 for reliable paste (and yank)
   vim.g.clipboard = {
     name = "OSC 52",
