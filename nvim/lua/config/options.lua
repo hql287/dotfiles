@@ -89,3 +89,27 @@ local disabled_built_ins = {
 for _, plugin in pairs(disabled_built_ins) do
   g["loaded_" .. plugin] = 1
 end
+
+-- =============================================
+-- Clipboard: Local → Remote over SSH (Kitty/iTerm)
+-- =============================================
+
+vim.opt.clipboard = "unnamedplus"
+
+if vim.env.SSH_TTY then
+  -- Built-in OSC52 for reliable paste (and yank)
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+    },
+    paste = {
+      ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+    },
+  }
+end
+
+-- Ensure bracketed paste works cleanly
+vim.opt.termguicolors = true

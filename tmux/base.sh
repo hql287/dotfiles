@@ -25,7 +25,7 @@ set -g default-terminal "screen-256color"
 set -ga terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
 
 # Enable extended key sequences (required for C-S-Left/Right in tmux 3.2+)
-set -g extended-keys on
+set -g extended-keys off
 
 # Shorten command delay
 set -sg escape-time 1
@@ -44,3 +44,7 @@ setw -g mode-keys vi
 
 # Command/Message
 set -g message-style bg=colour39,fg=colour252,bright
+
+# === Clipboard & Passthrough (for OSC52) ===
+set -g allow-passthrough on
+set -s set-clipboard on
